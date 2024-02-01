@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../css/task.css';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 const ToDoList = () => {
   const TaskList = [
@@ -19,7 +20,20 @@ const ToDoList = () => {
  
   return (
     <div className='task-list'>
-     
+     <ul>
+      {TaskList.map((task) => (
+        <li key={task.id}>
+          <label className='task-title'>{task.title}</label>
+          <FormControlLabel
+            labelPlacement='start'
+            control={
+              <Checkbox labelPlacement='end'
+              />
+            }
+          />
+        </li>
+      ))}
+     </ul>
     </div>
   );
 };
