@@ -1,6 +1,7 @@
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
 import React, { useState } from 'react';
+import ToDoList from '../pages/todolist/TodoList';
 
 const Tabcomp = () => {
   const [value, setValue] = useState('1');
@@ -19,7 +20,7 @@ const Tabcomp = () => {
             <Tab label="Appoinments" value="3"  />
           </TabList>
         </Box>
-        <TabPanel value="1"> panel1 </TabPanel>
+        <TabPanel value="1"> <ToDoList/> </TabPanel>
         <TabPanel value="2"> panel2   </TabPanel>
         <TabPanel value="3">panel 3</TabPanel>
       </TabContext>
