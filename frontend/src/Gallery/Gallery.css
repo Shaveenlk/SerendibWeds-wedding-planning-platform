@@ -1,0 +1,101 @@
+.weddingCouple{
+    color:#968484
+}
+
+.vendorTitle{
+    color: #867C7A;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem;
+    justify-content: center;
+}
+
+.introSection {
+    display: flex;
+}
+
+.mainIntroText {
+    max-width: 50%;
+}
+
+.mainIntroText>h1 {
+    margin-bottom: 1rem;
+}
+
+.mainIntroText>p {
+    line-height: 1.6em;
+    max-width: 80%;
+    margin-bottom: 1rem;
+}
+
+.imgBox {
+    margin-bottom: 1rem;
+}
+
+.imgBox>img {
+    width: 30rem;
+    border-radius: 20px;
+}
+
+.vendorsSection>h2 {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+/* Webkit */
+
+.photoGallery {
+    margin-top: 1rem;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+.galleryImages>img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* Media Quarries */
+
+@media (max-width: 60rem) {
+    .introSection {
+        flex-direction: column;
+    }
+
+    .mainIntroText {
+        max-width: 100%;
+    }
+
+    .photoGallery {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (max-width: 40rem) {
+    .introSection {
+        flex-direction: column;
+    }
+
+    .mainIntroText {
+        max-width: 100%;
+    }
+
+    .imgBox>img {
+        width: 20rem;
+    }
+
+    .photoGallery {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+        -webkit-column-width: 100%;
+        -moz-column-width: 100%;
+        column-width: 100%;
+    }
+}
