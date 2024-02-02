@@ -55,7 +55,7 @@ const ToDoList = () => {
             <FormControlLabel
               labelPlacement='start'
               control={
-                <Checkbox labelPlacement='end'
+                <Checkbox 
                   checked={checkedItems[task.id] || false}
                   onChange={() => handleCheckboxChange(task.id)}
                 />
