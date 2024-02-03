@@ -1,0 +1,34 @@
+.task-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  
+  .task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+  }
+  
+  .task-list li:last-child {
+    border-bottom: none;
+  }
+  ul{
+    padding: 0;
+  }
+  
+  .lol {
+    flex-grow: 1;
+    /* margin-right: 10px; */
+  }
+  
+  @media (max-width: 600px) {
+    .task-list li {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  

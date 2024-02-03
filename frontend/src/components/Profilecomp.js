@@ -5,7 +5,7 @@ import React from "react";
 
 const Profilecomp = () => {
   return (
-    <div className="lol">
+    <div className="profile">
       <Box>
         <Grid container spacing={2}>
           {/* Profile Section */}
