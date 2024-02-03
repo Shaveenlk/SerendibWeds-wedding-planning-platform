@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/task.css';
+import '../todolist/TodoList.css';
 import { Checkbox, FormControlLabel, Snackbar,Alert } from '@mui/material';
 
 const ToDoList = () => {
