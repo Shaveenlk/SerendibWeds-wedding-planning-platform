@@ -1,0 +1,88 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; 
+}
+
+.login-container {
+    background: #DDBEA9;
+    padding: 40px;
+    border-radius: 40px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 320px;
+}
+
+.login-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 95%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.options label {
+    cursor: pointer;
+}
+
+.options a {
+    color: #6C4621;
+    text-decoration: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    margin-top: 1rem;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.google-sign-in {
+    background-color: #000000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-sign-in img {
+    margin-right: 10px;
+    width: 20px; 
+}
+
+p {
+    text-align: center;
+}
+
+p a {
+    color: #6C4621;
+    text-decoration: none;
+}
+
