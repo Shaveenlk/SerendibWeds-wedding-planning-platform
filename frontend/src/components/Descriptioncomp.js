@@ -1,16 +1,7 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 
-const Descriptioncomp = () => {
-
-  const Data = {
-      title: "Top Vendors",
-      subheading:
-        "Visit our top performing vendors in 2023 and dive into their work",
-      content:
-        "To-Do Lists simplify progress tracking, optimizing productivity. Digital versions offer easy task management across devices, while AIensures efficient time utilization. Visit our top performing vendors in 2023 and dive into their work",
-    };
-
+const Descriptioncomp = ({ title, subheading, content }) => {
 
   return (
     <div>
@@ -33,15 +24,15 @@ const Descriptioncomp = () => {
             textAlign: "center", // Center text horizontally
           }}
         >
-          <h2>{Data.title}</h2>
+          <h2>{title}</h2>
         </Container>
 
         <Container sx={{ textAlign: "center" }}>
-          <h1>{Data.subheading}</h1>
+          <h1>{subheading}</h1>
         </Container>
 
         <Container sx={{ textAlign: "center" }}>
-          <h4>{Data.content}</h4>
+          <h4>{content}</h4>
         </Container>
       </Box>
     </div>
