@@ -21,8 +21,10 @@ const VendorTile = ({ vendor }) => {
   const { name, email, role, profileImageUrl } = vendor;
 
   return (
-    <div>
-      <Card sx={{ maxWidth: 275}}>
+    <>
+        <Card
+      style={{ borderRadius:'12px'}}
+        >
         <CardContent>
           <Stack spacing={4} alignItems="center">
             <Avatar sx={{ width: 100, height: 100, fontSize: 40 }}>
@@ -31,7 +33,7 @@ const VendorTile = ({ vendor }) => {
           </Stack>
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", margin: "20px 5px 5px 5px" }}
+            sx={{ textAlign: "center",margin:'auto'  }}
           >
             <b>{name}</b>
           </Typography>
@@ -62,7 +64,7 @@ const VendorTile = ({ vendor }) => {
           </Button>
         </CardActions>
       </Card>
-    </div>
+    </>
   );
 };
 
@@ -163,25 +165,33 @@ const Topvendorscomp = () => {
   const shuffledVendors = shuffleArray([...vendors]);
 
   // Select the first 6 vendors
-  const displayedVendors = shuffledVendors.slice(0, 6);
+  const displayedVendors = shuffledVendors.slice(0,10);
 
   return (
-    <Grid
-      container
-      spacing={2}
-      sx={{ margin: "20px 80px 20px 80px"}}
+    <Grid  
+   container
+   gap={2}
+  //  backgroundColor={'green'}
+ padding={2}
+ style={{overflowWrap:'break-word'}}
+   
+      // spacing={2}
+      // margin={'auto'}
+      // sx={{ margin: "auto"}}
     >
       {displayedVendors.map((vendor, index) => (
-        <Grid
-          item
-          xs={12}
-          md={6}
-          lg={4}
-          key={index}
-          sx={{ width: "100%"}}
-        >
-          <VendorTile vendor={vendor} />
-        </Grid>
+      <Grid margin={'auto'}
+       borderRadius={3}
+           xs={12}
+           sm={6}
+           md={3}
+           lg={3}
+          
+           sx={{ width: "100%",border:'solid lightblue'}}
+           >
+      
+          <VendorTile vendor={vendor}  key={index} />
+       </Grid>
       ))}
     </Grid>
   );
