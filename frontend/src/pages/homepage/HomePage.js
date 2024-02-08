@@ -3,6 +3,7 @@ import Descriptioncomp from '../../components/Descriptioncomp';
 import Topvendorscomp from '../../components/Topvendorscomp';
 import Navbarcomp from '../../components/Navbarcomp';
 import Footercomp from '../../components/Footercomp';
+import Testimonialcomp from '../../components/Testimonialcomp';
 
 
 const HomePage = () => {
@@ -37,6 +38,8 @@ const HomePage = () => {
       <Navbarcomp />
       <Descriptioncomp {...descriptionData[0]} />
       <Topvendorscomp />
+      <Descriptioncomp {...descriptionData[2]} />
+      <Testimonialcomp />
       <Footercomp />
     </div>
   )
