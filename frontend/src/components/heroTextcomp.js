@@ -3,7 +3,7 @@ import { Grid ,Typography, CssBaseline, Stack, Button} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-const HeroText = () => {
+const HeroTextcomp = () => {
 
     const theme = createTheme({
         typography: {
@@ -47,4 +47,4 @@ const HeroText = () => {
   )
 }
 
-export default HeroText;
+export default HeroTextcomp;

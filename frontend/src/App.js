@@ -1,5 +1,5 @@
 import './App.css';
-import HeroSection from './components/herosection';
+import HeroSection from './components/heroSectioncomp';
 import HomePage from './pages/homepage/HomePage';
 
 

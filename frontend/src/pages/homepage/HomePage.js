@@ -3,7 +3,7 @@ import Descriptioncomp from '../../components/Descriptioncomp';
 import Topvendorscomp from '../../components/Topvendorscomp';
 import Navbarcomp from '../../components/Navbarcomp';
 import Footercomp from '../../components/Footercomp';
-import HeroSection from '../../components/herosection';
+import HeroSection from '../../components/heroSectioncomp';
 import Testimonialcomp from '../../components/Testimonialcomp';
 
 

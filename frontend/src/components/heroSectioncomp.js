@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Box, Stack, Grid , Typography} from '@mui/material';
 import HeroSectionImg from '../assets/heroSectionImg.png' ;
-import HeroText from './heroText';
+import HeroTextcomp from './heroTextcomp';
 
-export default function HeroSection() {
+export default function HeroSectioncomp() {
 
   return (
     <>
