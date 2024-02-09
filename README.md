@@ -1,8 +1,9 @@
-# React + Vite
+# SerendibWeds-wedding-planning-platform
+Effortlessly plan your dream wedding with Wedding Bliss – your all-in-one solution!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📅 Intuitive planning
+🌐 Find top vendors
+🎨 Inspiration hub
+Contribute: Fork, clone, and help us make Wedding Bliss even better! Join the community on Discord and follow us on Twitter.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Let's create unforgettable moments together! 💖
