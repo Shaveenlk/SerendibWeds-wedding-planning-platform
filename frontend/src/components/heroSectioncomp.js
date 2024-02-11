@@ -16,7 +16,7 @@ export default function HeroSectioncomp() {
             textAlign: 'left',
           }}
         >
-          <HeroText />
+          <HeroTextcomp />
         </Box>
 
         <Box
