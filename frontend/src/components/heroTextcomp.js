@@ -5,11 +5,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const HeroTextcomp = () => {
 
-    const theme = createTheme({
-        typography: {
-          fontFamily: 'Times New Roman, Times, serif',
-        },
-    });
+    // const theme = createTheme({
+    //     typography: {
+    //       fontFamily: 'Times New Roman, Times, serif',
+    //     },
+    // });
 
     const texts = [
         "From Vision to Vows: Celebrate Love in Style with Us.",

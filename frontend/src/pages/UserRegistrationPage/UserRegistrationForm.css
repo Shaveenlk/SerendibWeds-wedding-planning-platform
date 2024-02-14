@@ -1,0 +1,65 @@
+.vendor-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #DDBEA9; /* Adjust the background color to match the provided image */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.vendor-form h1,
+.vendor-form p {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-section {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+
+/* Style the checkboxes, radio buttons and submit button. */
+
+.submit-button {
+    width: 160px;
+    background-color: black;
+    color: white;
+    border: none
+}
+
+.form-section input[type="radio"],
+.form-section input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Style the checkboxes, radio buttons and submit button. */
+.submit-button {
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.submit-button:hover {
+    background-color: #333; /* Darker button on hover */
+}
