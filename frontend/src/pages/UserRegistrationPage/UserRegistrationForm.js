@@ -3,7 +3,7 @@ import '../UserRegistrationPage/UserRegistrationForm.css'; // Import CSS file
 
 
 const UserRegistrationForm = () => {
-    const [vendorFormState, setVendorFormState] = useState({
+    const [userFormState, setUserFormState] = useState({
         groom_name: '',
         bride_name: '',
         email: '',
@@ -13,8 +13,8 @@ const UserRegistrationForm = () => {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setVendorFormState({
-            ...vendorFormState,
+        setUserFormState({
+            ...userFormState,
             [name]: value
         });
     };
@@ -22,7 +22,7 @@ const UserRegistrationForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // submitting vendor form details to backend
-        console.log(vendorFormState);
+        console.log(userFormState);
     };
 
     return (
