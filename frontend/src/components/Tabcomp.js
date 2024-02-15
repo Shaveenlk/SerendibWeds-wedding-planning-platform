@@ -3,6 +3,10 @@ import { TabContext, TabPanel, TabList } from '@mui/lab';
 import React, { useState } from 'react';
 import ToDoList from '../pages/todolist/TodoList';
 import Savedweddings from '../pages/savedweddings/Savedweddings';
+import Navbarcomp from './Navbarcomp';
+import Profilecomp from './Profilecomp';
+import Footercomp from './Footercomp';
+
 
 const Tabcomp = () => {
   const [value, setValue] = useState('1');
@@ -12,6 +16,8 @@ const Tabcomp = () => {
   }
   return (
     <div className='tab'>
+      <Navbarcomp/>
+      <Profilecomp/>
       <Box  sx={{ width: '100%' }} >
       <TabContext value={value}  >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -26,6 +32,7 @@ const Tabcomp = () => {
         <TabPanel value="3">panel 3</TabPanel>
       </TabContext>
     </Box>
+    <Footercomp/>
     </div>
   )
 }
