@@ -1,0 +1,83 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+}
+
+.searchBar {
+  margin: 5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: rgb(199, 197, 197);
+  padding: 0.5rem 1rem;
+  width: 50%;
+  border-radius: 15px;
+}
+
+.searchBar > input {
+  flex: 1;
+  color: #000;
+  border: none;
+  outline: none;
+  background-color: rgb(199, 197, 197);
+}
+
+.searchBar > img {
+  width: 2rem;
+  border: 1px #000 solid;
+  border-radius: 7px;
+}
+
+.searchResults {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  gap: 3rem;
+}
+
+.searchDetails {
+  display: flex;
+  align-items: center;
+  width: calc(50% - 5rem - 1px);
+  border: #000 solid 1px;
+  border-radius: 15px;
+  margin: auto;
+  padding: 1rem;
+  gap: 5rem;
+}
+
+.searchThumbnail > img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 20px;
+}
+
+.searchDetails {
+  background-color: #fbf9f9;
+}
+
+.searchContentTitle {
+  font-weight: bold;
+  color: #968484;
+}
+
+.searchContentDetails {
+  font-weight: bold;
+}
+
+/* Media Quarries */
+
+@media (max-width: 60rem) {
+  .searchDetails {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .searchBar {
+    width: 70%;
+  }
+}
