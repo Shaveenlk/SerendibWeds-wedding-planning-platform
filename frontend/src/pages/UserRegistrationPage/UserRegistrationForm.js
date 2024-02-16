@@ -28,7 +28,7 @@ const UserRegistrationForm = () => {
     return (
         <div className="vendor-form">
             <div className="form-section">
-                <h1>Wedding Vendor Registration Form</h1>
+                <h1>Wedding User Registration Form</h1>
                 <p>Please fill out the following details:</p>
             </div>
             <form onSubmit={handleSubmit}>
