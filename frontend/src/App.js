@@ -6,7 +6,7 @@ import Tabcomp from './components/Tabcomp';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
-
+import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
+        <Route path="/vendorprofile" element={<VendorsProfile/>}/>
+
       </Routes>
     </div>
   );
