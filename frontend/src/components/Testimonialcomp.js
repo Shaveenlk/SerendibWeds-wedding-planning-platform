@@ -9,8 +9,6 @@ import { blue, red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const TestimonialTile = () => {
-
   const testimonialData = [
     {
       title: "Jacob Warnhalter & Alice Walker",
@@ -69,39 +67,49 @@ const TestimonialTile = () => {
     }
   ];
   
+const TestimonialTile = ({ testimonialData }) => {
+  const { title, time, content } = testimonialData;
+
   return (
     <div>
-        <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor:"#C19C76" }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <Typography variant="body2" sx={{margin: '15px'}}>
-            To-Do Lists simplify progress tracking, optimizing productivity. 
-            Digital versions offer easy task management across devices, 
-            while AI ensures efficient time utilization. 
+      <Card sx={{ maxWidth: 345 }}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor:"#C19C76" }} aria-label="recipe">
+              {title[0]}
+            </Avatar>
+          }
+          title={title}
+          subheader={time} 
+        />
+        <CardContent>
+          <Typography variant="body2" sx={{ margin: '15px' }}>
+            {content}
           </Typography>
+        </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 const Testimonialcomp = () => {
+  const shuffledTestimonialData = shuffleArray(testimonialData.slice(0, 6));
+
   return (
-    <Grid container spacing={2} sx={{ 
-      margin: '20px 80px 20px 80px', 
-    }}>
-      <Grid item lg={4}><TestimonialTile /></Grid>
-      <Grid item lg={4}><TestimonialTile /></Grid>
-      <Grid item lg={4}><TestimonialTile /></Grid>
-      <Grid item lg={4}><TestimonialTile /></Grid>
-      <Grid item lg={4}><TestimonialTile /></Grid>
-      <Grid item lg={4}><TestimonialTile /></Grid>
+    <Grid container spacing={2} sx={{ margin: '20px 80px 20px 80px' }}>
+      {shuffledTestimonialData.map((data, index) => (
+        <Grid item lg={4} key={index}>
+          <TestimonialTile testimonialData={data} />
+        </Grid>
+      ))}
     </Grid>
   );
 };
