@@ -1,0 +1,96 @@
+.about-us-container {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+}
+
+.section {
+    background-color: #DDBEA9; /* Example background color */
+    border-radius: 40px;
+    padding: 2em;
+    margin-bottom: 2em;
+    width: 80%; /* Adjust width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Customize each section if needed */
+.who-we-are {
+    /* custom styles for 'Who We Are?' section */
+}
+
+.our-vision {
+    /* custom styles for 'Our Vision' section */
+}
+
+.our-mission {
+    /* custom styles for 'Our Mission' section */
+}
+
+.meet-our-team {
+    /* custom styles for 'Meet Our Team' section */
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+.team-member {
+    text-align: center;
+    position: relative;
+    text-align: center;
+}
+
+.team-member img {
+    border-radius: 50%;
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover;
+    border: 3px solid #fff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.team-member:hover .team-member-name {
+    display: block;
+}
+
+/* --------------- */
+
+.team-member {
+    position: relative;
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
+  }
+  
+  .team-member img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    transition: opacity 0.5s ease;
+  }
+  
+  .team-member-photo {
+    opacity: 1;
+  }
+  
+  .team-member-name-photo {
+    opacity: 0;
+  }
+  
+  .team-member:hover .team-member-photo {
+    opacity: 0;
+  }
+  
+  .team-member:hover .team-member-name-photo {
+    opacity: 1;
+  }
+  
