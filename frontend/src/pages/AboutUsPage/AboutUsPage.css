@@ -1,49 +1,54 @@
 .about-us-container {
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2em;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
 }
 
 .section {
-  background-color: #DDBEA9; 
-  border-radius: 40px;
-  padding: 2em;
-  margin-bottom: 2em;
-  width: 80%; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    background-color: #DDBEA9; /* Example background color */
+    border-radius: 40px;
+    padding: 2em;
+    margin-bottom: 2em;
+    width: 80%; /* Adjust width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
+
 .team-members {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
 }
 
 .team-member {
-  text-align: center;
-  position: relative;
-  width: 120px; 
-  height: 120px;
-  border-radius: 50%;
-  text-align: center;
+    text-align: center;
+    position: relative;
+    text-align: center;
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
 }
 
 .team-member img {
-  border-radius: 50%;
-  width: 120px; 
-  height: 120px; 
-  object-fit: cover;
-  border: 3px solid #fff; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover;
+    border: 3px solid #fff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    transition: opacity 0.5s ease;
 }
+
+
 
 .team-member:hover .team-member-name {
-  display: block;
+    display: block;
 }
-
+  
 .team-member-photo {
   opacity: 1;
 }
@@ -59,3 +64,4 @@
 .team-member:hover .team-member-name-photo {
   opacity: 1;
 }
+  
