@@ -1,3 +1,5 @@
+/* SignupPage.css */
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -9,12 +11,10 @@
     max-width: 400px;
     margin: auto;
     margin-top: 60px;
-    
 }
 
 .signup-container h2 {
     margin-bottom: 20px;
-    
 }
 
 .signup-container form {
@@ -29,7 +29,7 @@
     border: 1px solid #ccc;
 }
 
-button {
+.signup-button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -39,24 +39,28 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.signup-button{
     background-color: #C19C76;
     color: #000000;
 }
 
-.signup-button:hover{
+.signup-button:hover {
     background-color: #c19b76c5;
-    /* color: #000000; */
 }
 
-button.google-sign-in {
+.google-sign-in {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #000000;
     color: white;
 }
 
-button.google-sign-in img {
+.google-sign-in img {
     margin-right: 10px;
     width: 20px;
 }

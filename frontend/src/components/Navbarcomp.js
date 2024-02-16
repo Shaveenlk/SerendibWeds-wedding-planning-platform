@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { NavLink } from 'react-router-dom';
 
 const pages = ['Home', 'DreamSearch', 'Services', 'About Us'];
 const settings = ['Profile', 'Logout'];
@@ -42,8 +43,8 @@ function Navbarcomp() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -88,7 +89,9 @@ function Navbarcomp() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <NavLink to={`/${page.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -97,8 +100,8 @@ function Navbarcomp() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -116,6 +119,8 @@ function Navbarcomp() {
             {pages.map((page) => (
               <Button
                 key={page}
+                component={NavLink}
+                to={`/${page.toLowerCase()}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
@@ -148,7 +153,18 @@ function Navbarcomp() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  {/* Use NavLink for the "Profile" and "Logout" settings */}
+                  {setting === 'Profile' ? (
+                    <NavLink to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </NavLink>
+                  ) : setting === 'Logout' ? (
+                    <NavLink to="/logout" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </NavLink>
+                  ) : (
+                    <Typography textAlign="center">{setting}</Typography>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
