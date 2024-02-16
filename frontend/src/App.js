@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
+import ServicesPage from './pages/ServicesPage/ServicesPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="*" element={<div>Page not found</div>} />
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
+        <Route path="/services" element={<ServicesPage/>}/>
       </Routes>
     </div>
   );
