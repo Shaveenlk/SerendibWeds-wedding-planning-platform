@@ -43,8 +43,8 @@ function Navbarcomp() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -89,7 +89,9 @@ function Navbarcomp() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <NavLink to={`/${page.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -98,8 +100,8 @@ function Navbarcomp() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={NavLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -117,6 +119,8 @@ function Navbarcomp() {
             {pages.map((page) => (
               <Button
                 key={page}
+                component={NavLink}
+                to={`/${page.toLowerCase()}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >

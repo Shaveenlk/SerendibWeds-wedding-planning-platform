@@ -5,6 +5,7 @@ import Navbarcomp from '../../components/Navbarcomp';
 import Footercomp from '../../components/Footercomp';
 import HeroSection from '../../components/heroSectioncomp';
 import Testimonialcomp from '../../components/Testimonialcomp';
+import Featurescomp from '../../components/Featurescomp';
 
 
 const HomePage = () => {
@@ -38,6 +39,8 @@ const HomePage = () => {
     <div>
       <Navbarcomp />
       <HeroSection />
+      <Descriptioncomp {...descriptionData[1]} />
+      <Featurescomp />
       <Descriptioncomp {...descriptionData[0]} />
       <Topvendorscomp />
       <Descriptioncomp {...descriptionData[2]} />
