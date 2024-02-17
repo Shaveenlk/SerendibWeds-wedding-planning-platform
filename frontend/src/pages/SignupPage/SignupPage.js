@@ -50,7 +50,7 @@ function SignupPage() {
                 const user = result.user;
                 setUserData({ displayName: user.displayName, email: user.email });
                 setIsLoggedIn(true);
-                navigate('/');
+                navigate('/userregistraion');
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -70,7 +70,7 @@ function SignupPage() {
                 console.log('User signed up:', user);
                 setIsLoggedIn(true);
                 toast.success("User Added Successfully",{position:'top-right'});
-                navigate('/');
+                navigate('/userregistraion');
             })
             .catch((error) => {
                 // const errorCode = error.code;
