@@ -1,9 +1,26 @@
 import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
-import React from "react";
+import React,{useState,useEffect} from "react";
+import axios from 'axios';
 
 
+const Profilecomp = ({ firebaseUserId }) => {
+  const [userData, setUserData] = useState(null);
 
-const Profilecomp = () => {
+  console.log('Firebase User ID:', firebaseUserId);
+  useEffect(() => {
+    // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
+    axios.get(`http://localhost:8000/api/getuser/${firebaseUserId}`)
+      .then(response => {
+        console.log('API response:', response);
+        setUserData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        // Handle the error or set appropriate state to indicate the error
+      });
+  }, [firebaseUserId]); // The empty dependency array ensures that the effect runs once when the component mounts
+
+
   return (
     <div className="profile">
       <Box>
@@ -26,7 +43,7 @@ const Profilecomp = () => {
       
             />
             <Typography variant="h5" component="div" sx={{ ml: 2, p: 2,fontWeight: 'bold' }}>
-              Hazel & Lucas <br /> lucas@gmail.com
+            {userData?.groom_name} & {userData?.bride_name}  <br />  {userData?.email}
             </Typography>
           </Grid>
           {/* Logout Button Section */}
