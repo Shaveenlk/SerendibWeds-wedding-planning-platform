@@ -8,7 +8,7 @@ import Profilecomp from './Profilecomp';
 import Footercomp from './Footercomp';
 
 
-const Tabcomp = () => {
+const Tabcomp = ({firebaseUserId}) => {
   const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
@@ -17,7 +17,7 @@ const Tabcomp = () => {
   return (
     <div className='tab'>
       <Navbarcomp/>
-      <Profilecomp/>
+      <Profilecomp firebaseUserId={firebaseUserId}/>
       <Box  sx={{ width: '100%' }} >
       <TabContext value={value}  >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -27,8 +27,8 @@ const Tabcomp = () => {
             <Tab label="Appoinments" value="3"  />
           </TabList>
         </Box>
-        <TabPanel value="1"> <ToDoList/> </TabPanel>
-        <TabPanel value="2"> <Savedweddings/>   </TabPanel>
+        <TabPanel value="1"> <ToDoList firebaseUserId={firebaseUserId}/> </TabPanel>
+        <TabPanel value="2"> <Savedweddings firebaseUserId={firebaseUserId}/>   </TabPanel>
         <TabPanel value="3">panel 3</TabPanel>
       </TabContext>
     </Box>
