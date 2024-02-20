@@ -16,3 +16,20 @@ export const getTodo = async (req, res) => {
     }
 }
 
+export const deleteTodo = async (req, res) => {
+    try {
+        const { firebaseUserId,taskId } = req.params;
+        // const { index } = req.body;
+        const user = await Users.findOne({ firebaseUserId });
+        // if (!user) {
+        //     return res.status(404).json({ message: 'User not found' });
+        // }
+        user.todolist.splice(taskId, 1);
+        await user.save();
+        res.json({success: true, message: 'Todo deleted successfully'});
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
