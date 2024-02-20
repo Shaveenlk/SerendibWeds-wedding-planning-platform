@@ -16,3 +16,36 @@ export const getTodo = async (req, res) => {
     }
 }
 
+export const updateTodo = async (req, res) => {
+    try {
+        const { firebaseUserId } = req.params;
+        const { index, newTodo } = req.body;
+        const user = await Users.findOne({ firebaseUserId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.todolist[index] = newTodo;
+        await user.save();
+        res.json({ message: 'Todo updated successfully', todolist: user.todolist });
+    } catch (error) {
+        console.error('Error updating todo:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+export const deleteTodo = async (req, res) => {
+    try {
+        const { firebaseUserId } = req.params;
+        const { index } = req.body;
+        const user = await Users.findOne({ firebaseUserId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.todolist.splice(index, 1);
+        await user.save();
+        res.json({ message: 'Todo deleted successfully', todolist: user.todolist });
+    } catch (error) {
+        console.error('Error deleting todo:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
