@@ -33,19 +33,21 @@ export const updateTodo = async (req, res) => {
     }
 }
 
-export const deleteTodo = async (req, res) => {
+
+// Add to do items to the user's to do list for test purposes
+export const addTodo = async (req, res) => {
     try {
         const { firebaseUserId } = req.params;
-        const { index } = req.body;
+        const { newTodo } = req.body;
         const user = await Users.findOne({ firebaseUserId });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        user.todolist.splice(index, 1);
+        user.todolist.push(newTodo);
         await user.save();
-        res.json({ message: 'Todo deleted successfully', todolist: user.todolist });
+        res.json({ message: 'Todo added successfully', todolist: user.todolist });
     } catch (error) {
-        console.error('Error deleting todo:', error);
+        console.error('Error adding todo:', error);
         res.status(500).send('Internal Server Error');
     }
 }
