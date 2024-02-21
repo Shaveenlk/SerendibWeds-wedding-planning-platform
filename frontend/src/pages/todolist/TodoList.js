@@ -5,10 +5,16 @@ import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
 
 
 const ToDoList = ({firebaseUserId}) => {
   const [userData, setUserData] = useState(null);
+  
 
   useEffect(() => {
      // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
@@ -29,6 +35,26 @@ const ToDoList = ({firebaseUserId}) => {
   const [tasks, setTasks] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [successMessage, setSuccessMessage] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  
+
+ 
+
+  // Add to do items to the user's to do list for test purposes
+  const addTodo = () => {
+    axios.post(`http://localhost:8000/api/todo/${firebaseUserId}`, { newTodo: inputValue })
+      .then(response => {
+        console.log('Todo added successfully:', response);
+        setTasks([...tasks, { id: tasks.length, title: inputValue }]);
+        setInputValue('');
+        setOpenModal(false);
+      })
+      .catch(error => {
+        console.error('Error adding todo:', error);
+      });
+  }
 
   
   const handleCheckboxChange = (taskId) => {
@@ -77,7 +103,19 @@ const ToDoList = ({firebaseUserId}) => {
   }
 
   const handleAddTodoList = () => {
-    
+    setOpenModal(true);
+  }
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+    setInputValue('');
+  }
+
+  const handleModalSubmit = (e) => {
+    e.preventDefault();
+    if (inputValue.trim() !== '') {
+      addTodo();
+    }
   }
 
  
@@ -103,10 +141,22 @@ const ToDoList = ({firebaseUserId}) => {
           </li>
         ))}
       </ul>
-
       <Snackbar open={successMessage} autoHideDuration={4000} onClose={() => setSuccessMessage(false)}>
         <Alert severity="success">Task completed successfully!</Alert>
       </Snackbar>
+
+      <Dialog open={openModal} onClose={handleModalClose}>
+        <DialogTitle>Add New Todo</DialogTitle>
+        <form onSubmit={handleModalSubmit}>
+          <DialogContent>
+            <TextField autoFocus margin="dense" label="Todo" type="text" fullWidth variant="standard" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleModalClose}>Cancel</Button>
+            <Button type="submit">Add</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
     </div>
   );
 };
