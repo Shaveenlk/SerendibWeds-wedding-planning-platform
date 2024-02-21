@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateProfile } from "firebase/auth";
 import auth from '../../config/firebase-config.js';
 import toast from 'react-hot-toast';
 import '../SignupPage/SignupPage.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignupPage() {
     const [formData, setFormData] = useState({
@@ -42,15 +43,36 @@ function SignupPage() {
         }));
     };
 
+    const checkUserInDatabase = async (firebaseUserId) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+            const data = response.data;
+    
+            return data.exists;
+        } catch (error) {
+            console.error('Error checking user in the database:', error);
+            return false;
+        }
+    };
+
     const Google = (e) =>{
         signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async(result) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 const user = result.user;
                 setUserData({ displayName: user.displayName, email: user.email });
                 setIsLoggedIn(true);
-                navigate('/userregistraion');
+                 // Check if the user's ID is in the database
+            const isUserInDatabase = await checkUserInDatabase(user.uid);
+
+            if (isUserInDatabase) {
+                // User exists in the database, navigate to home ("/")
+                navigate('/');
+            } else {
+                // User does not exist in the database, navigate to user registration ("/userregistration")
+                navigate('/userregistration');
+            }
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -62,15 +84,23 @@ function SignupPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const auth = getAuth();
-        const { email, password } = formData;
+        const { email, password,firstName,lastName } = formData;
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                 // Set the displayName here
+                 updateProfile(user, { displayName: `${firstName} ${lastName}` })
+                 .then(() => {
+                   console.log('User profile updated successfully');
+                 })
+                 .catch((error) => {
+                   console.error('Error updating user profile:', error.message);
+                 });
                 console.log('User signed up:', user);
                 setIsLoggedIn(true);
                 toast.success("User Added Successfully",{position:'top-right'});
-                navigate('/userregistraion');
+                navigate('/userregistration');
             })
             .catch((error) => {
                 // const errorCode = error.code;
@@ -83,6 +113,20 @@ function SignupPage() {
         <div className="signup-container">
             <h2>Create Account</h2>
             <form onSubmit={handleSubmit}>
+            <input className='signup-input'
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    placeholder="John"
+                />
+                <input className='signup-input'
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    placeholder="Doe"
+                />
                 <input className='signup-input'
                     type="email"
                     name="email"

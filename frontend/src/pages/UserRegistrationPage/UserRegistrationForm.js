@@ -5,9 +5,10 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 
-const UserRegistrationForm = () => {
+const UserRegistrationForm = ({firebaseUserId}) => {
     const navigate = useNavigate();
     const [userFormState, setUserFormState] = useState({
+        FirebaseUserId: firebaseUserId,
         groom_name: '',
         bride_name: '',
         email: '',
@@ -29,22 +30,142 @@ const UserRegistrationForm = () => {
         });
     };
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // submitting vendor form details to backend
         try {
+            // Generate todo list based on the form data
+            const todoList = generateTodoList(userFormState);
+    
+            // Include the todo list in the request
+            const userDataWithTodoList = {
+                firebaseUserId: firebaseUserId,
+                groom_name: userFormState.groom_name,
+                bride_name: userFormState.bride_name,
+                email: userFormState.email,
+                todolist: todoList
+            };
+            console.log(userDataWithTodoList);
+    
             // Make a POST request to the backend API
-            const response = await axios.post('http://localhost:8000/api/createuser', userFormState);
-
+            const response = await axios.post('http://localhost:8000/api/createuser', userDataWithTodoList);
+            // console.log('Response from backend:', response.data);
+    
             // Log the response from the backend
-            toast.success("User profile created Sucessfully",{position:'top-right'})
+            toast.success("User profile created successfully", { position: 'top-right' })
             navigate('/')
         } catch (error) {
             console.error('Error submitting form:', error);
         }
     };
     
+    
+    const rules = {
+        marriageLicense: {
+          b:"Obatin the license for the marriage",
+        },
+        venue: {
+            a: "Book a reception hall/ hotel of your choice",
+            b: "Get Permission from the relevant authorities to hold the wedding at the specific public place" ,
+            c: "Finalize the catering services and the decorations suitable for the home"
+        },
+        musicalBand: {
+            a: "Decide the band that you want at your wedding, book them and make the relevant payments",
+            c: "Decide whether you want a band at your wedding"
+        },
+        florist: {
+          a: "Hire a florist for the wedding",
+          c: "Finalize whether you want a florist at your wedding"
+        },
+        weddingStyle: {
+          a: "Hire vendors and choose the decorations that suit the theme and the style of your wedding",
+          c: "Go to the dream search and decide on a theme that suits you"
+        },
+        attire: {
+          b: "Choose the style of your attires based on your traditions and desires",
+        },
+        guestList: {
+          b: "Hand out the invitations for your wedding to all the guests",
+          c: "Work on deciding the guests and finalizing the guest list"
+        },
+        invitationMethod: {
+          a: "Design the invitation that you are going to send",
+          b: "Hire a person to design, print and distribute the wedding cards"
+        }
+      };
 
+
+
+    const generateTodoList = (userFormState) => {
+        const todoList = ["Set the wedding date","Set the wedding budget","Decide on the wedding favours","Order a wedding cake structure","Finalize the seating plan of guests"];
+      
+        // Marriage License
+        if (userFormState.marriage_license === 'No') {
+          todoList.push(rules.marriageLicense.b);
+        } else if (userFormState.marriage_license === 'Yes') {
+          
+        }
+      
+        // Venue
+        if (userFormState.venue === 'Reception hall/hotel') {
+          todoList.push(rules.venue.a);
+        } else if (userFormState.venue === 'Public place') {
+          todoList.push(rules.venue.b);
+        }else if (userFormState.venue === 'At home') {
+          todoList.push(rules.venue.c);
+        }
+      
+        // Musical Band
+        if (userFormState.musical_band === 'Yes') {
+          todoList.push(rules.musicalBand.a);
+        }else if (userFormState.musical_band === 'No') {
+          
+        } else if (userFormState.musical_band === 'Undecided') {
+          todoList.push(rules.musicalBand.c);
+        }
+      
+        // Florist
+        if (userFormState.florist === 'Yes') {
+          todoList.push(rules.florist.a);
+        } else if (userFormState.florist === 'No') {
+          ;
+        } else if (userFormState.florist === 'Still considering options') {
+          todoList.push(rules.florist.c);
+        }
+      
+        // Wedding Style
+        if (userFormState.wedding_style === 'Yes') {
+          todoList.push(rules.weddingStyle.a);
+        } else if (userFormState.wedding_style === 'No') {
+          
+        } else if (userFormState.wedding_style === 'We are still deciding on a theme') {
+          todoList.push(rules.weddingStyle.c);
+        }
+      
+        // Attire
+        if (userFormState.attire === 'Yes') {
+         
+        } else if (userFormState.attire === 'No') {
+            todoList.push(rules.attire.b);
+        }
+      
+        // Guest List
+        if (userFormState.guest_list === 'Yes, guest list finalized') {
+          todoList.push(rules.guestList.b);
+        } else if (userFormState.guest_list === 'No, still working on it') {
+          todoList.push(rules.guestList.c);
+        }
+      
+        // Invitation Method
+        if (userFormState.invite_method === "Via RSVPs") {
+          todoList.push(rules.invitationMethod.a);
+        }else if (userFormState.invite_method === "Invitation cards") {
+          todoList.push(rules.invitationMethod.b);
+        }
+      
+        return todoList;
+    };
+         
     return (
         <div className="vendor-form">
             <div className="form-section">
@@ -70,19 +191,9 @@ const UserRegistrationForm = () => {
                     <input type="email" name="email" onChange={handleInputChange} />
                 </div>
 
-                <div className="form-section">
-                    <label>Are you interested in additional services? Select all that apply</label>
-                    <div className="form-options">
-                        <label><input type="radio" name="service" value="Wedding Coordination" onChange={handleInputChange} /> Wedding Coordination</label>
-                        <label><input type="radio" name="service" value="Floral Arrangements" onChange={handleInputChange} /> Floral Arrangements</label>
-                        <label><input type="radio" name="service" value="Special Lighting" onChange={handleInputChange} /> Special Lighting</label>
-                        <label><input type="radio" name="service" value="None" onChange={handleInputChange} /> None</label>
-                    </div>
-                </div>
-
                 {/* Marriage License */}
                 <div className="form-section">
-                    <label>Have you obtained or applied for a marriage license yet?</label>
+                    <label>Have you registered your marriage yet?</label>
                     <div className="form-options">
                         <label>
                             <input type="radio" id="marriage_license_yes" name="marriage_license" value="Yes" onChange={handleInputChange} />
@@ -91,10 +202,6 @@ const UserRegistrationForm = () => {
                         <label>
                             <input type="radio" id="marriage_license_no" name="marriage_license" value="No" onChange={handleInputChange} />
                             No
-                        </label>
-                        <label>
-                            <input type="radio" id="marriage_license_planning" name="marriage_license" value="Planning to apply soon" onChange={handleInputChange} />
-                            Not yet, but planning to apply soon
                         </label>
                     </div>
                 </div>
@@ -124,15 +231,15 @@ const UserRegistrationForm = () => {
                     <div className="form-options">
                         <label>
                             <input type="radio" id="musical_band_yes" name="musical_band" value="Yes" onChange={handleInputChange} />
-                            Yes
+                            Yes, I want a band at my wedding
                         </label>
                         <label>
                             <input type="radio" id="musical_band_no" name="musical_band" value="No" onChange={handleInputChange} />
-                            No
+                            No, I do not want a band at my wedding
                         </label>
                         <label>
                             <input type="radio" id="musical_band_undecided" name="musical_band" value="Undecided" onChange={handleInputChange} />
-                            Undecided
+                            Still deciding if I want a band at my wedding
                         </label>
                     </div>
                 </div>
@@ -147,7 +254,7 @@ const UserRegistrationForm = () => {
                         </label>
                         <label>
                             <input type="radio" id="florist_no" name="florist" value="No" onChange={handleInputChange} />
-                            No
+                            No, a friend/relative is taking care of flora
                         </label>
                         <label>
                             <input type="radio" id="florist_considering" name="florist" value="Still considering options" onChange={handleInputChange} />
@@ -166,10 +273,10 @@ const UserRegistrationForm = () => {
                         </label>
                         <label>
                             <input type="radio" id="wedding_style_no" name="wedding_style" value="No" onChange={handleInputChange} />
-                            No, it's traditional
+                            No, we do not have a specific theme
                         </label>
                         <label>
-                            <input type="radio" id="wedding_style_deciding" name="wedding_style" value="We're still deciding on a theme" onChange={handleInputChange} />
+                            <input type="radio" id="wedding_style_deciding" name="wedding_style" value="We are still deciding on a theme" onChange={handleInputChange} />
                             We're still deciding on a theme
                         </label>
                     </div>
@@ -185,11 +292,7 @@ const UserRegistrationForm = () => {
                         </label>
                         <label>
                             <input type="radio" id="attire_no" name="attire" value="No" onChange={handleInputChange} />
-                            No
-                        </label>
-                        <label>
-                            <input type="radio" id="attire_deciding" name="attire" value="In the process of deciding" onChange={handleInputChange} />
-                            In the process of deciding
+                            No, we are still deciding 
                         </label>
                     </div>
                 </div>
@@ -206,10 +309,6 @@ const UserRegistrationForm = () => {
                             <input type="radio" id="guest_list_working" name="guest_list" value="No, still working on it" onChange={handleInputChange} />
                             No, still working on it
                         </label>
-                        <label>
-                            <input type="radio" id="guest_list_partial" name="guest_list" value="Partially decided" onChange={handleInputChange} />
-                            Partially decided
-                        </label>
                     </div>
                 </div>
 
@@ -219,7 +318,7 @@ const UserRegistrationForm = () => {
                     <div className="form-options">
                         <label>
                             <input type="radio" id="invite_method_rsvps" name="invite_method" value="Via RSVPs" onChange={handleInputChange} />
-                            Via RSVPs
+                            Sending invitations online
                         </label>
                         <label>
                             <input type="radio" id="invite_method_cards" name="invite_method" value="Invitation cards" onChange={handleInputChange} />
@@ -232,7 +331,7 @@ const UserRegistrationForm = () => {
                 <button className="submit-button" type="submit">Submit</button>
                 </form>
                 </div>
-                )
-                };
-
-                export default UserRegistrationForm
+                );
+    }                
+                
+export default UserRegistrationForm

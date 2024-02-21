@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../todolist/TodoList.css';
 import { Checkbox, FormControlLabel, Snackbar,Alert } from '@mui/material';
+import axios from 'axios';
 
-const ToDoList = () => {
-  const TaskList = [
-    { id: 1, title: 'Research photographs in my area' },
-    { id: 2, title: 'Wedding Dress Shopping' },
-    { id: 3, title: 'Book Hair and Makeup Artists' },
-    { id: 4, title: 'Arrange djs' },
-    { id: 5, title: 'Confirm Honeymoon Details' },
-    { id: 6, title: 'Research photographs in my area1' },
-    { id: 7, title: 'Wedding Dress Shopping2' },
-    { id: 8, title: 'Book Hair and Makeup Artists3' },
-    { id: 9, title: 'Arrange djs4' },
-    { id: 10, title: 'Confirm Honeymoon Details5' },
-  ];
- 
-  const [tasks, setTasks] = useState(TaskList);
+
+
+
+const ToDoList = ({firebaseUserId}) => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+     // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
+     axios.get(`http://localhost:8000/api/todo/${firebaseUserId}`)
+     .then(response => {
+       console.log('API response:', response);
+       setUserData(response.data);
+       setTasks(response.data.todolist.map((task, index) => ({ id: index, title: task })));
+       console.log(tasks)
+     })
+     .catch(error => {
+       console.error('Error fetching user data:', error);
+       // Handle the error or set appropriate state to indicate the error
+     });
+ }, [firebaseUserId]);
+
+
+  const [tasks, setTasks] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [successMessage, setSuccessMessage] = useState(false);
 

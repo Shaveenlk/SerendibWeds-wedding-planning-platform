@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import '../LoginPage/LoginPage.css';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,fetchSignInMethodsForEmail} from "firebase/auth";
 import auth from '../../config/firebase-config.js';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,28 @@ function LoginPage() {
         return () => unsubscribe();
       }, []);
 
+
+      const checkUserInDatabase = async (firebaseUserId) => {
+        // Make a request to your backend to check if the user exists in the database
+        // Use the Firebase ID to perform the check
+    
+        // Example: Assuming you have an API endpoint '/api/checkUser' that checks the user in the database
+        try {
+          const response = await fetch(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+          const data = await response.json();
+    
+          if (data.exists) {
+            // User exists in the database, navigate to the home page or another authorized route
+            navigate('/');
+          } else {
+            // User does not exist in the database, redirect to the user registration page
+            navigate('/userregistration');
+          }
+        } catch (error) {
+          console.error('Error checking user in the database:', error);
+        }
+      };
+     
 const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if user is logged in
   // const [errorMessage, setErrorMessage] = useState('');
   const [userData, setUserData] = useState({});  
@@ -43,7 +65,7 @@ const provider = new GoogleAuthProvider();
                 console.log('User signed up:', user);
                 setIsLoggedIn(true);
                 toast.success("User Logged In Successfully",{position:'top-right'});
-                navigate('/');
+                checkUserInDatabase(user.uid);
             })
             .catch((error) => {
                 // const errorCode = error.code;
@@ -54,15 +76,19 @@ const provider = new GoogleAuthProvider();
     
 
     const Google = (e) =>{
+        const auth = getAuth();
         signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async(result)  => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 const user = result.user;
+                const email = user.email;
                 setUserData({ displayName: user.displayName, email: user.email });
                 setIsLoggedIn(true);
-                navigate('/');
-            }).catch((error) => {
+
+                checkUserInDatabase(user.uid);
+              }
+            ).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 toast.error(errorMessage, { position: 'top-center' });
