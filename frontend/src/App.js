@@ -46,7 +46,7 @@ function App() {
         ) :  (
            //routes for unauthenticated users redirect to another pages
           <>
-          <Route path="/profile" element={<Navigate to="/login" />} />
+          {/* <Route path="/profile" element={<Navigate to="/login" />} /> */}
           <Route path="/userregistration" element={<Navigate to="/" />} />
           {/* <Route path="/services/booking" element={<Navigate to="/login" />} /> */}
           </>
