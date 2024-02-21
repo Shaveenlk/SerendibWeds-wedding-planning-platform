@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../todolist/TodoList.css';
-import { Checkbox, FormControlLabel, Snackbar,Alert } from '@mui/material';
+import { Checkbox, FormControlLabel, Snackbar,Alert,IconButton,Button } from '@mui/material';
 import axios from 'axios';
-
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 
 
@@ -70,9 +71,19 @@ const ToDoList = ({firebaseUserId}) => {
     }, 1000);
   };
 
+
+  const handleUpdateTask = (taskId) => {
+    
+  }
+
+  const handleAddTodoList = () => {
+    
+  }
+
  
   return (
     <div className='task-list'>
+    <Button size='small' variant="contained" onClick={handleAddTodoList} className="add-todo-list-button" startIcon={<AddIcon />} sx={{borderRadius:'8px'}}> Add to do</Button>
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
@@ -86,11 +97,14 @@ const ToDoList = ({firebaseUserId}) => {
                 />
               }
             />
+             <IconButton onClick={() => handleUpdateTask(task.id)}>
+              <EditIcon />
+            </IconButton>
           </li>
         ))}
       </ul>
 
-      <Snackbar open={successMessage} autoHideDuration={3000} onClose={() => setSuccessMessage(false)}>
+      <Snackbar open={successMessage} autoHideDuration={4000} onClose={() => setSuccessMessage(false)}>
         <Alert severity="success">Task completed successfully!</Alert>
       </Snackbar>
     </div>

@@ -5,6 +5,7 @@ import auth from '../../config/firebase-config.js';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginPage() {
     useEffect(() => {
@@ -24,11 +25,8 @@ function LoginPage() {
 
       const checkUserInDatabase = async (firebaseUserId) => {
         // Make a request to your backend to check if the user exists in the database
-        // Use the Firebase ID to perform the check
-    
-        // Example: Assuming you have an API endpoint '/api/checkUser' that checks the user in the database
         try {
-          const response = await fetch(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+          const response = await axios.get(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
           const data = await response.json();
     
           if (data.exists) {
@@ -43,16 +41,16 @@ function LoginPage() {
         }
       };
      
-const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if user is logged in
   // const [errorMessage, setErrorMessage] = useState('');
   const [userData, setUserData] = useState({});  
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [rememberMe, setRememberMe] = useState(false);
     
 
     const navigate = useNavigate();
-const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();  
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handdle submission logic
