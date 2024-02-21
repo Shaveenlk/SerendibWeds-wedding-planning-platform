@@ -39,7 +39,23 @@ const ToDoList = ({firebaseUserId}) => {
     // If the task is selected, display success message and remove the task from the list
     if (!checkedItems[taskId]) {
       handleSuccessMessage(taskId);
+      handleDeleteTask(taskId);
     }
+  };
+
+  const handleDeleteTask = (taskId) => {
+    axios.delete(`http://localhost:8000/api/todo/${firebaseUserId}/${taskId}`)
+      .then(response => {
+        console.log('Task deleted successfully:', response);
+        // Update the tasks state to reflect the changes
+        const updatedTasks = tasks.filter((task) => task.id !== taskId);
+        setTasks(updatedTasks);
+        setSuccessMessage(true);
+      })
+      .catch(error => {
+        console.error('Error deleting task:', error);
+        // Handle the error or set appropriate state to indicate the error
+      });
   };
 
   const handleSuccessMessage = (taskId) => {
