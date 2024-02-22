@@ -35,8 +35,8 @@ export const deleteTodo = async (req, res) => {
 
 export const updateTodo = async (req, res) => {
     try {
-        const { firebaseUserId } = req.params;
-        const { index, newTodo } = req.body;
+        const { firebaseUserId, index } = req.params;
+        const { newTodo } = req.body;
         const user = await Users.findOne({ firebaseUserId });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

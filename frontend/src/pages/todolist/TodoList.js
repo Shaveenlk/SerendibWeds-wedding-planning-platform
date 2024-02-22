@@ -38,6 +38,9 @@ const ToDoList = ({firebaseUserId}) => {
 
   const [openModal, setOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
+
+  const [modalType, setModalType] = useState('');
+  const [currentTask, setCurrentTask] = useState(null);
   
 
  
@@ -99,11 +102,16 @@ const ToDoList = ({firebaseUserId}) => {
 
 
   const handleUpdateTask = (taskId) => {
-    
+    const task = tasks.find((task) => task.id === taskId);
+    setCurrentTask(task);
+    setInputValue(task.title);
+    setModalType('Edit');
+    setOpenModal(true);
   }
 
   const handleAddTodoList = () => {
     setOpenModal(true);
+    setModalType('Add');
   }
 
   const handleModalClose = () => {
@@ -114,8 +122,26 @@ const ToDoList = ({firebaseUserId}) => {
   const handleModalSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() !== '') {
-      addTodo();
+      if (modalType === 'Add') {
+        addTodo();
+      } else if (modalType === 'Edit') {
+        updateTodo();
+      }
     }
+  }
+
+  const updateTodo = () => {
+    axios.put(`http://localhost:8000/api/todo/${firebaseUserId}/${currentTask.id}`, { newTodo: inputValue })
+      .then(response => {
+        console.log('Todo updated successfully:', response);
+        const updatedTasks = tasks.map((task) => task.id === currentTask.id ? { ...task, title: inputValue } : task);
+        setTasks(updatedTasks);
+        setInputValue('');
+        setOpenModal(false);
+      })
+      .catch(error => {
+        console.error('Error updating todo:', error);
+      });
   }
 
  
@@ -146,14 +172,14 @@ const ToDoList = ({firebaseUserId}) => {
       </Snackbar>
 
       <Dialog open={openModal} onClose={handleModalClose}>
-        <DialogTitle>Add New Todo</DialogTitle>
+      <DialogTitle>{modalType === 'Add' ? 'Add New Todo' : 'Edit Todo'}</DialogTitle>
         <form onSubmit={handleModalSubmit}>
           <DialogContent>
             <TextField autoFocus margin="dense" label="Todo" type="text" fullWidth variant="standard" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleModalClose}>Cancel</Button>
-            <Button type="submit">Add</Button>
+            <Button type="submit">{modalType === 'Add' ? 'Add' : 'Update'}</Button>
           </DialogActions>
         </form>
       </Dialog>
