@@ -17,8 +17,21 @@
 }
 
 
+div {
+  position: relative;
+}
+
+img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .team-members {
     display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap as needed */
     justify-content: center;
     gap: 2em;
 }
@@ -26,10 +39,10 @@
 .team-member {
     text-align: center;
     position: relative;
-    text-align: center;
     width: 120px; 
     height: 120px;
     border-radius: 50%;
+    margin: 10px; /* Adds some space around each team member */
 }
 
 .team-member img {
