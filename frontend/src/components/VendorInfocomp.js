@@ -7,73 +7,19 @@ import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import image from '../assets/heroSectionImg.png';
 
-const vendors = [
-  {
-    name: "Joseph Rodrigo",
-    email: "josephrodrigo42@gmail.com",
-    profileImageUrl: image,
-  },
-  {
-    name: "Emma Smith",
-    email: "emma.smith@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "John Johnson",
-    email: "john.johnson@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Sophie Davis",
-    email: "sophie.davis@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Michael White",
-    email: "michael.white@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Olivia Taylor",
-    email: "olivia.taylor@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "David Brown",
-    email: "david.brown@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Isabella Martin",
-    email: "isabella.martin@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "William Anderson",
-    email: "william.anderson@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Ava Wilson",
-    email: "ava.wilson@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Ethan Miller",
-    email: "ethan.miller@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Sophia Harris",
-    email: "sophia.harris@example.com",
-    profileImageUrl: "url_to_image",
-  },
-  {
-    name: "Liam Jackson",
-    email: "liam.jackson@example.com",
-    profileImageUrl: "url_to_image",
-  },
-];
+const fetchVendors = async () => {
+  try {
+    const response = await fetch('/vendors'); // Adjust the URL as per your backend setup
+    if (!response.ok) {
+      throw new Error('Failed to fetch vendors');
+    }
+    const data = await response.json();
+    return data.vendors;
+  } catch (error) {
+    console.error('Error fetching vendors:', error);
+    return [];
+  }
+};
 
 const VendorInfoTile = ({ name, profileImageUrl }) => {
     return (
@@ -98,10 +44,33 @@ const VendorInfoTile = ({ name, profileImageUrl }) => {
 };
 
 const VendorInfocomp = () => {
+  const [vendors, setVendors] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchVendors();
+      setVendors(data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
+    axios.get(`http://localhost:8000/api/getuser/${firebaseUserId}`)
+      .then(response => {
+        console.log('API response:', response);
+        setUserData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        // Handle the error or set appropriate state to indicate the error
+      });
+  }, [firebaseUserId]); // The empty dependency array ensures that the effect runs once when the component mounts
+
   return (
     <Grid container spacing={2} sx={{ margin: '20px 80px' }}>
-      {vendors.map((vendor, index) => (
-        <VendorInfoTile key={index} {...vendor} />
+      {vendors.map((vendor) => (
+        <VendorInfoTile key={vendor._id} name={vendor.name} profileImageUrl={vendor.logo} />
       ))}
     </Grid>
   );
