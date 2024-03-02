@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
+import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
 import UserRegistrationForm from './pages/UserRegistrationPage/UserRegistrationForm';
@@ -33,6 +34,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage/>} />
+        <Route path="/home" element={<Homepage/>} />
+
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         {user ? (//routes for authenticated users
@@ -55,6 +58,7 @@ function App() {
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
+        <Route path="/aboutus" element={<AboutUsPage/>}/>
         <Route path="/vendorprofile" element={<VendorsProfile/>}/>
       </Routes>
     </div>
