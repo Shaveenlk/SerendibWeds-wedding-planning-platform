@@ -1,24 +1,23 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
-import { useState } from 'react';
+// import { useState } from 'react';
 import VendorInfocomp from '../../components/VendorInfocomp';
 import Navbarcomp from '../../components/Navbarcomp';
 
 export default function ServicesPage() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState("1");
+  const [vendorData, setVendorData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const [vendorInfo, setVendorInfo] = useState({
-    vendor_name: '',
-    profile_picture: ''
-   });
 
   return (
     <div>
@@ -44,11 +43,11 @@ export default function ServicesPage() {
             </Tabs>
             </Box>
 
-            <TabPanel value="1"><VendorInfocomp /></TabPanel>
-            <TabPanel value="2"><VendorInfocomp /></TabPanel>
-            <TabPanel value="3"><VendorInfocomp /></TabPanel>
-            <TabPanel value="4"><VendorInfocomp /></TabPanel>
-            <TabPanel value="5"><VendorInfocomp /></TabPanel>
+            <TabPanel value="1"><VendorInfocomp category="1"/></TabPanel>
+            <TabPanel value="2"><VendorInfocomp category="2"/></TabPanel>
+            <TabPanel value="3"><VendorInfocomp category="3"/></TabPanel>
+            <TabPanel value="4"><VendorInfocomp category="4"/></TabPanel>
+            <TabPanel value="5"><VendorInfocomp category="5"/></TabPanel>
             </TabContext>
         </Box>
     </div>
