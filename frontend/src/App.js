@@ -40,8 +40,6 @@ function App() {
             <Route path="/profile" element={<Tabcomp firebaseUserId={user?.firebaseUserId} />} />
             <Route path="/services/booking" element={<div>lol</div>}  />
             <Route path="/userregistration" element={<UserRegistrationForm firebaseUserId={user?.firebaseUserId}/>}  />
-            
-           
           </>
         ) :  (
            //routes for unauthenticated users redirect to another pages
@@ -55,7 +53,8 @@ function App() {
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
-        <Route path="/vendorprofile" element={<VendorsProfile/>}/>
+        {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
+        <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
       </Routes>
     </div>
   );
