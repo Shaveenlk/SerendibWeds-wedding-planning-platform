@@ -11,6 +11,15 @@ import  image  from '../assets/heroSectionImg.png'; // Import image from correct
 
 
 const VendorProfileCarousel = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000
+  };
 
   const cardData = [
     {
@@ -38,38 +47,8 @@ const VendorProfileCarousel = () => {
       title: "Title 5",
       description: "Description for slide 5."
     },
-    {
-      image: "/path/to/image6.jpg",
-      title: "Title 6",
-      description: "Description for slide 6."
-    },
-    {
-      image: "/path/to/image7.jpg",
-      title: "Title 7",
-      description: "Description for slide 7."
-    },
-    {
-      image: "/path/to/image8.jpg",
-      title: "Title 8",
-      description: "Description for slide 8."
-    },
-    {
-      image: "/path/to/image9.jpg",
-      title: "Title 9",
-      description: "Description for slide 9."
-    }
     // Add more card data as needed
-  ];  
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000
-  };
+  ];
 
   return (
     <div>
