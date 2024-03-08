@@ -13,8 +13,6 @@ const VendorsProfile = () => {
     <div>
       <Navbarcomp />
       <VendorProfileComp />
-      {/* <Tabcomp /> */}
-      {/* <Savedweddings /> */}
       <VendorProfileCarousel />
       <ServicesOfferedComp />
       <Footercomp />
