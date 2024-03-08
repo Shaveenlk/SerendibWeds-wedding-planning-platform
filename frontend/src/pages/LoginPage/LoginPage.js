@@ -32,6 +32,7 @@ function LoginPage() {
     const checkUserInDatabase = async (firebaseUserId) => {
         try {
             const response = await axios.get(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+            
             const data = response.data; // Use response.data instead of response.json()
             
             if (data.exists) {
@@ -69,6 +70,7 @@ function LoginPage() {
             .then(async (result) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const user = result.user;
+                console.log(user);
                 setUserData({ displayName: user.displayName, email: user.email });
                 setIsLoggedIn(true);
                 checkUserInDatabase(user.uid);

@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        required: true
+    },
     todolist: {
         type: [String],  // Assuming the todolist is an array of strings
         default: []  // Adjust the default value based on your requirements
