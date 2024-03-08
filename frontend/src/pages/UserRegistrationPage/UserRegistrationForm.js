@@ -43,6 +43,7 @@ const UserRegistrationForm = ({firebaseUserId}) => {
                 groom_name: userFormState.groom_name,
                 bride_name: userFormState.bride_name,
                 email: userFormState.email,
+                role: 'user',
                 todolist: todoList
             };
             console.log(userDataWithTodoList);
