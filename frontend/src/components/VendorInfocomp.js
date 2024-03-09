@@ -1,79 +1,80 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Grid } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
-import image from '../assets/heroSectionImg.png';
+import { useNavigate } from "react-router-dom";
 
-const fetchVendors = async () => {
-  try {
-    const response = await fetch('/vendors'); // Adjust the URL as per your backend setup
-    if (!response.ok) {
-      throw new Error('Failed to fetch vendors');
-    }
-    const data = await response.json();
-    return data.vendors;
-  } catch (error) {
-    console.error('Error fetching vendors:', error);
-    return [];
-  }
-};
+const VendorInfoTile = ({ vendor, onClick }) => {
 
-const VendorInfoTile = ({ name, profileImageUrl }) => {
-    return (
-      <Grid item lg={4}>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="240"
-              image={profileImageUrl}
-              alt={`${name} profile`}
-            />
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {name}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-    );
-};
+  const navigate =useNavigate();
 
-const VendorInfocomp = () => {
-  const [vendors, setVendors] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchVendors();
-      setVendors(data);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
-    axios.get(`http://localhost:8000/api/getuser/${firebaseUserId}`)
-      .then(response => {
-        console.log('API response:', response);
-        setUserData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-        // Handle the error or set appropriate state to indicate the error
-      });
-  }, [firebaseUserId]); // The empty dependency array ensures that the effect runs once when the component mounts
+  const handleClick = () => {
+    onClick(vendor._id);
+    // history.push(`/vendorprofile/${vendor._id}`);
+    navigate(`/vendorprofile/${vendor._id}`);
+  };
 
   return (
-    <Grid container spacing={2} sx={{ margin: '20px 80px' }}>
+    <Grid item lg={4}>
+      <Card sx={{ maxWidth: 345 }} onClick={handleClick}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="240"
+            image={vendor.logo}
+            alt={`${vendor.name} profile`}
+          />
+          <CardContent>
+            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+              {vendor.name}
+            </Typography>
+            <Typography  sx={{ fontWeight: 'bold' }}>
+              {vendor.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
+  );
+};
+
+const VendorInfocomp = ( {category} ) => {
+  const [vendors, setVendors] = useState([]);
+  const [selectedVendor, setSelectedVendor] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/vendors')
+    .then(response => {
+      if (Array.isArray(response.data.vendors)) { // Check if vendors is an array
+        setVendors(response.data.vendors);
+      } else {
+        console.error('Vendors data is not an array');
+      }
+    })
+    .catch(error => {
+      console.error('Error data :', error)
+    })
+  }, []); // Empty dependency array to run only once on mount
+
+  const handleVendorClick = (vendorId) => {
+    // Retrieve vendor details based on vendorId and set selected vendor
+    setSelectedVendor(vendors.find(vendor => vendor._id === vendorId));
+  };
+
+  
+
+  return (
+    <Grid container spacing={2}>
       {vendors.map((vendor) => (
-        <VendorInfoTile key={vendor._id} name={vendor.name} profileImageUrl={vendor.logo} />
-      ))}
+        <VendorInfoTile key={vendor._id} vendor={vendor} onClick={handleVendorClick} />
+       ))}
     </Grid>
   );
 };
 
 export default VendorInfocomp;
+

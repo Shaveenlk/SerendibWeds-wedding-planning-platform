@@ -1,6 +1,21 @@
 import mongoose from "mongoose";
 
+const serviceSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
+});
+
 const vendorSchema = new mongoose.Schema({
+    vendorId: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -34,7 +49,7 @@ const vendorSchema = new mongoose.Schema({
         required: true
     },
     services: {
-        type: [String],
+        type: [serviceSchema],
         default: []
     },
     testimonials: {

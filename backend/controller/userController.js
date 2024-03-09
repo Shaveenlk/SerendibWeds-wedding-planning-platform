@@ -2,7 +2,7 @@ import Users from "../model/userModel.js";
 
 export const createUser = async (req, res) => {
     try {
-        const { groom_name, bride_name, email, firebaseUserId, todolist } = req.body;
+        const { groom_name, bride_name, email, firebaseUserId,role, todolist } = req.body;
 
         // Check if the required fields are present
         if (!groom_name || !bride_name || !email || !firebaseUserId) {
@@ -20,6 +20,7 @@ export const createUser = async (req, res) => {
             groom_name,
             bride_name,
             email,
+            role,
             firebaseUserId,
             todolist
         });

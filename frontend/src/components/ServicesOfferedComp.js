@@ -4,8 +4,27 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useParams } from 'react-router-dom';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 
 const ServicesOfferedComp = () => {
+
+  const [serviceDetails,setServiceDetails] = useState({});
+  const {id} =useParams();
+
+  useEffect(() => {
+    // Fetch vendor details when selectedVendor changes
+  
+      axios.get(`http://localhost:8000/api/vendors/${id}/services`)
+        .then(response => {
+          setServiceDetails(response.data); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
+
   const accordionStyle = {
     padding: "10px",
     margin: "10px 100px",
@@ -44,16 +63,18 @@ const ServicesOfferedComp = () => {
       <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}>
         Services Offered
       </Typography>
-      {servicesData.map((serviceItem, index) => (
+      {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
         <Accordion key={index} style={accordionStyle}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${index + 1}-content`}
             id={`panel${index + 1}-header`}
           >
-            {serviceItem.service}
+            {serviceItem.name}
           </AccordionSummary>
-          <AccordionDetails>{serviceItem.details}</AccordionDetails>
+          <AccordionDetails>
+            <Typography>{serviceItem.description}</Typography>
+          </AccordionDetails>
         </Accordion>
       ))}
     </div>

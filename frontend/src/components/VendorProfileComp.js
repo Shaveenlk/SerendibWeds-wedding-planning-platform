@@ -1,7 +1,28 @@
 import React from 'react'
 import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
+import { useParams } from 'react-router-dom';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
+
 
 const VendorProfileComp = () => {
+
+
+  const [vendorDetails,setVendorDetails]=useState("");
+  const {id} =useParams();
+
+  useEffect(() => {
+    // Fetch vendor details when selectedVendor changes
+  
+      axios.get(`http://localhost:8000/api/vendors/${id}`)
+        .then(response => {
+          setVendorDetails(response.data); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
+
   return (
     <div className="profile">
       <Box>
@@ -21,16 +42,16 @@ const VendorProfileComp = () => {
             <Grid container item alignItems="center" spacing={2}>
               <Grid item>
                 <Avatar
-                  // src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src={vendorDetails.logo}
                   sx={{ width: 300, height: 300, margin: 3, ml:20 }}
                 />
               </Grid>
               <Grid item>
                 <Typography variant="h3" component="div" sx={{ fontWeight: 'bold' }}>
-                  Elegance Captured
+                {vendorDetails.name}
                 </Typography>
                 <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-                  Since: 1999
+                  Since: 1959
                 </Typography>
               </Grid>
             </Grid>
@@ -45,13 +66,6 @@ const VendorProfileComp = () => {
             alignItems="center"
             justifyContent="center"
           >
-            {/* <Button variant="contained" sx={{
-              borderRadius: 5,
-              marginLeft: { xs: 8, sm: 0 },
-              marginBottom: { xs: 3, sm: 0 },
-            }}>
-              Log Out
-            </Button> */}
           </Grid>
             <Button variant="contained" sx={{
               borderRadius: 5,
