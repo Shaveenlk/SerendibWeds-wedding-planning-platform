@@ -51,13 +51,15 @@ const HeroTextcomp = () => {
           variant="contained"
           sx={{ backgroundColor: "#C19C76", color: "black" }}
           component={NavLink}
-          to="/profile"
+          to="/login"
         >
           Plan With Us
         </Button>{" "}
         <Button
           variant="contained"
           sx={{ backgroundColor: "#C19C76", color: "black" }}
+          component={NavLink}
+          to="/vendorlogin"
         >
           Are You a vendor ?
         </Button>
