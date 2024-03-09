@@ -4,9 +4,11 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Container } from '@mui/material'; // Import Container
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+
 
 const ServicesOfferedComp = () => {
 
@@ -27,7 +29,7 @@ const ServicesOfferedComp = () => {
 
   const accordionStyle = {
     padding: "10px",
-    margin: "10px 100px",
+    margin: "10px 30px", // changed from 100 to 30 to align
   };
 
   const servicesData = [
@@ -59,8 +61,10 @@ const ServicesOfferedComp = () => {
   ];
 
   return (
-    <div>
-      <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}>
+    <Container sx={{ mt: 4 }}>
+      {/* <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}> */}
+      <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'left', color: 'text.primary' }}> 
+      {/* Updated to match the form heading */}
         Services Offered
       </Typography>
       {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
@@ -77,7 +81,7 @@ const ServicesOfferedComp = () => {
           </AccordionDetails>
         </Accordion>
       ))}
-    </div>
+    </Container>
   );
 };
 
