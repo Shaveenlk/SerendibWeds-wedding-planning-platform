@@ -1,0 +1,38 @@
+*{
+    scroll-behavior: smooth;
+}
+
+.heroContainer{
+    display: flex;
+    margin-top: 6rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-bottom: 5rem;
+    font-display: justify ;
+}    
+
+.heroTopic{
+    font-size: 3.5rem;
+}
+
+.heroContent{
+    margin-right: 5rem;
+    margin-top: 3rem;
+}
+
+p{
+    font-size:1.4rem;
+    text-align: justify;
+}
+
+button{
+    background-color: #DDBEA9;
+    border-width: 0.07rem;
+    border-radius: 1rem;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    padding-left:2rem;
+    padding-right:2rem;
+    font-size: 1rem;
+    margin-top:1rem;
+}
