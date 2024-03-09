@@ -5,12 +5,14 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
+import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
 import UserRegistrationForm from './pages/UserRegistrationPage/UserRegistrationForm';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
+// import VendorLogin from './pages/VendorLogin/vendorlogin';
 import ToDoList from './pages/todolist/TodoList';
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage/>} />
+        <Route path="/home" element={<Homepage/>} />
+
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         {user ? (//routes for authenticated users
@@ -40,8 +44,6 @@ function App() {
             <Route path="/profile" element={<Tabcomp firebaseUserId={user?.firebaseUserId} />} />
             <Route path="/services/booking" element={<div>lol</div>}  />
             <Route path="/userregistration" element={<UserRegistrationForm firebaseUserId={user?.firebaseUserId}/>}  />
-            
-           
           </>
         ) :  (
            //routes for unauthenticated users redirect to another pages
@@ -55,7 +57,10 @@ function App() {
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
-        <Route path="/vendorprofile" element={<VendorsProfile/>}/>
+        <Route path="/aboutus" element={<AboutUsPage/>}/>
+        {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
+        <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
+        {/* <Route path="/vendorlogin" element={<VendorLogin/>}/> */}
       </Routes>
     </div>
   );
