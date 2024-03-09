@@ -12,6 +12,10 @@ const serviceSchema = new mongoose.Schema({
 });
 
 const vendorSchema = new mongoose.Schema({
+    firebaseUserId: {
+        type: String,  // Assuming the Firebase user ID is a string
+        required: true  // Adjust the required attribute based on your requirements
+    },
     vendorId: {
         type: String,
         required: true
