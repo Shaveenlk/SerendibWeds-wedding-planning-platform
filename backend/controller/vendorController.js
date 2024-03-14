@@ -26,3 +26,19 @@ export const getVendor = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+export const checkVendor = async (req, res) => {
+    const { firebaseUserId } = req.params;
+    try {
+        const existingUser = await Vendors.findOne({ firebaseUserId });
+  
+        if (existingUser) {
+          res.status(200).json({ exists: true });
+        } else {
+          res.status(200).json({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error checking user in the database:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+}
