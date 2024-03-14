@@ -5,24 +5,7 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 
 
-const VendorProfileComp = () => {
-
-
-  const [vendorDetails,setVendorDetails]=useState("");
-  const {id} =useParams();
-
-  useEffect(() => {
-    // Fetch vendor details when selectedVendor changes
-  
-      axios.get(`http://localhost:8000/api/vendors/${id}`)
-        .then(response => {
-          setVendorDetails(response.data); // Update vendor details state
-        })
-        .catch(error => {
-          console.error('Error fetching vendor details:', error);
-        });
-    },[id]);
-
+const VendorProfileComp = ({vendorDetails}) => {
   return (
     <div className="profile">
       <Box>
