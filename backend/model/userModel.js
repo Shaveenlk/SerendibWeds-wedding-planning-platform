@@ -1,5 +1,28 @@
 import mongoose from "mongoose";
 
+const appointmentsuserSchema = new mongoose.Schema({
+    vendorname: {
+        type: String,
+        required: true
+    },
+    bookingDate: {
+        type: Date,
+        required: true
+    },
+    bookingTime: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+//     uniqueAppointmentId: {
+//     type: String,
+//     required: true
+// }
+});
+
 
 const userSchema = new mongoose.Schema({
     firebaseUserId: {
