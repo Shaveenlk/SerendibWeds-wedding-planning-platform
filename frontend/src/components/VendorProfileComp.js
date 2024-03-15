@@ -4,8 +4,24 @@ import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
+const VendorProfileComp = ({ onBookUsClick }) => {
 
-const VendorProfileComp = ({vendorDetails}) => {
+
+  const [vendorDetails,setVendorDetails]=useState("");
+  const {id} =useParams();
+
+  useEffect(() => {
+    // Fetch vendor details when selectedVendor changes
+  
+      axios.get(`http://localhost:8000/api/vendors/${id}`)
+        .then(response => {
+          setVendorDetails(response.data); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
+
   return (
     <div className="profile">
       <Box>
@@ -50,7 +66,7 @@ const VendorProfileComp = ({vendorDetails}) => {
             justifyContent="center"
           >
           </Grid>
-            <Button variant="contained" sx={{
+            <Button variant="contained" onClick={onBookUsClick} sx={{
               borderRadius: 5,
               marginLeft: { xs: 8, sm: 25 },
               marginBottom: { xs: 3, sm: 0 },
@@ -65,7 +81,7 @@ const VendorProfileComp = ({vendorDetails}) => {
                 Contact Us            
             </Button>
         </Grid>
-      </Box>
+      </Box>     
     </div>
   )
 }

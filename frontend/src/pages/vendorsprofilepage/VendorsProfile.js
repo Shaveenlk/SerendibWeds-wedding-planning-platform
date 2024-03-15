@@ -9,11 +9,12 @@ import Savedweddings from '../savedweddings/Savedweddings';
 import VendorProfileCarousel from '../../components/VendorProfileCarousel';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
 const VendorsProfile = () => {
   const [vendorDetails,setVendorDetails]=useState("");
   const {id} =useParams();
   useEffect(() => {  
-      axios.get(`http://localhost:8000/api/vendors/${id}`)
+      axios.get(http://localhost:8000/api/vendors/${id})
         .then(response => {
           setVendorDetails(response.data); // Update vendor details state
         })
@@ -21,6 +22,7 @@ const VendorsProfile = () => {
           console.error('Error fetching vendor details:', error);
         });
     },[id]);
+    
   return (
     <div>
       <Navbarcomp />
