@@ -48,7 +48,11 @@ const userSchema = new mongoose.Schema({
     todolist: {
         type: [String],  // Assuming the todolist is an array of strings
         default: []  // Adjust the default value based on your requirements
-    }
+    },
+    appointments: {
+        type: [appointmentsuserSchema],
+        default: []
+    }// Embed the appointment schema here
 })
 
 export default mongoose.model("Users", userSchema)
