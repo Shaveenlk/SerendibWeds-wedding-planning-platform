@@ -4,11 +4,9 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Container } from '@mui/material'; // Import Container
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
-
 
 const ServicesOfferedComp = () => {
 
@@ -18,7 +16,7 @@ const ServicesOfferedComp = () => {
   useEffect(() => {
     // Fetch vendor details when selectedVendor changes
   
-      axios.get(`http://localhost:8000/api/vendors/${id}/services`)
+      axios.get(http://localhost:8000/api/vendors/${id}/services)
         .then(response => {
           setServiceDetails(response.data); // Update vendor details state
         })
@@ -29,7 +27,7 @@ const ServicesOfferedComp = () => {
 
   const accordionStyle = {
     padding: "10px",
-    margin: "10px 30px", // changed from 100 to 30 to align
+    margin: "10px 100px",
   };
 
   const servicesData = [
@@ -61,18 +59,16 @@ const ServicesOfferedComp = () => {
   ];
 
   return (
-    <Container sx={{ mt: 4 }}>
-      {/* <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}> */}
-      <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'left', color: 'text.primary' }}> 
-      {/* Updated to match the form heading */}
+    <div>
+      <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}>
         Services Offered
       </Typography>
       {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
         <Accordion key={index} style={accordionStyle}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${index + 1}-content`}
-            id={`panel${index + 1}-header`}
+            aria-controls={panel${index + 1}-content}
+            id={panel${index + 1}-header}
           >
             {serviceItem.name}
           </AccordionSummary>
@@ -81,7 +77,7 @@ const ServicesOfferedComp = () => {
           </AccordionDetails>
         </Accordion>
       ))}
-    </Container>
+    </div>
   );
 };
 

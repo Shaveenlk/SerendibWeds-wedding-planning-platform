@@ -3,6 +3,8 @@ import { checkuser, createUser, getUserData } from '../controller/userController
 import { deleteTodo, getTodo, updateTodo,addTodo } from '../controller/todoController.js';
 import {getVendors,getVendor, checkVendor} from "../controller/vendorController.js"
 import { getServices } from '../controller/serviceController.js';
+import { getEventDetails } from '../controller/eventDetailsController.js';
+
 
 const route =express.Router();
 
@@ -17,7 +19,6 @@ route.get('/vendors',getVendors)
 route.get('/vendors/:id',getVendor)
 route.get('/vendors/:id/services',getServices)
 route.get('/checkvendor/:firebaseUserId', checkVendor)
+route.get('/vendorsEvents/:id',getEventDetails)
 
 export default route;
-
-
