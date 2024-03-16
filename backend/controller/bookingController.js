@@ -139,3 +139,23 @@ export const createVendorBooking = async (req, res) => {
     } 
 };
 
+
+// Retrieve the appointments of a specific user
+export const getAppointmentsByUser = async (req, res) => {
+    try {
+        const { firebaseUserId } = req.params; // Extract firebaseUserId from the request parameters
+        const user = await Users.findOne({ firebaseUserId }); // Find the user by firebaseUserId
+        console.log(user);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Extract and send the appointments array from the user document
+        res.status(200).json(user.appointments);
+    } catch (error) {
+        console.error('Error fetching user appointments:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
