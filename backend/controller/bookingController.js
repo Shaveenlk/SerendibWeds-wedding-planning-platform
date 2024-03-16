@@ -92,6 +92,42 @@ export const createVendorBooking = async (req, res) => {
               console.log('Email sent: ' + info.response);
             }
           });
+
+
+          // Determine the user's name(s) to use in the email
+          const userName = user.groom_name && user.bride_name ? `${user.groom_name} and ${user.bride_name}`: user.groom_name || user.bride_name;
+          // Send a confirmation email to the user
+          const userEmailOptions = {
+              from: 'serendibweds2@gmail.com', // The email address sending the email
+              to: user.email, // User's email from the database
+              subject: 'Your Booking Confirmation',
+              html: `
+              <div style="font-family: Arial, sans-serif; color: #333;">
+                  <h2 style="color: #007bff;">Booking Confirmation</h2>
+                  <p>Dear ${userName},</p>
+                  <p>Your appointment with <strong>${vendor.name}</strong> has been successfully booked. Here are the details:</p>
+                  <ul>
+                  <li>Date: <strong>${booking.bookingDate}</strong></li>
+                  <li>Time: <strong>${booking.bookingTime}</strong></li>
+                  <li>Special Requests: <strong>${appointments[0].specialRequests || 'None'}</strong></li>
+                  </ul>
+                  <p>If you need to cancel or reschedule your appointment, please contact us at least 24 hours in advance.</p>
+                  <p>Thank you for choosing us. We look forward to serving you!</p>
+                  <hr>
+                  <footer>
+                  <p>For any questions, feel free to contact <a href="mailto:${vendor.email}">${vendor.name}</a> or call us at <strong>${vendor.phone_number}</strong>.</p>
+                  </footer>
+              </div>
+              `,
+          };
+          
+          transporter.sendMail(userEmailOptions, function(error, info){
+              if (error) {
+              console.log('Error sending email to user:', error);
+              } else {
+              console.log('Confirmation email sent to user: ' + info.response);
+              }
+          });
          
         res.status(200).json(updatedVendor);
 
