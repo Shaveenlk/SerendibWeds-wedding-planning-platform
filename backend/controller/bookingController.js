@@ -54,8 +54,48 @@ export const createVendorBooking = async (req, res) => {
  
          // Save the updated user document
          await user.save();
+
+         // Send an email to the vendor
+        const mailOptions = {
+            from: 'serendibweds2@gmail.com', // The email address sending the email
+            to: vendor.email, // Vendor's email from the database
+            
+            subject: 'New Booking Appointment',
+            // text: Dear ${vendor.name}, you have a new booking. Details: Date - ${appointments[0].bookingDate}, Time - ${appointments[0].bookingTime}. Special Requests: ${appointments[0].specialRequests}, // Customize this message
+            html: `<div style="font-family: Arial, sans-serif; color: #333;">
+            <h2 style="color: #007bff;">New Booking Appointment</h2>
+            <p>Dear ${vendor.name},</p>
+            <p>You have a new booking from <strong>${appointments[0].name}</strong>. Here are the details:</p>
+            <ul>
+              <li>Date: <strong>${appointments[0].bookingDate}</strong></li>
+              <li>Time: <strong>${appointments[0].bookingTime}</strong></li>
+              <li>Special Requests: <strong>${appointments[0].specialRequests || 'None'}</strong></li>
+              <li>Contact Email: <strong>${appointments[0].email}</strong></li>
+              <li>Contact Phone: <strong>${appointments[0].phone}</strong></li>
+            </ul>
+            <p>Please review the details and prepare accordingly. If you have any questions or need to reach out to the customer, feel free to use the contact information provided.</p>
+            <p><a href="vendor_dashboard_link_here">Click here to view this booking in your dashboard.</a></p>
+            <p>Thank you for your attention to this booking!</p>
+            <hr>
+            <footer>
+              <p>If you have any questions, feel free to contact us at <a href="mailto:serendibweds2@gmail.com">support@example.com</a>.</p>
+            </footer>
+            
+          </div>
+          `, // html body
+          };
+  
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log('Error sending email:', error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
          
         res.status(200).json(updatedVendor);
+
+        
         
     }catch (error) {
         console.error('Error creating user:', error);
