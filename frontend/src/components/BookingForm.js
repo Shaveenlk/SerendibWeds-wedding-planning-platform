@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const BookingForm = ({ firebaseUserId })  => {
   const [name, setName] = useState('');
@@ -15,6 +16,10 @@ const BookingForm = ({ firebaseUserId })  => {
     const { id } = useParams();
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const appointmentId = uuidv4();
+    console.log(appointmentId); // Generate UUID here
+
     // Construct the booking object
     const bookingDetails = {
       appointments: [
@@ -25,6 +30,7 @@ const BookingForm = ({ firebaseUserId })  => {
           bookingDate,
           bookingTime,
           specialRequests,
+          appointmentId,
         }
       ],
       firebaseUserId: firebaseUserId
@@ -38,9 +44,6 @@ const BookingForm = ({ firebaseUserId })  => {
   
       // Handle the successful response
       console.log('Booking created successfully:', response.data);
-  
-      // // Call the onSubmit handler passed down from the parent component
-      // onSubmit(bookingDetails);
   
       // Reset form fields
       setName('');

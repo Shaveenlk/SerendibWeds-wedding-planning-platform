@@ -29,8 +29,10 @@ export const createVendorBooking = async (req, res) => {
             return res.status(404).json({ message: "Vendor not found" });
         }
         
-        // Add the new appointment to the vendor's appointments array
-        vendor.appointments.push({...appointments,appointmentId });
+        // Add each new appointment to the vendor's appointments array
+        appointments.forEach(appointment => {
+          vendor.appointments.push(appointment);
+          });
 
         // Save the updated vendor document
         const updatedVendor = await vendor.save();
@@ -46,7 +48,7 @@ export const createVendorBooking = async (req, res) => {
              bookingDate: appointments[0].bookingDate,
              bookingTime: appointments[0].bookingTime,
              email: vendor.email,
-             appointmentId: appointmentId[0].appointmentId
+             appointmentId: appointments[0].appointmentId
          };
  
          // Add the booking to the user's bookings array
