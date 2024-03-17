@@ -57,7 +57,6 @@ function App() {
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
-        {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
         <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
       </Routes>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react'
 import Navbarcomp from '../../components/Navbarcomp';
 import Footercomp from '../../components/Footercomp';
 import Tabcomp from '../../components/Tabcomp';
@@ -7,42 +7,31 @@ import Profilecomp from '../../components/Profilecomp';
 import VendorProfileComp from '../../components/VendorProfileComp';
 import Savedweddings from '../savedweddings/Savedweddings';
 import VendorProfileCarousel from '../../components/VendorProfileCarousel';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import BookingForm from '../../components/BookingForm' // Import the BookingForm component
-import { Snackbar } from '@mui/material';
-
 
 const VendorsProfile = () => {
-
-  const bookingFormRef = useRef(null);
-  const scrollToBookingForm = () => {
-    bookingFormRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
+  const [vendorDetails,setVendorDetails]=useState("");
+  const {id} =useParams();
+  useEffect(() => {  
+      axios.get(http://localhost:8000/api/vendors/${id})
+        .then(response => {
+          setVendorDetails(response.data); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
+    
   return (
     <div>
       <Navbarcomp />
-      <VendorProfileComp onBookUsClick={scrollToBookingForm} />
-      <VendorProfileCarousel />
-      <ServicesOfferedComp />
-      <BookingForm onSubmit={handleBookingSubmit} />
+      <VendorProfileComp vendorDetails={vendorDetails} />
+      <VendorProfileCarousel id={vendorDetails.vendorId} />
+      <ServicesOfferedComp serviceDetails={vendorDetails}/>
       <Footercomp />
     </div>
   )
 }
-
-// Function to handle form submission
-const handleBookingSubmit = async (bookingDetails) => {
-  try {
-    // Make an API call to your backend to create the booking
-    const response = await axios.post('/api/bookings', bookingDetails);
-    // Show success message to user
-    alert('Booking successfully created!');
-  } catch (error) {
-    // Handle errors (e.g., show error message)
-    console.error('Error creating booking:', error);
-    alert('Error creating booking.');
-  }
-};
 
 export default VendorsProfile;
