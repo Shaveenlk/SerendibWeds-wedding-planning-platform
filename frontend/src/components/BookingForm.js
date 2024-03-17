@@ -1,33 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const BookingForm = React.forwardRef(({ onSubmit }, ref) =>  {
-  const [bookingDate, setBookingDate] = useState('');
-  const [bookingTime, setBookingTime] = useState('');
-  const [specialRequests, setSpecialRequests] = useState('');
+const BookingForm = ({ firebaseUserId })  => {
+  const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [bookingDate, setBookingDate] = useState('');
+    const [bookingTime, setBookingTime] = useState('');
+    const [specialRequests, setSpecialRequests] = useState('');
+    
   
-
-  const handleSubmit = (event) => {
+    const { id } = useParams();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Construct the booking object
     const bookingDetails = {
-      bookingDate,
-      bookingTime,
-      specialRequests,
+      appointments: [
+        { 
+          name,
+          phone,
+          email,
+          bookingDate,
+          bookingTime,
+          specialRequests,
+        }
+      ],
+      firebaseUserId: firebaseUserId
     };
-    // Call the onSubmit handler passed down from the parent component
-    onSubmit(bookingDetails);
-    // Reset form fields
-    setBookingDate('');
-    setBookingTime('');
-    setSpecialRequests('');
+
+    console.log(firebaseUserId)
+
+    try {
+      // Make a POST request to the backend API using Axios
+      const response = await axios.post(`http://localhost:8000/api/vendors/${id}/booking`, bookingDetails);
+  
+      // Handle the successful response
+      console.log('Booking created successfully:', response.data);
+  
+      // // Call the onSubmit handler passed down from the parent component
+      // onSubmit(bookingDetails);
+  
+      // Reset form fields
+      setName('');
+      setPhone('');
+      setEmail('');
+      setBookingDate('');
+      setBookingTime('');
+      setSpecialRequests('');
+    } catch (error) {
+      console.error('Error creating booking:', error);
+      // Handle error, show a message to the user, etc.
+    }
   };
 
   return (
-    <Container ref={ref}>
+    <Container>
         <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'left', color: 'text.primary' }}>
           Book Your Appointment
         </Typography>
+        
       <Box
         component="form"
         sx={{
@@ -41,7 +74,35 @@ const BookingForm = React.forwardRef(({ onSubmit }, ref) =>  {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        
+
+        <TextField
+          id="name"
+          label="Name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          sx={{ width: 250 }}
+          required
+        />
+        <TextField
+          id="phone"
+          label="Phone"
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          sx={{ width: 250 }}
+          required
+        />
+        <TextField
+          id="email"
+          label="E-Mail"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          sx={{ width: 250 }}
+          required
+        />
+
         <TextField
           id="date"
           label="Booking Date"
@@ -84,6 +145,6 @@ const BookingForm = React.forwardRef(({ onSubmit }, ref) =>  {
       </Box>
     </Container>
   );
-});
+}
 
 export default BookingForm;
