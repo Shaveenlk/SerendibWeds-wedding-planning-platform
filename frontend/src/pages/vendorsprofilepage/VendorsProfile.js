@@ -14,7 +14,7 @@ const VendorsProfile = () => {
   const [vendorDetails,setVendorDetails]=useState("");
   const {id} =useParams();
   useEffect(() => {  
-      axios.get(http://localhost:8000/api/vendors/${id})
+      axios.get(`http://localhost:8000/api/vendors/${id}`)
         .then(response => {
           setVendorDetails(response.data); // Update vendor details state
         })

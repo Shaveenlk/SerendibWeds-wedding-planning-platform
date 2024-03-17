@@ -14,6 +14,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
 import VendorLogin from './pages/VendorLogin/vendorlogin';
 import ToDoList from './pages/todolist/TodoList';
+import VendorRegistrationPage from './pages/VendorRegistrationPage/VendorRegistrationPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -59,6 +60,8 @@ function App() {
         <Route path="/services" element={<ServicesPage/>}/>
         <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
+        <Route path="/vendorregistration" element={<VendorRegistrationPage/>}/>
+
       </Routes>
     </div>
   );
