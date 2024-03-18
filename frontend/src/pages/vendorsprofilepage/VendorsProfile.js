@@ -7,10 +7,11 @@ import Profilecomp from '../../components/Profilecomp';
 import VendorProfileComp from '../../components/VendorProfileComp';
 import Savedweddings from '../savedweddings/Savedweddings';
 import VendorProfileCarousel from '../../components/VendorProfileCarousel';
+import BookingForm from '../../components/BookingForm' 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const VendorsProfile = () => {
+const VendorsProfile = ({ firebaseUserId }) => {
   const [vendorDetails,setVendorDetails]=useState("");
   const {id} =useParams();
   useEffect(() => {  
@@ -29,6 +30,7 @@ const VendorsProfile = () => {
       <VendorProfileComp vendorDetails={vendorDetails} />
       <VendorProfileCarousel id={vendorDetails.vendorId} />
       <ServicesOfferedComp serviceDetails={vendorDetails}/>
+      <BookingForm firebaseUserId={firebaseUserId} />
       <Footercomp />
     </div>
   )

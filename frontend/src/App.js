@@ -45,6 +45,8 @@ function App() {
             <Route path="/profile" element={<Tabcomp firebaseUserId={user?.firebaseUserId} />} />
             <Route path="/services/booking" element={<div>lol</div>}  />
             <Route path="/userregistration" element={<UserRegistrationForm firebaseUserId={user?.firebaseUserId}/>}  />
+            <Route path="/vendorprofile/:id" element={<VendorsProfile firebaseUserId={user?.firebaseUserId}/>} />
+
           </>
         ) :  (
            //routes for unauthenticated users redirect to another pages
