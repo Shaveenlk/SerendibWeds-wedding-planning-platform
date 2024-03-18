@@ -4,7 +4,7 @@ import { deleteTodo, getTodo, updateTodo,addTodo } from '../controller/todoContr
 import {getVendors,getVendor, checkVendor} from "../controller/vendorController.js"
 import { getServices } from '../controller/serviceController.js';
 import { getEventDetails } from '../controller/eventDetailsController.js';
-
+import { createVendorBooking, getAppointmentsByUser } from '../controller/bookingController.js';
 
 const route =express.Router();
 
@@ -20,5 +20,7 @@ route.get('/vendors/:id',getVendor)
 route.get('/vendors/:id/services',getServices)
 route.get('/checkvendor/:firebaseUserId', checkVendor)
 route.get('/vendorsEvents/:id',getEventDetails)
+route.post('/vendors/:id/booking',createVendorBooking)
+route.get('/users/:firebaseUserId/bookings', getAppointmentsByUser);
 
 export default route;
