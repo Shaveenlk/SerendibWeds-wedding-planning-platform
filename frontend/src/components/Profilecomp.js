@@ -1,9 +1,12 @@
 import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import React,{useState,useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import auth from "../config/firebase-config"; // Import Firebase
 
 
 const Profilecomp = ({ firebaseUserId }) => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
   console.log('Firebase User ID:', firebaseUserId);
@@ -20,6 +23,16 @@ const Profilecomp = ({ firebaseUserId }) => {
       });
   }, [firebaseUserId]); // The empty dependency array ensures that the effect runs once when the component mounts
 
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      // Sign-out successful.
+      console.log('Sign-out successful.');
+      navigate('/'); 
+    }).catch((error) => {
+      // An error happened.
+      console.log('Error during sign-out:', error);
+    });
+  }
 
   return (
     <div className="profile">
@@ -57,7 +70,7 @@ const Profilecomp = ({ firebaseUserId }) => {
             justifyContent="center"
             display="flex"
           >
-            <Button variant="contained"  sx={{borderRadius: 5 ,
+            <Button variant="contained" onClick={handleLogout}  sx={{borderRadius: 5 ,
                   marginLeft: { xs: 8, sm: 0 },
                   marginBottom: { xs: 3, sm: 0 }, // 3px margin on xs (extra small) screens, no margin on sm (small) screens and above
                    // Adjust this value based on your design preferences
