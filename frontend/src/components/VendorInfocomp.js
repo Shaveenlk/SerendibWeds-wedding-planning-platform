@@ -65,8 +65,6 @@ const VendorInfocomp = ( {category} ) => {
     setSelectedVendor(vendors.find(vendor => vendor._id === vendorId));
   };
 
-  
-
   return (
     <Grid container spacing={2}>
       {vendors.map((vendor) => (

@@ -3,11 +3,15 @@ import axios from 'axios';
 import "./Search.css";
 import img from "./SearchImages/searchImg1.jpg"
 import imgSearch from "./SearchImages/search.svg";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Search = () => {
+  const navigate = useNavigate();
+
   const [searchResults, setSearchResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // State to manage search query
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = () => {
     // Send search query to Flask server only when image is clicked
@@ -24,6 +28,29 @@ const Search = () => {
     }
   };
 
+  const handleResultClick = (wedding) => {
+    const weddingId = wedding.metadata.wedding_id; // Ensure _id is defined
+    console.log("Clicked on wedding ID:", wedding.metadata.wedding_id); // Check weddingId in console
+
+    alert("Clicked on: " + wedding.metadata.bride_name + " & " + wedding.metadata.groom_name);
+    navigate(`/pastWedding`); 
+
+    
+
+    // axios.post(`http://localhost:8500/api/eventdetails/${weddingId}`, {
+    //   weddingId: weddingId,
+    // })
+    // .then(response => {
+    //   console.log("wedding details : ", response.data)
+    //   navigate(`/pastWedding`); 
+    //   // navigate(`/pastWedding/${weddingId}`); 
+    // })
+    // .catch(error => {
+    //   console.error("Error getting wedding details : ", error);
+    // });
+};
+
+
   return (
     <div className="search">
     <div className="searchBar">
@@ -39,7 +66,7 @@ const Search = () => {
 
     <div className="searchResults">
         {searchResults.map((wedding, index) => (
-          <div className="searchDetails" key={index}>
+          <div className="searchDetails" key={index} wedding={wedding} onClick={() => handleResultClick(wedding)}>
             <div className="searchThumbnail">
               <img src={img} alt="" />
             </div>

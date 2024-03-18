@@ -56,7 +56,7 @@ function App() {
         )}
         <Route path="*" element={<div>Page not found</div>} />
         <Route path="/dreamsearch" element={<SearchPage/>}/>
-        <Route path="/eventdetails" element={<GalleryPage/>}/>
+        <Route path="/pastWedding" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
         <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
