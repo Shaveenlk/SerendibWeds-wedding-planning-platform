@@ -65,6 +65,10 @@ const pastWeddingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    beautician: {
+        type: String,
+        default: ""
+    },
     recommendations: {
         type: String,
         default: ""
@@ -73,6 +77,14 @@ const pastWeddingSchema = new mongoose.Schema({
         type: String,
         default: ""
     }
+    // images: {
+    //     type: [String],
+    //     required: true
+    // },
+    // main_image: {
+    //     type: String,
+    //     required: true
+    // }
 });
 
 export default mongoose.model("PastWedding", pastWeddingSchema);
