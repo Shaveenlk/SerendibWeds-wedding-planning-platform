@@ -7,7 +7,6 @@ import { getEventDetails } from '../controller/eventDetailsController.js';
 import { createVendorBooking, getAppointmentsByUser, deleteAppointment } from '../controller/bookingController.js';
 
 
-
 const route =express.Router();
 
 route.post("/createuser", createUser);
