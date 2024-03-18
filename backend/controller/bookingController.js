@@ -29,8 +29,10 @@ export const createVendorBooking = async (req, res) => {
             return res.status(404).json({ message: "Vendor not found" });
         }
         
-        // Add the new appointment to the vendor's appointments array
-        vendor.appointments.push({...appointments,appointmentId });
+        // Add each new appointment to the vendor's appointments array
+        appointments.forEach(appointment => {
+          vendor.appointments.push(appointment);
+          });
 
         // Save the updated vendor document
         const updatedVendor = await vendor.save();
@@ -46,7 +48,7 @@ export const createVendorBooking = async (req, res) => {
              bookingDate: appointments[0].bookingDate,
              bookingTime: appointments[0].bookingTime,
              email: vendor.email,
-             appointmentId: appointmentId[0].appointmentId
+             appointmentId: appointments[0].appointmentId
          };
  
          // Add the booking to the user's bookings array
@@ -159,3 +161,37 @@ export const getAppointmentsByUser = async (req, res) => {
     }
 };
 
+
+// Delete the selected appointment from database
+export const deleteAppointment = async (req, res) => {
+  try {
+      const { firebaseUserId, appointmentId } = req.params;
+
+      // Find the user and the appointment
+      const user = await Users.findOne({ firebaseUserId });
+      if (!user) {
+          return res.status(404).json({ message: "User not found." });
+      }
+      
+      // Find the appointment to remove and its corresponding vendor email
+      
+      const vendorEmail = user.appointments[appointmentId].email;
+      console.log(vendorEmail);
+      
+      // Remove the appointment from the user's document and save
+      user.appointments.splice(appointmentId, 1);
+      console.log(appointmentId)
+      await user.save();
+      
+      // Find the corresponding vendor based on the email
+      const vendor = await Vendors.findOne({ email: vendorEmail });
+      vendor.appointments.splice(appointmentId, 1);
+      console.log(appointmentId)
+      await vendor.save();
+     
+      res.status(200).json({ message: "Appointment successfully deleted from both user and vendor records." });
+  } catch (error) {
+      console.error('Error deleting appointment:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
