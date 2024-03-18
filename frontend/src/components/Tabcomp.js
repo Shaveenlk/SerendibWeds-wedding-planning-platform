@@ -1,15 +1,32 @@
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import ToDoList from '../pages/todolist/TodoList';
 import Savedweddings from '../pages/savedweddings/Savedweddings';
 import Navbarcomp from './Navbarcomp';
 import Profilecomp from './Profilecomp';
 import Footercomp from './Footercomp';
+import Loader from './Loader';
 
 
 const Tabcomp = ({firebaseUserId}) => {
   const [value, setValue] = useState('1');
+  const [isLoading, setIsLoading] = useState(true);
+
+  
+
+
+  useEffect(() => {
+    // simulate an asynchronous operation
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  if (isLoading) {
+    return <Loader loadingdesc="Loading..."/>;
+  }
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

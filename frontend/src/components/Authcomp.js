@@ -38,8 +38,7 @@ const Authcomp = ({ isVendor }) => {
             const userData = userResponse.data;
 
             if (vendorData.exists) {
-                // User exists as a vendor, redirect to the vendor profile page
-                navigate('/vendorprofile');
+                navigate(`/vendorsprofile/${vendorData._id}`);
             } else if (userData.exists) {
                 // User exists as a regular user, navigate based on your user flow
                 navigate('/');
