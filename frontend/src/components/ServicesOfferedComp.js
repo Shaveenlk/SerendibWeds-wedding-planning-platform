@@ -65,17 +65,17 @@ const ServicesOfferedComp = () => {
       </Typography>
       {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
         <Accordion key={index} style={accordionStyle}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${index + 1}-content`}
-            id={`panel${index + 1}-header`}
-          >
-            {serviceItem.name}
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{serviceItem.description}</Typography>
-          </AccordionDetails>
-        </Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel${index + 1}-content`}
+              id={`panel${index + 1}-header`}
+            >
+              {serviceItem.name}
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{serviceItem.description}</Typography>
+            </AccordionDetails>
+          </Accordion>
       ))}
     </div>
   );

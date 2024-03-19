@@ -17,11 +17,11 @@
 }
 
 
-div {
+.about-us-container, .section, .who-we-are, .our-vision, .our-mission, .meet-our-team, .team-members, .team-member {
   position: relative;
 }
 
-img {
+.team-member-photo,.team-member-name-photo{
   position: absolute;
   top: 0;
   right: 0;

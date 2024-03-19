@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
-
-const VendorProfileComp = () => {
+const VendorProfileComp = ({ onBookUsClick }) => {
 
 
   const [vendorDetails,setVendorDetails]=useState("");
@@ -67,7 +66,7 @@ const VendorProfileComp = () => {
             justifyContent="center"
           >
           </Grid>
-            <Button variant="contained" sx={{
+            <Button variant="contained" onClick={onBookUsClick} sx={{
               borderRadius: 5,
               marginLeft: { xs: 8, sm: 25 },
               marginBottom: { xs: 3, sm: 0 },
@@ -82,7 +81,7 @@ const VendorProfileComp = () => {
                 Contact Us            
             </Button>
         </Grid>
-      </Box>
+      </Box>     
     </div>
   )
 }
