@@ -3,9 +3,8 @@ import Homepage from './pages/homepage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
-import Gallery from './pages/GalleryPage/GalleryPage';
+import GalleryPage from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
-import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
 import UserRegistrationForm from './pages/UserRegistrationPage/UserRegistrationForm';
@@ -13,8 +12,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
 import VendorLogin from './pages/VendorLogin/vendorlogin';
-import ToDoList from './pages/todolist/TodoList';
-import VendorRegistrationPage from './pages/VendorRegistrationPage/VendorRegistrationPage';
+import Vendortabcomp from './components/Vendortabcomp';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,8 +34,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage/>} />
-        <Route path="/home" element={<Homepage/>} />
-
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         {user ? (//routes for authenticated users
@@ -46,24 +42,24 @@ function App() {
             <Route path="/services/booking" element={<div>lol</div>}  />
             <Route path="/userregistration" element={<UserRegistrationForm firebaseUserId={user?.firebaseUserId}/>}  />
             <Route path="/vendorprofile/:id" element={<VendorsProfile firebaseUserId={user?.firebaseUserId}/>} />
-
           </>
         ) :  (
            //routes for unauthenticated users redirect to another pages
           <>
-          {/* <Route path="/profile" element={<Navigate to="/login" />} /> */}
+          <Route path="/profile" element={<Navigate to="/login" />} />
+          <Route path="/vendorprofile/:id" element={<Navigate to="/login" />}/>
           <Route path="/userregistration" element={<Navigate to="/" />} />
           {/* <Route path="/services/booking" element={<Navigate to="/login" />} /> */}
           </>
         )}
-        <Route path="*" element={<div>Page not found</div>} />
         <Route path="/dreamsearch" element={<SearchPage/>}/>
-        <Route path="/pastWedding/:weddingId" element={<Gallery/>}/>
+        <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
-        <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
+        {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
+     
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
-        <Route path="/vendorregistration" element={<VendorRegistrationPage/>}/>
-
+        {/* <Route path="/vendorprofile" element={<Vendortabcomp vendorId={vendorData._id}/>}/> */}
+        <Route path="/vendorsprofile/:id" element={<Vendortabcomp/>}/>
       </Routes>
     </div>
   );

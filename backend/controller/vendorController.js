@@ -33,7 +33,7 @@ export const checkVendor = async (req, res) => {
         const existingUser = await Vendors.findOne({ firebaseUserId });
   
         if (existingUser) {
-          res.status(200).json({ exists: true });
+          res.status(200).json({ exists: true, _id: existingUser._id });
         } else {
           res.status(200).json({ exists: false });
         }
