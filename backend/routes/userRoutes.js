@@ -19,7 +19,7 @@ route.get('/vendors',getVendors);
 route.get('/vendors/:id',getVendor);
 route.get('/vendors/:id/services',getServices);
 route.get('/checkvendor/:firebaseUserId', checkVendor);
-route.get('/eventdetails/:id', getWeddingDetails);
+route.get('/getPastWedding/:wedding_id', getWeddingDetails);
 route.post('/vendors/:id/booking',createVendorBooking);
 route.get('/users/:firebaseUserId/bookings', getAppointmentsByUser);
 route.delete('/bookings/:firebaseUserId/:appointmentId', deleteAppointment);
