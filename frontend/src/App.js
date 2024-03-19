@@ -13,6 +13,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
 import VendorLogin from './pages/VendorLogin/vendorlogin';
 import Vendortabcomp from './components/Vendortabcomp';
+import VendorRegistrationPage from './pages/VendorRegistrationPage/VendorRegistrationPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +35,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage/>} />
+        <Route path="/vendorsignup" element={<VendorRegistrationPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         {user ? (//routes for authenticated users
@@ -58,6 +60,7 @@ function App() {
         {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
      
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
+        <Route path="/pastWedding/:weddingId" element={<GalleryPage/>}/>
         {/* <Route path="/vendorprofile" element={<Vendortabcomp vendorId={vendorData._id}/>}/> */}
         <Route path="/vendorsprofile/:id" element={<Vendortabcomp/>}/>
       </Routes>

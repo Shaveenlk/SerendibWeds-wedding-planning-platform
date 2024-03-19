@@ -110,7 +110,7 @@ const Authcomp = ({ isVendor }) => {
 
                     {isVendor ? (
                         <p>
-                            Don't have an account? <Link to="/signup">Sign up</Link>
+                            Don't have an account? <Link to="/vendorsignup">Sign up</Link>
                         </p>
                     ) : (
                         <button className="google-sign-in" onClick={handleGoogleSignIn}>
