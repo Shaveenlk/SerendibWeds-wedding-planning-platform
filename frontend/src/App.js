@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
 import VendorLogin from './pages/VendorLogin/vendorlogin';
-import ToDoList from './pages/todolist/TodoList';
+import Vendortabcomp from './components/Vendortabcomp';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,22 +41,25 @@ function App() {
             <Route path="/profile" element={<Tabcomp firebaseUserId={user?.firebaseUserId} />} />
             <Route path="/services/booking" element={<div>lol</div>}  />
             <Route path="/userregistration" element={<UserRegistrationForm firebaseUserId={user?.firebaseUserId}/>}  />
+            <Route path="/vendorprofile/:id" element={<VendorsProfile firebaseUserId={user?.firebaseUserId}/>} />
           </>
         ) :  (
            //routes for unauthenticated users redirect to another pages
           <>
-          {/* <Route path="/profile" element={<Navigate to="/login" />} /> */}
+          <Route path="/profile" element={<Navigate to="/login" />} />
+          <Route path="/vendorprofile/:id" element={<Navigate to="/login" />}/>
           <Route path="/userregistration" element={<Navigate to="/" />} />
           {/* <Route path="/services/booking" element={<Navigate to="/login" />} /> */}
           </>
         )}
-        <Route path="*" element={<div>Page not found</div>} />
         <Route path="/dreamsearch" element={<SearchPage/>}/>
         <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
         {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
-        <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
+     
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
+        {/* <Route path="/vendorprofile" element={<Vendortabcomp vendorId={vendorData._id}/>}/> */}
+        <Route path="/vendorsprofile/:id" element={<Vendortabcomp/>}/>
       </Routes>
     </div>
   );
