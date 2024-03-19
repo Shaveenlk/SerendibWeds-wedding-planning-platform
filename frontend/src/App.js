@@ -3,7 +3,7 @@ import Homepage from './pages/homepage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
-import GalleryPage from './pages/GalleryPage/GalleryPage';
+import Gallery from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
@@ -58,7 +58,7 @@ function App() {
         )}
         <Route path="*" element={<div>Page not found</div>} />
         <Route path="/dreamsearch" element={<SearchPage/>}/>
-        <Route path="/pastWedding" element={<GalleryPage/>}/>
+        <Route path="/pastWedding/:weddingId" element={<Gallery/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
         <Route path="/vendorprofile/:id" element={<VendorsProfile/>} />
         <Route path="/vendorlogin" element={<VendorLogin/>}/>

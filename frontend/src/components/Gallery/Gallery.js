@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./Gallery.css";
+import { useParams } from 'react-router-dom';
 
 import img1 from "./GalleryImages/galleryImg1.jpg";
 import img2 from "./GalleryImages/galleryImg2.jpg";
@@ -56,32 +58,31 @@ const imgData = [
   },
 ];
 
-const Gallery = ( {weddingId} ) => {
-  const [selectedWedding, setSelectedWedding] = useState(null);
+const Gallery = () => {
+  const {weddingId} =useParams();
+  const [weddingData, setWeddingData] = useState(null);
+
+  useEffect(() => {
+    // Make API call to fetch wedding data based on weddingId
+    axios.get(`http://localhost:8500/api/getPastWedding/${weddingId}`)
+      .then(response => {
+        setWeddingData(response.data);
+        console.log(weddingData)
+      })
+      .catch(error => {
+        console.error("Error fetching wedding data:", error);
+      });
+  }, [weddingId]);
 
   return (
     <div className="gallery">
       <div className="introSection">
         <div className="mainIntroText">
-          {/* <h1 className="weddingCouple">{wedding.metadata.bride_name} & {wedding.metadata.groom_name}</h1> */}
-          <h1 className="weddingCouple">Amuka & Dumuka</h1>
-
-          <p className="weddingDetails">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            illum repellat ea reprehenderit unde! Placeat provident sequi
-            aliquam earum, commodi magni sed quo voluptatem in totam, excepturi
-            dolorum perferendis sit.
-            {/* {wedding.metadata.description} */}
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis numquam rerum nobis consectetur mollitia maxime fuga
-            ipsam? Itaque minima explicabo nemo et, vero quae quia voluptatibus
-            ut numquam, tempore laboriosam!
-            {/* {wedding.metadata.date} */}
-          </p>
+          <h1 className="weddingCouple">{weddingData?.weddingDetails.bride_name} & {weddingData?.weddingDetails.groom_name}</h1>
+          <p className="weddingDetails">{weddingData?.weddingDetails.description}</p>
+          <p>{weddingData?.weddingDetails.date}</p>
         </div>
-
+        
         <div className="imgBox">
           <img src={
             couple
@@ -91,16 +92,10 @@ const Gallery = ( {weddingId} ) => {
       </div>
 
       <div className="vendorsSection">
-        < h2 className="vendorTitle">Vendors</h2>
-        <p>Photography: 
-          {/* {wedding.metadata.photographer_videographer} */}
-        </p>
-        <p>Venue: 
-          {/* {wedding.metadata.photographer_videographer} */}
-        </p>
-        <p>Decorations: 
-          {/* {wedding.metadata.location} */}
-        </p>
+        <h2 className="vendorTitle">Vendors</h2>
+        <p>Photography: {weddingData?.weddingDetails.photographer_videographer}</p>
+        <p>Venue: {weddingData?.weddingDetails.location}</p>
+        <p>Decorations: {weddingData?.weddingDetails.decorations}</p>
       </div>
 
       <div className="photoGallery">

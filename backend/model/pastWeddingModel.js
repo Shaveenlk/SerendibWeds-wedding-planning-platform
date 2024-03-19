@@ -76,15 +76,15 @@ const pastWeddingSchema = new mongoose.Schema({
     additional_notes: {
         type: String,
         default: ""
+    },
+    images: {
+        type: [String],
+        required: true
+    },
+    main_image: {
+        type: String,
+        required: true
     }
-    // images: {
-    //     type: [String],
-    //     required: true
-    // },
-    // main_image: {
-    //     type: String,
-    //     required: true
-    // }
 });
 
-export default mongoose.model("PastWedding", pastWeddingSchema);
+export default mongoose.model("pastweddings", pastWeddingSchema);
