@@ -42,7 +42,7 @@ function VendorRegistrationForm() {
     };
 
     return (
-        <div className="vendor-form">
+        <div className="vendor-form" id="form">
             <div className="form-section">
                 <h1>SerendibWeds - Vendor Registration Form</h1>
                 <p>Join our network of esteemed wedding professionals. Please fill out this form with details about your services and experience. Our team will review your submission and reach out to discuss potential collaboration. We look forward to creating beautiful weddings together!</p>

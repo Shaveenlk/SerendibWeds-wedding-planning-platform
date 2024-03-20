@@ -1,111 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 import "./Search.css";
-
-import img1 from "./SearchImages/searchImg1.jpg";
-import img2 from "./SearchImages/searchImg2.jpg";
-import img3 from "./SearchImages/searchImg3.jpg";
-import img4 from "./SearchImages/searchImg4.jpg";
-import img5 from "./SearchImages/searchImg5.jpg";
-import img6 from "./SearchImages/searchImg6.jpg";
+import img from "./SearchImages/searchImg1.jpg"
 import imgSearch from "./SearchImages/search.svg";
+import { useNavigate } from "react-router-dom";
 
-
-const serachData = [
-  {
-    id: 1,
-    img: img1,
-    title: "GEORGE & TINA",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-  {
-    id: 2,
-    img: img2,
-    title: "LIAM & SARAH",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-  {
-    id: 3,
-    img: img3,
-    title: "SANDARU & JANET",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-  {
-    id: 4,
-    img: img4,
-    title: "RUWAN & SAMADHI",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-  {
-    id: 5,
-    img: img5,
-    title: "PETER & RUWANI",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-  {
-    id: 6,
-    img: img6,
-    title: "DINAL & DAISY",
-    date: "20/12/2019",
-    venue: "Hilton",
-    Theme: "Nature",
-  },
-];
 
 const Search = () => {
+  const navigate = useNavigate();
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      axios.post("http://127.0.0.1:5000/get_top_matches", {
+        searchQuery: searchQuery,
+      })
+      .then(response => {
+        setSearchResults(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+    }
+  };
+
+  const handleResultClick = (wedding) => {
+    // const weddingId = wedding.metadata.wedding_id; 
+    // console.log("Clicked on wedding ID:", weddingId); 
+
+    // alert("Clicked on: " + wedding.metadata.bride_name + " & " + wedding.metadata.groom_name);
+    navigate(`/pastWedding/${wedding.metadata.wedding_id}`);
+  };
+
   return (
     <div className="search">
-      <div className="searchBar">
-        <input
-          type="text"
-          placeholder="Search Anything..."
-          className="search"
+    <div className="searchBar">
+      <input 
+        type="text" 
+        placeholder="Search Anything..." 
+        className="search" 
+        value={searchQuery} // Bind input value to searchQuery state
+        onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <img src={imgSearch} alt="" />
-      </div>
+        <img src={imgSearch} alt="" onClick={handleSearch} />
+    </div>
 
-      <div className="searchResults">
-        {serachData.map((details, id) => {
-          return (
-            <div className="searchDetails" key={id}>
-              <div className="searchThumbnail">
-                <img src={details.img} alt="" />
+    <div className="searchResults">
+        {searchResults.map((wedding, index) => (
+          <div className="searchDetails" key={index} wedding={wedding} onClick={() => handleResultClick(wedding)}>
+            <div className="searchThumbnail">
+              <img src={img} alt="" />
+            </div>
+            <div className="searchContent">
+              <div className="searchContentTitle">{wedding.metadata.bride_name} & {wedding.metadata.groom_name}</div>
+              <br />
+              <div>
+                <span className="searchContentDetails">Description: </span>
+                <span>{wedding.metadata.description}</span>
               </div>
-
-              <div className="searchContent">
-                <div className="searchContentTitle">{details.title}</div>
-
-                <br />
-
-                <div>
-                  <span className="searchContentDetails">Date: </span>
-                  <span>{details.date}</span>
-                </div>
-
-                <div>
-                  <span className="searchContentDetails">Venue: </span>
-                  <span>{details.venue}</span>
-                </div>
-
-                <div>
-                  <span className="searchContentDetails">Theme: </span>
-                  <span>{details.Theme}</span>
-                </div>
+              <div>
+                <span className="searchContentDetails">Date: </span>
+                <span>{wedding.metadata.date}</span>
+              </div>
+              <div>
+                <span className="searchContentDetails">Location: </span>
+                <span>{wedding.metadata.location}</span>
+              </div>
+              <div>
+                <span className="searchContentDetails">Theme: </span>
+                <span>{wedding.metadata.theme}</span>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
-    </div>
+  </div>
   );
 };
 

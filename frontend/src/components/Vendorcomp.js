@@ -1,18 +1,17 @@
 import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import React,{useState,useEffect} from "react";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import auth from "../config/firebase-config"; // Import Firebase
+import { useParams } from 'react-router-dom';
 
 
-const Profilecomp = ({ firebaseUserId }) => {
-  const navigate = useNavigate();
+
+const Vendorcomp = ({vendorId}) => {
   const [userData, setUserData] = useState(null);
+  const {id} =useParams();
 
-  console.log('Firebase User ID:', firebaseUserId);
   useEffect(() => {
     // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
-    axios.get(`http://localhost:8000/api/getuser/${firebaseUserId}`)
+    axios.get(`http://localhost:8000/api/vendors/${id}`)
       .then(response => {
         console.log('API response:', response);
         setUserData(response.data);
@@ -21,18 +20,8 @@ const Profilecomp = ({ firebaseUserId }) => {
         console.error('Error fetching user data:', error);
         // Handle the error or set appropriate state to indicate the error
       });
-  }, [firebaseUserId]); // The empty dependency array ensures that the effect runs once when the component mounts
+  }, [vendorId]); // The empty dependency array ensures that the effect runs once when the component mounts
 
-  const handleLogout = () => {
-    auth.signOut().then(() => {
-      // Sign-out successful.
-      console.log('Sign-out successful.');
-      navigate('/'); 
-    }).catch((error) => {
-      // An error happened.
-      console.log('Error during sign-out:', error);
-    });
-  }
 
   return (
     <div className="profile">
@@ -51,12 +40,12 @@ const Profilecomp = ({ firebaseUserId }) => {
       
           >
             <Avatar
-              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={userData?.logo}
               sx={{ width: 100, height: 100,marginTop: 2, ml: 2, mb: 2 }}
       
             />
             <Typography variant="h5" component="div" sx={{ ml: 2, p: 2,fontWeight: 'bold' }}>
-            {userData?.groom_name} & {userData?.bride_name}  <br />  {userData?.email}
+            {userData?.name} <br/> {userData?.category}  <br />  {userData?.email}
             </Typography>
           </Grid>
           {/* Logout Button Section */}
@@ -70,7 +59,7 @@ const Profilecomp = ({ firebaseUserId }) => {
             justifyContent="center"
             display="flex"
           >
-            <Button variant="contained" onClick={handleLogout}  sx={{borderRadius: 5 ,
+            <Button variant="contained"  sx={{borderRadius: 5 ,
                   marginLeft: { xs: 8, sm: 0 },
                   marginBottom: { xs: 3, sm: 0 }, // 3px margin on xs (extra small) screens, no margin on sm (small) screens and above
                    // Adjust this value based on your design preferences
@@ -84,4 +73,4 @@ const Profilecomp = ({ firebaseUserId }) => {
   );
 };
 
-export default Profilecomp;
+export default Vendorcomp;

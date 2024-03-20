@@ -3,9 +3,11 @@ import '../UserRegistrationPage/UserRegistrationForm.css'; // Import CSS file
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../components/Loader';
 
 
 const UserRegistrationForm = ({firebaseUserId}) => {
+    const [loading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [userFormState, setUserFormState] = useState({
         FirebaseUserId: firebaseUserId,
@@ -31,7 +33,31 @@ const UserRegistrationForm = ({firebaseUserId}) => {
     };
 
     const handleSubmit = async (event) => {
+        
         event.preventDefault();
+
+        // Validate form fields before submission
+        if (!userFormState.groom_name || !userFormState.bride_name || !userFormState.email) {
+            toast.error('Please fill out all required fields.');
+            return;
+        }
+
+         // Validate email format
+         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailRegex.test(userFormState.email)) {
+             toast.error('Please enter a valid email address.');
+            //  setIsLoading(false);
+             return;
+         }
+ 
+         // Validate radio button selections
+         if (!userFormState.marriage_license || !userFormState.venue || !userFormState.musical_band || !userFormState.florist || !userFormState.wedding_style || !userFormState.attire || !userFormState.guest_list || !userFormState.invite_method) {
+             toast.error('Please make selections for all options.');
+            //  setIsLoading(false);
+             return;
+         }
+ 
+        setIsLoading(true);
         // submitting vendor form details to backend
         try {
             // Generate todo list based on the form data
@@ -43,6 +69,7 @@ const UserRegistrationForm = ({firebaseUserId}) => {
                 groom_name: userFormState.groom_name,
                 bride_name: userFormState.bride_name,
                 email: userFormState.email,
+                role: 'user',
                 todolist: todoList
             };
             console.log(userDataWithTodoList);
@@ -50,15 +77,18 @@ const UserRegistrationForm = ({firebaseUserId}) => {
             // Make a POST request to the backend API
             const response = await axios.post('http://localhost:8000/api/createuser', userDataWithTodoList);
             // console.log('Response from backend:', response.data);
-    
+            setIsLoading(false);
             // Log the response from the backend
             toast.success("User profile created successfully", { position: 'top-right' })
-            navigate('/')
+            navigate('/profile');
         } catch (error) {
             console.error('Error submitting form:', error);
         }
     };
     
+    if (loading) {
+        return <Loader loadingdesc={"Generating a todo list"}/>;
+    }
     
     const rules = {
         marriageLicense: {

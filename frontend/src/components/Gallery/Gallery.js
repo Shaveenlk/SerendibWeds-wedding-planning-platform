@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./Gallery.css";
+import { useParams } from 'react-router-dom';
 
 import img1 from "./GalleryImages/galleryImg1.jpg";
 import img2 from "./GalleryImages/galleryImg2.jpg";
@@ -57,42 +59,53 @@ const imgData = [
 ];
 
 const Gallery = () => {
+  const {weddingId} =useParams();
+  const [weddingData, setWeddingData] = useState(null);
+
+  useEffect(() => {
+    // Make API call to fetch wedding data based on weddingId
+    axios.get(`http://localhost:8500/api/getPastWedding/${weddingId}`)
+      .then(response => {
+        setWeddingData(response.data);
+        console.log(weddingData)
+      })
+      .catch(error => {
+        console.error("Error fetching wedding data:", error);
+      });
+  }, [weddingId]);
+
   return (
     <div className="gallery">
       <div className="introSection">
         <div className="mainIntroText">
-          <h1 className="weddingCouple">GEORGE & TINA</h1>
-          <p className="weddingDetails">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            illum repellat ea reprehenderit unde! Placeat provident sequi
-            aliquam earum, commodi magni sed quo voluptatem in totam, excepturi
-            dolorum perferendis sit.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Perspiciatis numquam rerum nobis consectetur mollitia maxime fuga
-            ipsam? Itaque minima explicabo nemo et, vero quae quia voluptatibus
-            ut numquam, tempore laboriosam!
-          </p>
+          <h1 className="weddingCouple">{weddingData?.weddingDetails.bride_name} & {weddingData?.weddingDetails.groom_name}</h1>
+          <p className="weddingDetails">{weddingData?.weddingDetails.description}</p>
+          <p>{weddingData?.weddingDetails.date}</p>
         </div>
-
+        
         <div className="imgBox">
-          <img src={couple} alt="/" />
+          <img src={
+            couple
+            /* {wedding.metadata.main_image} */
+          } alt="/" />
         </div>
       </div>
 
       <div className="vendorsSection">
-        < h2 className="vendorTitle">Vendors</h2>
-        <p>Photography: </p>
-        <p>Venue: </p>
-        <p>Decorations: </p>
+        <h2 className="vendorTitle">Vendors</h2>
+        <p>Photography: {weddingData?.weddingDetails.photographer_videographer}</p>
+        <p>Venue: {weddingData?.weddingDetails.location}</p>
+        <p>Decorations: {weddingData?.weddingDetails.decorations}</p>
       </div>
 
       <div className="photoGallery">
         {imgData.map((picture,key) => {
           return (
             <div className="galleryImages" key={key}>
-              <img src={picture.img} alt="" />
+              <img src={
+                picture.img
+                /* {wedding.metadata.main_image} */
+              } alt="" />
             </div>
           );
         })}

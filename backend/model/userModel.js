@@ -1,5 +1,28 @@
 import mongoose from "mongoose";
 
+const appointmentsuserSchema = new mongoose.Schema({
+    vendorname: {
+        type: String,
+        required: true
+    },
+    bookingDate: {
+        type: Date,
+        required: true
+    },
+    bookingTime: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+//     uniqueAppointmentId: {
+//     type: String,
+//     required: true
+// }
+});
+
 
 const userSchema = new mongoose.Schema({
     firebaseUserId: {
@@ -18,10 +41,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        required: true
+    },
     todolist: {
         type: [String],  // Assuming the todolist is an array of strings
         default: []  // Adjust the default value based on your requirements
-    }
+    },
+    appointments: {
+        type: [appointmentsuserSchema],
+        default: []
+    }// Embed the appointment schema here
 })
 
 export default mongoose.model("Users", userSchema)
