@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import "./Search.css";
 import img from "./SearchImages/searchImg1.jpg"
 import imgSearch from "./SearchImages/search.svg";
 import { useNavigate } from "react-router-dom";
-
 
 
 const Search = () => {
@@ -14,7 +13,6 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = () => {
-    // Send search query to Flask server only when image is clicked
     if (searchQuery.trim() !== "") {
       axios.post("http://127.0.0.1:5000/get_top_matches", {
         searchQuery: searchQuery,
@@ -29,27 +27,12 @@ const Search = () => {
   };
 
   const handleResultClick = (wedding) => {
-    const weddingId = wedding.metadata.wedding_id; // Ensure _id is defined
-    console.log("Clicked on wedding ID:", wedding.metadata.wedding_id); // Check weddingId in console
+    // const weddingId = wedding.metadata.wedding_id; 
+    // console.log("Clicked on wedding ID:", weddingId); 
 
-    alert("Clicked on: " + wedding.metadata.bride_name + " & " + wedding.metadata.groom_name);
-    navigate(`/pastWedding`); 
-
-    
-
-    // axios.post(`http://localhost:8500/api/eventdetails/${weddingId}`, {
-    //   weddingId: weddingId,
-    // })
-    // .then(response => {
-    //   console.log("wedding details : ", response.data)
-    //   navigate(`/pastWedding`); 
-    //   // navigate(`/pastWedding/${weddingId}`); 
-    // })
-    // .catch(error => {
-    //   console.error("Error getting wedding details : ", error);
-    // });
-};
-
+    // alert("Clicked on: " + wedding.metadata.bride_name + " & " + wedding.metadata.groom_name);
+    navigate(`/pastWedding/${wedding.metadata.wedding_id}`);
+  };
 
   return (
     <div className="search">

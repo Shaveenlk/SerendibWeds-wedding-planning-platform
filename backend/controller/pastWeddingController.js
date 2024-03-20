@@ -1,9 +1,11 @@
-import PastWedding from "../model/pastWeddingModel.js";
+import pastweddings from "../model/pastWeddingModel.js";
 
 export const getWeddingDetails = async (req, res) => {
     try {
-        const wedding_id = req.params.id;
-        const weddingDetails = await PastWedding.findById(wedding_id);
+        const {wedding_id} = req.params;
+        console.log(wedding_id)
+        const weddingDetails = await pastweddings.findOne({wedding_id});
+        console.log(weddingDetails)
         if (!weddingDetails) {
             return res.status(404).json({ message: "Wedding details not found" });
         }
