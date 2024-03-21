@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const VendorInfoTile = ({ vendor, onClick }) => {
 
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     onClick(vendor._id);
@@ -47,7 +47,7 @@ const VendorInfocomp = ( {category} ) => {
   const [selectedVendor, setSelectedVendor] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8500/api/vendors')
+    axios.get('http://localhost:8000/api/vendors')
     .then(response => {
       if (Array.isArray(response.data.vendors)) { // Check if vendors is an array
         setVendors(response.data.vendors);
