@@ -1,7 +1,7 @@
 import express, {Router} from 'express';
 import { checkuser, createUser, getUserData } from '../controller/userController.js';
 import { deleteTodo, getTodo, updateTodo,addTodo } from '../controller/todoController.js';
-import {getVendors,getVendor, checkVendor} from "../controller/vendorController.js"
+import {getVendors,getVendor, checkVendor,getVendorAppointments} from "../controller/vendorController.js"
 import { getServices, addServices, deleteService,updateService } from '../controller/serviceController.js';
 import { getWeddingDetails } from '../controller/pastWeddingController.js';
 import { createVendorBooking, getAppointmentsByUser, deleteAppointment } from '../controller/bookingController.js';
@@ -25,6 +25,7 @@ route.get('/checkvendor/:firebaseUserId', checkVendor);
 route.get('/getPastWedding/:wedding_id', getWeddingDetails);
 route.post('/vendors/:id/booking',createVendorBooking);
 route.get('/users/:firebaseUserId/bookings', getAppointmentsByUser);
+route.get('/vendors/:id/appointments', getVendorAppointments);
 route.delete('/bookings/:firebaseUserId/:appointmentId', deleteAppointment);
 
 export default route;
