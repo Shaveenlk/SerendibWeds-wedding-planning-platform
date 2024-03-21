@@ -72,7 +72,7 @@ const TestimonialTile = ({ testimonialData }) => {
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345 ,border:'solid lightgrey', borderRadius:'12px'}}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor:"#C19C76" }} aria-label="recipe">
@@ -80,7 +80,6 @@ const TestimonialTile = ({ testimonialData }) => {
             </Avatar>
           }
           title={title}
-          subheader={time} 
         />
         <CardContent>
           <Typography variant="body2" sx={{ margin: '15px' }}>
@@ -106,7 +105,7 @@ const Testimonialcomp = () => {
   return (
     <Grid container spacing={2} sx={{ margin: '20px 80px 20px 80px' }}>
       {shuffledTestimonialData.map((data, index) => (
-        <Grid item lg={4} key={index}>
+        <Grid item lg={4} key={index} >
           <TestimonialTile testimonialData={data} />
         </Grid>
       ))}
