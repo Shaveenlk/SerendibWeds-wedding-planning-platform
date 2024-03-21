@@ -11,6 +11,37 @@ const serviceSchema = new mongoose.Schema({
     }
 });
 
+const appointmentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    bookingDate: {
+        type: Date,
+        required: true 
+    },
+    bookingTime: {
+        type: String,
+        required: true 
+    },
+    specialRequests: {
+        type: String,
+        required: true 
+    },
+    appointmentId: { 
+        type: String, 
+        required: true
+    }
+});
+
 const vendorSchema = new mongoose.Schema({
     firebaseUserId: {
         type: String,  // Assuming the Firebase user ID is a string
@@ -61,7 +92,7 @@ const vendorSchema = new mongoose.Schema({
         default: []
     },
     appointments: {
-        type: [Object],
+        type: [appointmentSchema],
         default: []
     }
 });

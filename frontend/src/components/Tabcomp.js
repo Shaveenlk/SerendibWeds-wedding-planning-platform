@@ -7,6 +7,7 @@ import Navbarcomp from './Navbarcomp';
 import Profilecomp from './Profilecomp';
 import Footercomp from './Footercomp';
 import Loader from './Loader';
+import Appointments from '../pages/Appointments/Appointments'
 
 
 const Tabcomp = ({firebaseUserId}) => {
@@ -46,7 +47,7 @@ const Tabcomp = ({firebaseUserId}) => {
         </Box>
         <TabPanel value="1"> <ToDoList firebaseUserId={firebaseUserId}/> </TabPanel>
         <TabPanel value="2"> <Savedweddings firebaseUserId={firebaseUserId}/>   </TabPanel>
-        <TabPanel value="3">panel 3</TabPanel>
+        <TabPanel value="3"><Appointments firebaseUserId={firebaseUserId}/></TabPanel>
       </TabContext>
     </Box>
     <Footercomp/>
