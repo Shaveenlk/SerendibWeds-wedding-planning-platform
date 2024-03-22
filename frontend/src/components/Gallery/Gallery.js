@@ -64,7 +64,7 @@ const Gallery = () => {
 
   useEffect(() => {
     // Make API call to fetch wedding data based on weddingId
-    axios.get(`http://localhost:8500/api/getPastWedding/${weddingId}`)
+    axios.get(`http://localhost:8000/api/getPastWedding/${weddingId}`)
       .then(response => {
         setWeddingData(response.data);
         console.log(weddingData)

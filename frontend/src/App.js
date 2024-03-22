@@ -3,7 +3,7 @@ import Homepage from './pages/homepage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
-import GalleryPage from './pages/GalleryPage/GalleryPage';
+import Gallery from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
@@ -55,12 +55,11 @@ function App() {
           </>
         )}
         <Route path="/dreamsearch" element={<SearchPage/>}/>
-        <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
         {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
      
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
-        <Route path="/pastWedding/:weddingId" element={<GalleryPage/>}/>
+        <Route path="/pastWedding/:weddingId" element={<Gallery/>}/>
         {/* <Route path="/vendorprofile" element={<Vendortabcomp vendorId={vendorData._id}/>}/> */}
         <Route path="/vendorsprofile/:id" element={<Vendortabcomp/>}/>
       </Routes>
