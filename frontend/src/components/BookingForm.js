@@ -3,6 +3,7 @@ import { TextField, Button, Box, Typography, Container } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2';
 
 const BookingForm = ({ firebaseUserId })  => {
   const [name, setName] = useState('');
@@ -16,9 +17,8 @@ const BookingForm = ({ firebaseUserId })  => {
     const { id } = useParams();
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const appointmentId = uuidv4();
-    console.log(appointmentId); // Generate UUID here
+    console.log(appointmentId); // Generate UUID here
 
     // Construct the booking object
     const bookingDetails = {
@@ -33,6 +33,7 @@ const BookingForm = ({ firebaseUserId })  => {
           appointmentId,
         }
       ],
+      
       firebaseUserId: firebaseUserId
     };
 
@@ -44,6 +45,14 @@ const BookingForm = ({ firebaseUserId })  => {
   
       // Handle the successful response
       console.log('Booking created successfully:', response.data);
+
+      // Display success message
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your booking has been successfully submitted!',
+        icon: 'success',
+        confirmButtonText: 'Great!'
+      });
   
       // Reset form fields
       setName('');
@@ -53,8 +62,14 @@ const BookingForm = ({ firebaseUserId })  => {
       setBookingTime('');
       setSpecialRequests('');
     } catch (error) {
-      console.error('Error creating booking:', error);
-      // Handle error, show a message to the user, etc.
+      console.error('Error creating booking:', error.message);
+      // Display error message
+      Swal.fire({
+        title: 'Oops...',
+        text: 'Something went wrong with your booking. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   };
 
