@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const VendorInfoTile = ({ vendor, onClick }) => {
 
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     onClick(vendor._id);

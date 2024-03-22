@@ -17,10 +17,10 @@ const appointmentsuserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-//     uniqueAppointmentId: {
-//     type: String,
-//     required: true
-// }
+    appointmentId: {
+        type: String,
+        required: true
+    }
 });
 
 const savedweddingschema = new mongoose.Schema({
