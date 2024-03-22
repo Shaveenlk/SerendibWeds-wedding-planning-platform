@@ -3,7 +3,7 @@ import Homepage from './pages/homepage/HomePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Tabcomp from './components/Tabcomp';
-import GalleryPage from './pages/GalleryPage/GalleryPage';
+import Gallery from './pages/GalleryPage/GalleryPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import VendorsProfile from './pages/vendorsprofilepage/VendorsProfile';
@@ -13,6 +13,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import auth from './config/firebase-config'; 
 import VendorLogin from './pages/VendorLogin/vendorlogin';
 import Vendortabcomp from './components/Vendortabcomp';
+import VendorRegistrationPage from './pages/VendorRegistrationPage/VendorRegistrationPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +35,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage/>} />
+        <Route path="/vendorsignup" element={<VendorRegistrationPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         {user ? (//routes for authenticated users
@@ -53,11 +55,11 @@ function App() {
           </>
         )}
         <Route path="/dreamsearch" element={<SearchPage/>}/>
-        <Route path="/eventdetails" element={<GalleryPage/>}/>
         <Route path="/services" element={<ServicesPage/>}/>
         {/* <Route path="/vendorprofile" element={<VendorsProfile/>}/> */}
      
         <Route path="/vendorlogin" element={<VendorLogin/>}/>
+        <Route path="/pastWedding/:weddingId" element={<Gallery/>}/>
         {/* <Route path="/vendorprofile" element={<Vendortabcomp vendorId={vendorData._id}/>}/> */}
         <Route path="/vendorsprofile/:id" element={<Vendortabcomp/>}/>
       </Routes>
