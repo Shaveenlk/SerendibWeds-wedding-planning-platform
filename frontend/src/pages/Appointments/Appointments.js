@@ -31,6 +31,24 @@ const Appointments = ({ firebaseUserId }) => {
     fetchAppointments();
   }, [firebaseUserId]);
 
+  const handleDelete = async (appointmentId) => {
+  if (window.confirm('Are you sure? You won\'t be able to revert this!')) {
+    console.log(`Attempting to delete appointment with ID: ${appointmentId}`);
+    if (appointmentId) {
+      try {
+        await axios.delete(`http://localhost:8000/api/bookings/${firebaseUserId}/${appointmentId}`);
+        setAppointments(appointments.filter(appointment => appointment.appointmentId !== appointmentId));
+        alert('Your appointment has been deleted.');
+      } catch (error) {
+        console.error(`Error deleting appointment with ID: ${appointmentId}:`, error);
+        alert('Failed to delete the appointment. Please try again later.');
+      }
+    } else {
+      console.log("No appointment selected for deletion");
+    }
+  }
+};
+
 
   return (
     <div>
@@ -42,6 +60,9 @@ const Appointments = ({ firebaseUserId }) => {
             <Typography color="text.secondary">Time: {appointment.bookingTime}</Typography>
             <Typography color="text.secondary">Vendor Email: {appointment.email}</Typography>
           </CardContent>
+          <CardActions>
+            <Button size="small" color="error" onClick={() => handleDelete(appointment.appointmentId)}>Delete</Button>
+          </CardActions>
         </Card>
       ))}
     </div>
@@ -49,3 +70,4 @@ const Appointments = ({ firebaseUserId }) => {
 };
 
 export default Appointments;
+  
