@@ -167,31 +167,71 @@ export const deleteAppointment = async (req, res) => {
   try {
       const { firebaseUserId, appointmentId } = req.params;
 
-      // Find the user and the appointment
+      // Find the user based on firebaseUserId
       const user = await Users.findOne({ firebaseUserId });
       if (!user) {
-          return res.status(404).json({ message: "User not found." });
+          return res.status(404).json({ message: "User not found with the provided Firebase User ID." });
       }
-      
-      // Find the appointment to remove and its corresponding vendor email
-      
-      const vendorEmail = user.appointments[appointmentId].email;
-      console.log(vendorEmail);
-      
+
+      // Find the appointment to remove based on appointmentId
+      const appointmentIndex = user.appointments.findIndex(appointment => appointment.appointmentId === appointmentId);
+      if (appointmentIndex === -1) {
+          return res.status(404).json({ message: "Appointment not found for the given ID." });
+      }
+
+      const appointment = user.appointments[appointmentIndex];
+      if (!appointment || !appointment.email) {
+          return res.status(404).json({ message: "Appointment found but no email" });
+      }
+
+      const vendorEmail = appointment.email;
+
       // Remove the appointment from the user's document and save
-      user.appointments.splice(appointmentId, 1);
-      console.log(appointmentId)
+      user.appointments.splice(appointmentIndex, 1);
       await user.save();
-      
+
       // Find the corresponding vendor based on the email
       const vendor = await Vendors.findOne({ email: vendorEmail });
-      vendor.appointments.splice(appointmentId, 1);
-      console.log(appointmentId)
-      await vendor.save();
-     
-      res.status(200).json({ message: "Appointment successfully deleted from both user and vendor records." });
-  } catch (error) {
+      if (!vendor) {
+          console.warn(`Vendor with email ${vendorEmail} not found. Proceeding without vendor deletion.`);
+      } else {
+          // Assuming vendor appointments are also indexed by the same appointmentId
+          const vendorAppointmentIndex = vendor.appointments.findIndex(appointment => appointment.appointmentId === appointmentId);
+          if (vendorAppointmentIndex !== -1) {
+              vendor.appointments.splice(vendorAppointmentIndex, 1);
+              await vendor.save();
+          } else {
+              console.warn(`Appointment ID ${appointmentId} not found in vendor records.`);
+          }
+      }
+
+      // Send email to the user
+      transporter.sendMail({
+        from: 'serendibweds2@gmail.com',
+        to: user.email,
+        subject: 'Appointment Cancellation Confirmation',
+        html: `<h1>Appointment Cancellation</h1>
+               <p>Dear ${user.groom_name || user.bride_name},</p>
+               <p>Your appointment has been successfully cancelled. This email is to confirm that your appointment with ${vendor.name} scheduled for ${appointment.bookingDate} at ${appointment.bookingTime} has been cancelled by you.</p>
+               <p>If this cancellation was made in error or if you have any questions, please contact us directly.</p>
+               <p>Thank you for using our services.</p>`,
+      });
+
+      // Send email to the vendor
+      transporter.sendMail({
+          from: 'serendibweds2@gmail.com',
+          to: vendorEmail,
+          subject: 'Appointment Cancellation Notice',
+          html: `<h1>Appointment Cancellation Notice</h1>
+                <p>Dear ${vendor.name},</p>
+                <p>This is to inform you that an appointment scheduled for ${appointment.bookingDate} at ${appointment.bookingTime} has been successfully cancelled by the user.</p>
+                <p>Please adjust your schedule accordingly. For further details or questions, please contact us.</p>
+                <p>Thank you for your understanding.</p>`,
+      });
+
+      res.status(200).json({ message: "Appointment successfully deleted from both user and vendor records, and notification emails sent." });
+    } catch (error) {
       console.error('Error deleting appointment:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: `Internal server error during appointment deletion: ${error.message}` });
   }
 };
