@@ -9,7 +9,7 @@ export default function HeroSectioncomp() {
   <div className="heroContainer">
     <div className="heroContent">
       <h1 className="heroTopic">From Vision to Vows: Celebrate Love in Style with Us.</h1>
-      <h3 className="heroTopic2">From Vision to Vows: Celebrate Love in Style with Us.</h3>    
+      {/* <h3 className="heroTopic2">From Vision to Vows: Celebrate Love in Style with Us.</h3>     */}
       <h3 className="heroTopic2">Say 'Yes!' to Stress-Free Wedding Planning</h3>    
       <br/>
       <HeroTextcomp />

@@ -28,16 +28,6 @@ const HeroTextcomp = () => {
     <div>
       <Grid container direction="column" alignItems="flex-start">
         <Grid item>
-          <Typography variant="h2" sx={{ padding: "60px 20px 20px 20px" }}>
-            {texts[0]}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h4" sx={{ padding: "20px" }}>
-            {texts[1]}
-          </Typography>
-        </Grid>
-        <Grid item>
           <Typography component="ul" sx={{ padding: "20px 20px 20px 70px " }}>
             <li>{texts[2]}</li>
             <li>{texts[3]}</li>
