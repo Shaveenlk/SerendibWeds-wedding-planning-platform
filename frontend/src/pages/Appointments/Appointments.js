@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const Appointments = ({ firebaseUserId }) => {
   const [appointments, setAppointments] = useState([]);
@@ -31,6 +32,38 @@ const Appointments = ({ firebaseUserId }) => {
     fetchAppointments();
   }, [firebaseUserId]);
 
+  const handleDelete = async (appointmentId) => {
+    // SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+      console.log(`Attempting to delete appointment with ID: ${appointmentId}`);
+      if (appointmentId) {
+        try {
+          await axios.delete(`http://localhost:8000/api/bookings/${firebaseUserId}/${appointmentId}`);
+          setAppointments(appointments.filter(appointment => appointment.appointmentId !== appointmentId));
+          // SweetAlert2 success message
+          Swal.fire(
+            'Deleted!',
+            'Your appointment has been deleted.',
+            'success'
+          );
+        } catch (error) {
+          console.error(`Error deleting appointment with ID: ${appointmentId}:`, error);
+        }
+      } else {
+        console.log("No appointment selected for deletion");
+      }
+    }
+  };
 
   return (
     <div>
@@ -42,6 +75,9 @@ const Appointments = ({ firebaseUserId }) => {
             <Typography color="text.secondary">Time: {appointment.bookingTime}</Typography>
             <Typography color="text.secondary">Vendor Email: {appointment.email}</Typography>
           </CardContent>
+          <CardActions>
+            <Button size="small" color="error" onClick={() => handleDelete(appointment.appointmentId)}>Delete</Button>
+          </CardActions>
         </Card>
       ))}
     </div>
@@ -49,3 +85,4 @@ const Appointments = ({ firebaseUserId }) => {
 };
 
 export default Appointments;
+  
