@@ -23,6 +23,16 @@ const appointmentsuserSchema = new mongoose.Schema({
 // }
 });
 
+const savedweddingschema = new mongoose.Schema({
+    wedding_id:{
+        type: String,
+        required: true
+    },
+    }
+)
+
+
+
 
 const userSchema = new mongoose.Schema({
     firebaseUserId: {
@@ -47,6 +57,10 @@ const userSchema = new mongoose.Schema({
     },
     todolist: {
         type: [String],  // Assuming the todolist is an array of strings
+        default: []  // Adjust the default value based on your requirements
+    },
+    savedWeddings: {
+        type: [savedweddingschema],  // Assuming the savedWeddings is an array of strings
         default: []  // Adjust the default value based on your requirements
     },
     appointments: {
