@@ -23,13 +23,34 @@ const featuresData = [
   {
     title: "Vendor Market",
     content: "Our Dream Wedding Realized! The wedding planner app guided us through every detail. From venue selection to guest RSVPs, it made planning a joyous experience. Highly recommend for a picture-perfect day!"
+  },
+  {
+    title: "Vendor Booking",
+    content: "Effortlessly book vendors directly through our wedding planner app. Browse a curated selection of top-rated vendors and secure your favorites with just a few clicks."
+  },
+  {
+    title: "Browse Past Weddings",
+    content: "Get inspired by browsing through past weddings organized using our wedding planner app. Explore real-life examples, gather ideas, and envision your dream wedding day."
+  },
+  {
+    title: "Search Past Weddings",
+    content: "Looking for specific themes or ideas? Use our search feature to find past weddings that match your preferences. Refine your search by location, theme, or any other criteria."
+  },
+  {
+    title: "To-Do List Generation",
+    content: "Our wedding planner app generates personalized to-do lists tailored to your wedding timeline and preferences. Stay organized and on track with tasks, deadlines, and reminders."
+  },
+  {
+    title: "Vendor Profile",
+    content: "View detailed profiles of vendors available on our platform. Learn more about their services, read reviews from past clients, and make informed decisions for your special day."
   }
 ];
+
 
 const FeaturesTile = ({ title, content }) => {
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, border:'solid lightgrey', borderRadius:'12px' }}>
         <CardHeader 
           title={<Typography variant="h6" sx={{ fontWeight: 'bold'}}>
             {title}
