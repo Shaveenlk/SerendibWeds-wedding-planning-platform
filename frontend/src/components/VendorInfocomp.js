@@ -51,7 +51,8 @@ const VendorInfocomp = ( {category} ) => {
     axios.get(`${backendUrl}/api/vendors`)
     .then(response => {
       if (Array.isArray(response.data.vendors)) { // Check if vendors is an array
-        setVendors(response.data.vendors);
+        const filteredVendors = response.data.vendors.filter(vendor => vendor.category === category);
+        setVendors(filteredVendors);
       } else {
         console.error('Vendors data is not an array');
       }
