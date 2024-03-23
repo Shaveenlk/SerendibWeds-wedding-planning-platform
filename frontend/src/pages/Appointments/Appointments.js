@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import axios from 'axios';
 import Swal from 'sweetalert2'; // Import SweetAlert2
+import backendUrl from '../../config/backendUrl';
 
 const Appointments = ({ firebaseUserId }) => {
   const [appointments, setAppointments] = useState([]);
@@ -10,7 +11,7 @@ const Appointments = ({ firebaseUserId }) => {
     const fetchAppointments = async () => {
       console.log('Fetching appointments for user:', firebaseUserId);
       try {
-        const response = await axios.get(`http://localhost:8000/api/users/${firebaseUserId}/bookings`);
+        const response = await axios.get(`${backendUrl}/api/users/${firebaseUserId}/bookings`);
         console.log('Appointments fetched:', response.data);
 
         const formattedAppointments = response.data.map(appointment => {
@@ -48,7 +49,7 @@ const Appointments = ({ firebaseUserId }) => {
       console.log(`Attempting to delete appointment with ID: ${appointmentId}`);
       if (appointmentId) {
         try {
-          await axios.delete(`http://localhost:8000/api/bookings/${firebaseUserId}/${appointmentId}`);
+          await axios.delete(`${backendUrl}/api/bookings/${firebaseUserId}/${appointmentId}`);
           setAppointments(appointments.filter(appointment => appointment.appointmentId !== appointmentId));
           // SweetAlert2 success message
           Swal.fire(

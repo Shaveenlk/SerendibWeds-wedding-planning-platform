@@ -1,15 +1,7 @@
-import React from "react";
-import { Grid } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
-import { blue, red } from '@mui/material/colors';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 
 const featuresData = [
   {
@@ -43,41 +35,52 @@ const featuresData = [
   {
     title: "Vendor Profile",
     content: "View detailed profiles of vendors available on our platform. Learn more about their services, read reviews from past clients, and make informed decisions for your special day."
+  },
+  {
+    title: "Vendor Profile",
+    content: "View detailed profiles of vendors available on our platform. Learn more about their services, read reviews from past clients, and make informed decisions for your special day."
   }
 ];
 
-
 const FeaturesTile = ({ title, content }) => {
   return (
-    <div>
-      <Card sx={{ maxWidth: 345, border:'solid lightgrey', borderRadius:'12px' }}>
-        <CardHeader 
-          title={<Typography variant="h6" sx={{ fontWeight: 'bold'}}>
-            {title}
-          </Typography>}
-        />
-        <CardContent>
-          <Typography variant="body2" sx={{ margin: '15px' }}>
-            {content} 
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
+    <Card style={{ borderRadius: '12px' }}>
+      <CardContent>
+        <Typography variant="body1" sx={{ margin: '15px' }}>
+          <b>{title}</b>
+        </Typography>
+        <Typography variant="body2" sx={{ margin: "15px" }}>
+          {content}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
-const Featurescomp = () => {
+const TopFeaturescomp = () => {
   return (
-    <Grid container spacing={2} sx={{ 
-      margin: '20px 80px 20px 80px', 
-    }}>
+    <Grid
+      container
+      gap={2}
+      padding={2}
+      style={{ overflowWrap: 'break-word' }}
+    >
       {featuresData.map((feature, index) => (
-        <Grid item lg={4} key={index}>
-          <FeaturesTile title={feature.title} content={feature.content} />
+        <Grid
+          margin={'auto'}
+          borderRadius={3}
+          xs={12}
+          sm={6}
+          md={3}
+          lg={3}
+          key={index}
+          sx={{ width: "100%", border: 'solid lightgrey' }}
+        >
+          <FeaturesTile title={feature.title} content={feature.content} /> 
         </Grid>
       ))}
     </Grid>
   );
 };
 
-export default Featurescomp;
+export default TopFeaturescomp;

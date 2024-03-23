@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import backendUrl from '../config/backendUrl';
 
 const AppointmentsVendorProfileComp = () => {
   const [appointments, setAppointments] = useState([]);
@@ -10,7 +11,7 @@ const AppointmentsVendorProfileComp = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/vendors/${id}/appointments`);
+        const response = await axios.get(`${backendUrl}/api/vendors/${id}/appointments`);
         const formattedAppointments = response.data.map(appointment => {
           // Parse the bookingDate here, similar to the fix in Appointments.js
           let parsedDate = null;
@@ -32,7 +33,7 @@ const AppointmentsVendorProfileComp = () => {
 
   // const handleDelete = async (appointmentId) => {
   //   try {
-  //     await axios.delete(`http://localhost:8000/api/vendors/${id}/appointments/${appointmentId}`);
+  //     await axios.delete(`${backendUrl}/api/vendors/${id}/appointments/${appointmentId}`);
   //     setAppointments(appointments.filter(appointment => appointment._id.$oid !== appointmentId));
   //     console.log('Appointment deleted successfully');
   //   } catch (error) {

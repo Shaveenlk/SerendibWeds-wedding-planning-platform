@@ -45,11 +45,11 @@ export default function ServicesPage() {
             </Tabs>
             </Box>
 
-            <TabPanel value="1"><VendorInfocomp category="1"/></TabPanel>
-            <TabPanel value="2"><VendorInfocomp category="2"/></TabPanel>
-            <TabPanel value="3"><VendorInfocomp category="3"/></TabPanel>
-            <TabPanel value="4"><VendorInfocomp category="4"/></TabPanel>
-            <TabPanel value="5"><VendorInfocomp category="5"/></TabPanel>
+            <TabPanel value="1"><VendorInfocomp category="Photography/Videography"/></TabPanel>
+            <TabPanel value="2"><VendorInfocomp category="Venue / Hotels"/></TabPanel>
+            <TabPanel value="3"><VendorInfocomp category="Music Bands / DJ"/></TabPanel>
+            <TabPanel value="4"><VendorInfocomp category="Decorations"/></TabPanel>
+            <TabPanel value="5"><VendorInfocomp category="Wedding attire"/></TabPanel>
             </TabContext>
         </Box>
         <Footercomp />

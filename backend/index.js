@@ -24,6 +24,10 @@ app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
 })
 
-
+app.get("/", (req, res) => {
+    res.send("Welcome to the Wedding Planner");
+})
 
 app.use("/api", router)
+
+export default app;

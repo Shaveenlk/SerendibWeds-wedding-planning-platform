@@ -3,6 +3,7 @@ import React,{useState,useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import auth from "../config/firebase-config"; // Import Firebase
+import backendUrl from "../config/backendUrl";
 
 
 const Profilecomp = ({ firebaseUserId }) => {
@@ -12,7 +13,7 @@ const Profilecomp = ({ firebaseUserId }) => {
   console.log('Firebase User ID:', firebaseUserId);
   useEffect(() => {
     // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
-    axios.get(`http://localhost:8000/api/getuser/${firebaseUserId}`)
+    axios.get(`${backendUrl}/api/getuser/${firebaseUserId}`)
       .then(response => {
         console.log('API response:', response);
         setUserData(response.data);
@@ -51,7 +52,7 @@ const Profilecomp = ({ firebaseUserId }) => {
       
           >
             <Avatar
-              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={auth.currentUser.photoURL}
               sx={{ width: 100, height: 100,marginTop: 2, ml: 2, mb: 2 }}
       
             />
