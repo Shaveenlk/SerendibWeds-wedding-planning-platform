@@ -49,5 +49,4 @@ jobs:
             vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
             vercel-args: '--prod' #Optional
             vercel-org-id: ${{ secrets.ORG_ID}}  #Required
-            vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
-            # working-directory: frontend
+            vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
