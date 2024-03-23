@@ -1,3 +1,3 @@
-const backendUrl = "http://localhost:8000";
+const backendUrl = "https://serendibweds-wedding-planning-platform.onrender.com";
 
 export default backendUrl;
