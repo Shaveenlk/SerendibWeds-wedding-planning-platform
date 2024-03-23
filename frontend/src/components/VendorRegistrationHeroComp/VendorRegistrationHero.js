@@ -3,7 +3,7 @@ import "./VendorRegistrationHero.css";
 
 export default function VendorRegistrationHero() {
   return <div className="hero" >
-  <div class="heroContainer">
+  <div class="heroContainerVendor">
     <div class="heroContent">
       <h1 class="heroTopic">Looking to grow your business?</h1>  
       <br/>

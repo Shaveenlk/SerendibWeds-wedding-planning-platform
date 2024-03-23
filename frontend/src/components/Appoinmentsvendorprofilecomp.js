@@ -31,15 +31,15 @@ const AppointmentsVendorProfileComp = () => {
     fetchAppointments();
   }, [id]);
 
-  const handleDelete = async (appointmentId) => {
-    try {
-      await axios.delete(`${backendUrl}/api/vendors/${id}/appointments/${appointmentId}`);
-      setAppointments(appointments.filter(appointment => appointment._id.$oid !== appointmentId));
-      console.log('Appointment deleted successfully');
-    } catch (error) {
-      console.error('Error deleting appointment:', error);
-    }
-  };
+  // const handleDelete = async (appointmentId) => {
+  //   try {
+  //     await axios.delete(`${backendUrl}/api/vendors/${id}/appointments/${appointmentId}`);
+  //     setAppointments(appointments.filter(appointment => appointment._id.$oid !== appointmentId));
+  //     console.log('Appointment deleted successfully');
+  //   } catch (error) {
+  //     console.error('Error deleting appointment:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -50,7 +50,7 @@ const AppointmentsVendorProfileComp = () => {
             <Typography variant="body1">Date: {appointment.parsedDate}</Typography>
             <Typography variant="body2">Time: {appointment.bookingTime}</Typography>
           </CardContent>
-          <Button color="error" onClick={() => handleDelete(appointment._id.$oid)}>Cancel Appointment</Button>
+          {/* <Button color="error" onClick={() => handleDelete(appointment._id.$oid)}>Cancel Appointment</Button> */}
         </Card>
       ))}
     </div>
