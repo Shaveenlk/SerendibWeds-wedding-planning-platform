@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
+import backendUrl from '../config/backendUrl';
 
 const BookingForm = ({ firebaseUserId })  => {
   const [name, setName] = useState('');
@@ -41,7 +42,7 @@ const BookingForm = ({ firebaseUserId })  => {
 
     try {
       // Make a POST request to the backend API using Axios
-      const response = await axios.post(`http://localhost:8000/api/vendors/${id}/booking`, bookingDetails);
+      const response = await axios.post(`${backendUrl}/api/vendors/${id}/booking`, bookingDetails);
   
       // Handle the successful response
       console.log('Booking created successfully:', response.data);
