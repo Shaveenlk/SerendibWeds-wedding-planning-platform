@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { NavLink, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
 
-const pages = ["Home", "DreamSearch", "Services", "About Us"];
+const pages = ["DreamSearch", "Services", "About Us"];
 const routepages = ["home", "dreamsearch", "services", "aboutus"];
 const settings = ["Profile", "Logout"];
 
