@@ -14,6 +14,7 @@ export default function HeroSectioncomp() {
                 sx={{ 
                     color: '#FFF', 
                     mb: 2,
+                    fontWeight: 'bold',
                     fontFamily: "'Petit Formal Script', sans-serif" // Apply Petit Formal Script font
                 }}
             >
@@ -24,7 +25,8 @@ export default function HeroSectioncomp() {
                 sx={{ 
                     color: '#FFF', 
                     mb: 5,
-                    fontFamily: "'Philosopher', sans-serif" // Apply Philosopher font for other texts
+                    fontFamily: "'Philosopher', sans-serif", // Apply Philosopher font for other texts
+                    fontWeight: 'bold' // Make the text bold
                 }}
             >
                 Your captivating wedding starts here
