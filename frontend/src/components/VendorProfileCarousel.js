@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
 import  image  from '../assets/heroSectionImg.png'; // Import image from correct path
 import axios from "axios";
+import backendUrl from "../config/backendUrl";
 
 
 const VendorProfileCarousel = ({id}) => {
@@ -16,7 +17,7 @@ const VendorProfileCarousel = ({id}) => {
   const [VendorWeddingDetails,setVendorWeddingDetails]=useState("");
   // const {id} =useParams();
   useEffect(() => {  
-      axios.get(`http://localhost:8000/api/vendorsEvents/${id}`)
+      axios.get(`${backendUrl}/api/vendorsEvents/${id}`)
         .then(response => {
           console.log(response); // Update vendor details state
         })

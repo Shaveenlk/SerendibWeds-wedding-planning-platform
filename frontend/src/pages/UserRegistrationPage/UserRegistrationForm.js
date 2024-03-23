@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader';
+import backendUrl from '../../config/backendUrl';
 
 
 const UserRegistrationForm = ({firebaseUserId}) => {
@@ -75,7 +76,7 @@ const UserRegistrationForm = ({firebaseUserId}) => {
             console.log(userDataWithTodoList);
     
             // Make a POST request to the backend API
-            const response = await axios.post('http://localhost:8000/api/createuser', userDataWithTodoList);
+            const response = await axios.post(`${backendUrl}/api/createuser`, userDataWithTodoList);
             // console.log('Response from backend:', response.data);
             setIsLoading(false);
             // Log the response from the backend

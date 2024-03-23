@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
+import backendUrl from "../../config/backendUrl";
 
 
 const ToDoList = ({firebaseUserId}) => {
@@ -18,7 +19,7 @@ const ToDoList = ({firebaseUserId}) => {
 
   useEffect(() => {
      // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
-     axios.get(`http://localhost:8000/api/todo/${firebaseUserId}`)
+     axios.get(`${backendUrl}/api/todo/${firebaseUserId}`)
      .then(response => {
        console.log('API response:', response);
        setUserData(response.data);
@@ -47,7 +48,7 @@ const ToDoList = ({firebaseUserId}) => {
 
   // Add to do items to the user's to do list for test purposes
   const addTodo = () => {
-    axios.post(`http://localhost:8000/api/todo/${firebaseUserId}`, { newTodo: inputValue })
+    axios.post(`${backendUrl}/api/todo/${firebaseUserId}`, { newTodo: inputValue })
       .then(response => {
         console.log('Todo added successfully:', response);
         setTasks([...tasks, { id: tasks.length, title: inputValue }]);
@@ -74,7 +75,7 @@ const ToDoList = ({firebaseUserId}) => {
   };
 
   const handleDeleteTask = (taskId) => {
-    axios.delete(`http://localhost:8000/api/todo/${firebaseUserId}/${taskId}`)
+    axios.delete(`${backendUrl}/api/todo/${firebaseUserId}/${taskId}`)
       .then(response => {
         console.log('Task deleted successfully:', response);
         // Update the tasks state to reflect the changes
@@ -131,7 +132,7 @@ const ToDoList = ({firebaseUserId}) => {
   }
 
   const updateTodo = () => {
-    axios.put(`http://localhost:8000/api/todo/${firebaseUserId}/${currentTask.id}`, { newTodo: inputValue })
+    axios.put(`${backendUrl}/api/todo/${firebaseUserId}/${currentTask.id}`, { newTodo: inputValue })
       .then(response => {
         console.log('Todo updated successfully:', response);
         const updatedTasks = tasks.map((task) => task.id === currentTask.id ? { ...task, title: inputValue } : task);

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import '../SignupPage/SignupPage.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import backendUrl from '../../config/backendUrl.js';
 
 function SignupPage() {
     const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ function SignupPage() {
 
     const checkUserInDatabase = async (firebaseUserId) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+            const response = await axios.get(`${backendUrl}/api/checkUser/${firebaseUserId}`);
             const data = response.data;
     
             return data.exists;

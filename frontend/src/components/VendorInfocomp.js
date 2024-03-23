@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from "react-router-dom";
+import backendUrl from "../config/backendUrl";
 
 const VendorInfoTile = ({ vendor, onClick }) => {
 
@@ -47,7 +48,7 @@ const VendorInfocomp = ( {category} ) => {
   const [selectedVendor, setSelectedVendor] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/vendors')
+    axios.get(`${backendUrl}/api/vendors`)
     .then(response => {
       if (Array.isArray(response.data.vendors)) { // Check if vendors is an array
         setVendors(response.data.vendors);
