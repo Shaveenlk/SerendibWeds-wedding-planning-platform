@@ -46,11 +46,11 @@ const FeaturesTile = ({ title, content }) => {
   return (
     <Card style={{ borderRadius: '12px' }}>
       <CardContent>
-        <Typography variant="h6" sx={{ margin: '25px' }}>
+        <Typography variant="body1" sx={{ margin: '15px' }}>
           <b>{title}</b>
         </Typography>
-        <Typography variant="body2" sx={{ margin: "25px" }}>
-          <b>{content}</b>
+        <Typography variant="body2" sx={{ margin: "15px" }}>
+          {content}
         </Typography>
       </CardContent>
     </Card>
