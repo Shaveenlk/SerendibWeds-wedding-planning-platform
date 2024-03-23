@@ -2,6 +2,7 @@ import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import React,{useState,useEffect} from "react";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import backendUrl from "../config/backendUrl";
 
 
 
@@ -11,7 +12,7 @@ const Vendorcomp = ({vendorId}) => {
 
   useEffect(() => {
     // Replace 'YOUR_BACKEND_BASE_URL' with the actual URL of your backend
-    axios.get(`http://localhost:8000/api/vendors/${id}`)
+    axios.get(`${backendUrl}/api/vendors/${id}`)
       .then(response => {
         console.log('API response:', response);
         setUserData(response.data);

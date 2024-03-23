@@ -10,12 +10,13 @@ import VendorProfileCarousel from '../../components/VendorProfileCarousel';
 import BookingForm from '../../components/BookingForm' 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import backendUrl from '../../config/backendUrl';
 
 const VendorsProfile = ({ firebaseUserId }) => {
   const [vendorDetails,setVendorDetails]=useState("");
   const {id} =useParams();
   useEffect(() => {  
-      axios.get(`http://localhost:8000/api/vendors/${id}`)
+      axios.get(`${backendUrl}/api/vendors/${id}`)
         .then(response => {
           setVendorDetails(response.data); // Update vendor details state
         })

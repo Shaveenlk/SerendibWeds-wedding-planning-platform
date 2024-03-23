@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./Gallery.css";
 import { useParams } from 'react-router-dom';
+import backendUrl from "../../config/backendUrl.js";
 
 import img1 from "./GalleryImages/galleryImg1.jpg";
 import img2 from "./GalleryImages/galleryImg2.jpg";
@@ -64,7 +65,7 @@ const Gallery = () => {
 
   useEffect(() => {
     // Make API call to fetch wedding data based on weddingId
-    axios.get(`http://localhost:8000/api/getPastWedding/${weddingId}`)
+    axios.get(`${backendUrl}/api/getPastWedding/${weddingId}`)
       .then(response => {
         setWeddingData(response.data);
         console.log(weddingData)

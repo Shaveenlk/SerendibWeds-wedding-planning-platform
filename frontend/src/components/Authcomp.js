@@ -5,6 +5,7 @@ import auth from '../config/firebase-config';
 import toast from 'react-hot-toast';
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
+import backendUrl from '../config/backendUrl';
 
 const Authcomp = ({ isVendor }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,11 +31,11 @@ const Authcomp = ({ isVendor }) => {
 
     const checkUserInDatabase = async (firebaseUserId) => {
         try {
-            const vendorResponse = await axios.get(`http://localhost:8000/api/checkvendor/${firebaseUserId}`);
+            const vendorResponse = await axios.get(`${backendUrl}/api/checkvendor/${firebaseUserId}`);
             const vendorData = vendorResponse.data;
 
             // Check if the user is a regular user
-            const userResponse = await axios.get(`http://localhost:8000/api/checkUser/${firebaseUserId}`);
+            const userResponse = await axios.get(`${backendUrl}/api/checkUser/${firebaseUserId}`);
             const userData = userResponse.data;
 
             if (vendorData.exists) {

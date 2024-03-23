@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import backendUrl from "../config/backendUrl";
 
 const Serviceprofilecomp = () => {
 
@@ -22,7 +23,7 @@ const Serviceprofilecomp = () => {
 
   useEffect(() => {
     // Fetch vendor details when selectedVendor changes
-    axios.get(`http://localhost:8000/api/vendors/${id}/services`)
+    axios.get(`${backendUrl}/api/vendors/${id}/services`)
       .then(response => {
         setServiceDetails(response.data); // Update vendor details state
       })
@@ -46,7 +47,7 @@ const Serviceprofilecomp = () => {
 
   const handleSaveService = () => {
     // Make an API call to add the new service
-    axios.post(`http://localhost:8000/api/vendors/${id}/services`, newService)
+    axios.post(`${backendUrl}/api/vendors/${id}/services`, newService)
       .then(response => {
         // Handle the response and update the UI as needed
         setServiceDetails(response.data);
@@ -83,7 +84,7 @@ const Serviceprofilecomp = () => {
 
   const handleUpdateService = () => {
     // Make an API call to update the service details
-    axios.put(`http://localhost:8000/api/vendors/${id}/services/${serviceDetails._id}`, newService)
+    axios.put(`${backendUrl}/api/vendors/${id}/services/${serviceDetails._id}`, newService)
       .then(response => {
         // Handle the response and update the UI as needed
         setServiceDetails(response.data);
@@ -95,16 +96,19 @@ const Serviceprofilecomp = () => {
       });
   };
 
-  const handleDeleteService = (serviceId) => {
+  const handleDeleteService = (index) => {
     // Make an API call to delete the service
-    axios.delete(`http://localhost:8000/api/vendors/${id}/services/${serviceId}`)
-      .then(response => {
-        // Handle the response and update the UI as needed
-        setServiceDetails(response.data);
-      })
-      .catch(error => {
-        console.error('Error deleting service:', error);
-      });
+    const serviceId = serviceDetails.services[index]._id;
+    axios.delete(`${backendUrl}/api/vendors/${id}/services/${serviceId}`)
+    .then(response => {
+      // Update the UI by removing the deleted service from serviceDetails
+      const updatedServices = [...serviceDetails.services];
+      updatedServices.splice(index, 1); // Remove the service at the specified index
+      setServiceDetails({ ...serviceDetails, services: updatedServices });
+    })
+    .catch(error => {
+      console.error('Error deleting service:', error);
+    });
   };
 
   return (
@@ -124,7 +128,7 @@ const Serviceprofilecomp = () => {
           <AccordionDetails>
             <Typography>{serviceItem.description}</Typography>
             <Button onClick={() => handleEditService(serviceItem)}>Edit</Button>
-            <Button onClick={() => handleDeleteService(serviceItem._id)}>Delete</Button>
+            <Button onClick={() => handleDeleteService(index)}>Delete</Button>
           </AccordionDetails>
         </Accordion>
       ))}

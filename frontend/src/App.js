@@ -14,6 +14,7 @@ import auth from './config/firebase-config';
 import VendorLogin from './pages/VendorLogin/vendorlogin';
 import Vendortabcomp from './components/Vendortabcomp';
 import VendorRegistrationPage from './pages/VendorRegistrationPage/VendorRegistrationPage';
+import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,6 +39,7 @@ function App() {
         <Route path="/vendorsignup" element={<VendorRegistrationPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/aboutus" element={<AboutUsPage/>} />
         {user ? (//routes for authenticated users
           <> 
             <Route path="/profile" element={<Tabcomp firebaseUserId={user?.firebaseUserId} />} />

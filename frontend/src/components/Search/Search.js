@@ -10,6 +10,7 @@ import img from "./SearchImages/searchImg1.jpg";
 import imgSearch from "./SearchImages/search.svg";
 import { useNavigate } from "react-router-dom";
 import auth from "../../config/firebase-config";
+import backendUrl from "../../config/backendUrl";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Search = () => {
     // Fetch favorites from the backend API
     axios
       .get(
-        `http://localhost:8000/api/dreamserach/${firebaseUserId}/pastweddings`
+        `${backendUrl}/api/dreamserach/${firebaseUserId}/pastweddings`
       ) // Update the URL with your backend API endpoint
       .then((response) => {
         setFavorites(response.data);
@@ -89,7 +90,7 @@ const Search = () => {
     // const firebaseUserId = auth.currentUser.uid;
     axios
       .post(
-        `http://localhost:8000/api/dreamserach/${firebaseUserId}/pastweddings`,
+        `${backendUrl}/api/dreamserach/${firebaseUserId}/pastweddings`,
         {
           // Replace with the actual user ID
           weddingData: {
@@ -110,7 +111,7 @@ const Search = () => {
     // Delete favorites from the backend API
     axios
       .delete(
-        `http://localhost:8000/api/dreamserach/${firebaseUserId}/pastweddings`
+        `${backendUrl}/api/dreamserach/${firebaseUserId}/pastweddings`
       ) // Update the URL with your backend API endpoint
       .then((response) => {
         fetchfavoriteWeddings();

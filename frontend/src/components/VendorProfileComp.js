@@ -3,6 +3,7 @@ import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import backendUrl from "../config/backendUrl";
 
 const VendorProfileComp = ({ onBookUsClick }) => {
 
@@ -13,7 +14,7 @@ const VendorProfileComp = ({ onBookUsClick }) => {
   useEffect(() => {
     // Fetch vendor details when selectedVendor changes
   
-      axios.get(`http://localhost:8000/api/vendors/${id}`)
+      axios.get(`${backendUrl}/api/vendors/${id}`)
         .then(response => {
           setVendorDetails(response.data); // Update vendor details state
         })

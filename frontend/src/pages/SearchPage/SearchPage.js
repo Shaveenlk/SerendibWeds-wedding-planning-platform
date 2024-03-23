@@ -1,11 +1,13 @@
 import Search from "../../components/Search/Search";
+import Navbarcomp from '../../components/Navbarcomp';
+import Footercomp from '../../components/Footercomp';
 
 const SearchPage=() =>{
     return (
         <div>
-            {/* Navigation */}
+            <Navbarcomp />
             <Search/>
-            {/* Footer */}
+            <Footercomp />
         </div>
     )
 
