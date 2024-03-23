@@ -8,6 +8,8 @@ import TabContext from '@mui/lab/TabContext';
 // import { useState } from 'react';
 import VendorInfocomp from '../../components/VendorInfocomp';
 import Navbarcomp from '../../components/Navbarcomp';
+import Footercomp from '../../components/Footercomp';
+
 
 export default function ServicesPage() {
   const [value, setValue] = useState("1");
@@ -50,6 +52,8 @@ export default function ServicesPage() {
             <TabPanel value="5"><VendorInfocomp category="5"/></TabPanel>
             </TabContext>
         </Box>
+        <Footercomp />
+
     </div>
   );
 }
