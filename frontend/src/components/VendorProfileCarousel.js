@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,9 +8,24 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
 import  image  from '../assets/heroSectionImg.png'; // Import image from correct path
+import axios from "axios";
+import backendUrl from "../config/backendUrl";
 
 
-const VendorProfileCarousel = () => {
+const VendorProfileCarousel = ({id}) => {
+
+  const [VendorWeddingDetails,setVendorWeddingDetails]=useState("");
+  // const {id} =useParams();
+  useEffect(() => {  
+      axios.get(`${backendUrl}/api/vendorsEvents/${id}`)
+        .then(response => {
+          console.log(response); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
+
   const settings = {
     dots: true,
     infinite: true,

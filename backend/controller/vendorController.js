@@ -33,7 +33,7 @@ export const checkVendor = async (req, res) => {
         const existingUser = await Vendors.findOne({ firebaseUserId });
   
         if (existingUser) {
-          res.status(200).json({ exists: true });
+          res.status(200).json({ exists: true, _id: existingUser._id });
         } else {
           res.status(200).json({ exists: false });
         }
@@ -42,3 +42,22 @@ export const checkVendor = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
       }
 }
+
+//fetch appointments for a vendor       
+export const getVendorAppointments = async (req, res) => {
+    try {
+        const { id } = req.params; // MongoDB Object ID of the vendor
+        console.log(id);
+        const vendor = await Vendors.findById(id);
+        console.log(vendor);
+
+        if (!vendor) {
+            return res.status(404).json({ message: 'Vendor not found' });
+        }
+
+        res.json(vendor.appointments);
+    } catch (error) {
+        console.error('Error fetching vendor appointments:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};

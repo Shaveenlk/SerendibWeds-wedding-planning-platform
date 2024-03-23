@@ -3,9 +3,9 @@ import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import { useParams } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import backendUrl from "../config/backendUrl";
 
-
-const VendorProfileComp = () => {
+const VendorProfileComp = ({ onBookUsClick }) => {
 
 
   const [vendorDetails,setVendorDetails]=useState("");
@@ -14,7 +14,7 @@ const VendorProfileComp = () => {
   useEffect(() => {
     // Fetch vendor details when selectedVendor changes
   
-      axios.get(`http://localhost:8000/api/vendors/${id}`)
+      axios.get(`${backendUrl}/api/vendors/${id}`)
         .then(response => {
           setVendorDetails(response.data); // Update vendor details state
         })
@@ -67,7 +67,7 @@ const VendorProfileComp = () => {
             justifyContent="center"
           >
           </Grid>
-            <Button variant="contained" sx={{
+            <Button variant="contained" onClick={onBookUsClick} sx={{
               borderRadius: 5,
               marginLeft: { xs: 8, sm: 25 },
               marginBottom: { xs: 3, sm: 0 },
@@ -82,7 +82,7 @@ const VendorProfileComp = () => {
                 Contact Us            
             </Button>
         </Grid>
-      </Box>
+      </Box>     
     </div>
   )
 }

@@ -2,7 +2,7 @@
     scroll-behavior: smooth;
 }
 
-.heroContainer{
+.heroContainerVendor{
     display: flex;
     margin-top: 6rem;
     margin-left: 5rem;

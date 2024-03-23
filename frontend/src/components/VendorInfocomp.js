@@ -7,10 +7,11 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from "react-router-dom";
+import backendUrl from "../config/backendUrl";
 
 const VendorInfoTile = ({ vendor, onClick }) => {
 
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     onClick(vendor._id);
@@ -47,10 +48,11 @@ const VendorInfocomp = ( {category} ) => {
   const [selectedVendor, setSelectedVendor] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/vendors')
+    axios.get(`${backendUrl}/api/vendors`)
     .then(response => {
       if (Array.isArray(response.data.vendors)) { // Check if vendors is an array
-        setVendors(response.data.vendors);
+        const filteredVendors = response.data.vendors.filter(vendor => vendor.category === category);
+        setVendors(filteredVendors);
       } else {
         console.error('Vendors data is not an array');
       }
@@ -65,11 +67,10 @@ const VendorInfocomp = ( {category} ) => {
     setSelectedVendor(vendors.find(vendor => vendor._id === vendorId));
   };
 
-  
-
   return (
     <Grid container spacing={2}>
       {vendors.map((vendor) => (
+        // vendor.category === category &&
         <VendorInfoTile key={vendor._id} vendor={vendor} onClick={handleVendorClick} />
        ))}
     </Grid>

@@ -2,33 +2,25 @@ import * as React from 'react';
 import { Box, Stack, Grid , Typography} from '@mui/material';
 import HeroSectionImg from '../assets/heroSectionImg.png' ;
 import HeroTextcomp from './heroTextcomp';
+import "./heroSectioncomp.css";
 
 export default function HeroSectioncomp() {
+  return <div className="hero" >
+  <div className="heroContainer">
+    <div className="heroContent">
+      <h1 className="heroTopic">From Vision to Vows: Celebrate Love in Style with Us.</h1>
+      {/* <h3 className="heroTopic2">From Vision to Vows: Celebrate Love in Style with Us.</h3>     */}
+      <h3 className="heroTopic2">Say 'Yes!' to Stress-Free Wedding Planning</h3>    
+      <br/>
+      <HeroTextcomp />
+    </div>
+      
+    <div>
+      <img src={HeroSectionImg} />
+    </div>
+  </div>
+  <div></div>
 
-  return (
-    <>
-      <Stack direction='row' spacing={2} sx={{backgroundColor: "#fff"}}>
-        <Box
-          sx={{
-            height: '600px',
-            flex: 3,
-            padding: '16px',
-            textAlign: 'left',
-          }}
-        >
-          <HeroTextcomp />
-        </Box>
+  </div>;
 
-        <Box
-          sx={{
-            height: '600px',
-            flex: 2,
-            padding: '16px',
-          }}
-        >
-          <img src={HeroSectionImg} alt="Description" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        </Box>
-      </Stack>
-    </>
-  );
 }
