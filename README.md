@@ -6,5 +6,5 @@ Effortlessly plan your dream wedding with Wedding Bliss – your all-in-one solu
 🎨 Inspiration hub
 Contribute: Fork, clone, and help us make Wedding Bliss even better! Join the community on Discord and follow us on Twitter.
 
-Let's create unforgettable moments together! 💖
+Let's create unforgettable moments together  ! 💖
   
