@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "npm run nodemon index.js"
   },
   "jest": {
     "transform": {
