@@ -39,7 +39,7 @@ const HomePage = () => {
   return (
     <div>
       <Navbarcomp />
-      {/* <HeroSection /> */}
+      <HeroSection />
       <Descriptioncomp {...descriptionData[1]} />
       <Featurescomp />
       <Descriptioncomp {...descriptionData[0]} />
