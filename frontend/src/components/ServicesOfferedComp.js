@@ -62,7 +62,7 @@ const ServicesOfferedComp = () => {
 
   return (
     <div>
-      <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold'}}>
+        <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'left', color: 'text.primary',margin: "30PX 100px" }}>
         Services Offered
       </Typography>
       {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
