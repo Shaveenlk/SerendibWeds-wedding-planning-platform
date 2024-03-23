@@ -69,6 +69,7 @@ const VendorInfocomp = ( {category} ) => {
   return (
     <Grid container spacing={2}>
       {vendors.map((vendor) => (
+        // vendor.category === category &&
         <VendorInfoTile key={vendor._id} vendor={vendor} onClick={handleVendorClick} />
        ))}
     </Grid>

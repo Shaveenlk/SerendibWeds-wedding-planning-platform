@@ -153,7 +153,7 @@ const Search = () => {
             onClick={() => handleResultClick(wedding)}
           >
             <div className="searchThumbnail">
-              <img src={img} alt="" />
+              <img src={wedding.metadata.main_image} alt="" />
             </div>
             <div className="searchContent">
               <div className="searchContentTitle">
