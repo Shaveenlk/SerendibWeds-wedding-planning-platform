@@ -1,121 +1,140 @@
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from '@mui/material/Button';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import backendUrl from "../config/backendUrl";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useParams } from 'react-router-dom';
+import backendUrl from '../config/backendUrl';
 
 const Serviceprofilecomp = () => {
-
   const [serviceDetails, setServiceDetails] = useState({});
-  const [isAddingService, setIsAddingService] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newService, setNewService] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
   });
   const { id } = useParams();
-  console.log(id)
 
   useEffect(() => {
-    // Fetch vendor details when selectedVendor changes
     axios.get(`${backendUrl}/api/vendors/${id}/services`)
       .then(response => {
-        setServiceDetails(response.data); // Update vendor details state
+        setServiceDetails(response.data);
       })
       .catch(error => {
         console.error('Error fetching vendor details:', error);
       });
   }, [id]);
 
-  const accordionStyle = {
-    padding: "10px",
-    margin: "10px 100px",
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewService((prevService) => ({
+      ...prevService,
+      [name]: value,
+    }));
   };
 
   const handleAddService = () => {
-    setIsAddingService(true);
-  };
+    const newServiceData = {
+      service: {
+        name: newService.name,
+        description: newService.description,
+      }
+    };
 
-  const handleCancelAddService = () => {
-    setIsAddingService(false);
-  };
-
-  const handleSaveService = () => {
-    // Make an API call to add the new service
-    axios.post(`${backendUrl}/api/vendors/${id}/services`, newService)
+    axios.post(`${backendUrl}/api/vendors/${id}/services`, newServiceData)
       .then(response => {
-        // Handle the response and update the UI as needed
-        setServiceDetails(response.data);
-        setIsAddingService(false);
-        setNewService({ name: "", description: "" });
+        const addedService = response.data;
+        setServiceDetails(prevDetails => ({
+          ...prevDetails,
+          services: [...prevDetails.services, addedService],
+        }));
+        closeModal();
       })
       .catch(error => {
         console.error('Error adding service:', error);
       });
   };
 
-  const handleEditService = (serviceItem) => {
-    // Display the service details in a form for editing
-    setNewService({
-      name: serviceItem.name,
-      description: serviceItem.description,
-    });
-    setIsAddingService(true);
-  };
-
-  // const handleDelete = (serviceId) => {
-  //   // Implement the logic to confirm deletion and make an API call to delete the service
-  //   if (window.confirm('Are you sure you want to delete this service?')) {
-  //     axios.delete(`http://localhost:8000/api/vendors/${id}/services/${serviceId}`)
-  //       .then(response => {
-  //         // Update the state or perform any other necessary actions
-  //         console.log('Service deleted successfully');
-  //       })
-  //       .catch(error => {
-  //         console.error('Error deleting service:', error);
-  //       });
-  //   }
-  // };
-
-  const handleUpdateService = () => {
-    // Make an API call to update the service details
-    axios.put(`${backendUrl}/api/vendors/${id}/services/${serviceDetails._id}`, newService)
+  const handleDeleteService = (index) => {
+    const serviceId = serviceDetails.services[index]._id;
+    axios.delete(`${backendUrl}/api/vendors/${id}/services/${serviceId}`)
       .then(response => {
-        // Handle the response and update the UI as needed
-        setServiceDetails(response.data);
-        setIsAddingService(false);
-        setNewService({ name: "", description: "" });
+        const updatedServices = serviceDetails.services.filter((service, idx) => idx !== index);
+        setServiceDetails(prevDetails => ({
+          ...prevDetails,
+          services: updatedServices,
+        }));
       })
       .catch(error => {
-        console.error('Error updating service:', error);
+        console.error('Error deleting service:', error);
       });
   };
 
-  const handleDeleteService = (index) => {
-    // Make an API call to delete the service
-    const serviceId = serviceDetails.services[index]._id;
-    axios.delete(`${backendUrl}/api/vendors/${id}/services/${serviceId}`)
-    .then(response => {
-      // Update the UI by removing the deleted service from serviceDetails
-      const updatedServices = [...serviceDetails.services];
-      updatedServices.splice(index, 1); // Remove the service at the specified index
-      setServiceDetails({ ...serviceDetails, services: updatedServices });
-    })
-    .catch(error => {
-      console.error('Error deleting service:', error);
-    });
+  const accordionStyle = {
+    padding: '10px',
+    margin: '10px 100px',
   };
 
   return (
     <div>
-      <Typography variant="body2" sx={{ textAlign: "left", margin: "30PX 50px", fontSize: "20px", fontWeight: 'bold' }}>
-        Services Offered
-      </Typography>
+      <Button variant="contained" onClick={openModal}>Add Service</Button>
+
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+          <TextField
+            fullWidth
+            label="Service Name"
+            name="name"
+            value={newService.name}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Description"
+            name="description"
+            value={newService.description}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
+          />
+          <Button
+  variant="contained"
+  onClick={handleAddService}
+  sx={{ mr: 2, mt: 2, bgcolor: '#4caf50', color: 'white', '&:hover': { bgcolor: '#388e3c' } }}
+>
+  Add
+</Button>
+<Button
+  variant="contained"
+  onClick={closeModal}
+  sx={{ mt: 2, bgcolor: '#f44336', color: 'white', '&:hover': { bgcolor: '#d32f2f' } }}
+>
+  Cancel
+</Button>
+        </Box>
+      </Modal>
+
       {serviceDetails.services && serviceDetails.services.map((serviceItem, index) => (
         <Accordion key={serviceItem._id} style={accordionStyle}>
           <AccordionSummary
@@ -127,30 +146,10 @@ const Serviceprofilecomp = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>{serviceItem.description}</Typography>
-            <Button onClick={() => handleEditService(serviceItem)}>Edit</Button>
             <Button onClick={() => handleDeleteService(index)}>Delete</Button>
           </AccordionDetails>
         </Accordion>
       ))}
-      <Button onClick={handleAddService}>Add Service</Button>
-      {isAddingService && (
-        <div>
-          <input
-            type="text"
-            placeholder="Service Name"
-            value={newService.name}
-            onChange={(e) => setNewService({ ...newService, name: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Service Description"
-            value={newService.description}
-            onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-          />
-          <Button onClick={handleSaveService}>Save</Button>
-          <Button onClick={handleCancelAddService}>Cancel</Button>
-        </div>
-      )}
     </div>
   );
 };
