@@ -95,16 +95,19 @@ const Serviceprofilecomp = () => {
       });
   };
 
-  const handleDeleteService = (serviceId) => {
+  const handleDeleteService = (index) => {
     // Make an API call to delete the service
+    const serviceId = serviceDetails.services[index]._id;
     axios.delete(`http://localhost:8000/api/vendors/${id}/services/${serviceId}`)
-      .then(response => {
-        // Handle the response and update the UI as needed
-        setServiceDetails(response.data);
-      })
-      .catch(error => {
-        console.error('Error deleting service:', error);
-      });
+    .then(response => {
+      // Update the UI by removing the deleted service from serviceDetails
+      const updatedServices = [...serviceDetails.services];
+      updatedServices.splice(index, 1); // Remove the service at the specified index
+      setServiceDetails({ ...serviceDetails, services: updatedServices });
+    })
+    .catch(error => {
+      console.error('Error deleting service:', error);
+    });
   };
 
   return (
@@ -124,7 +127,7 @@ const Serviceprofilecomp = () => {
           <AccordionDetails>
             <Typography>{serviceItem.description}</Typography>
             <Button onClick={() => handleEditService(serviceItem)}>Edit</Button>
-            <Button onClick={() => handleDeleteService(serviceItem._id)}>Delete</Button>
+            <Button onClick={() => handleDeleteService(index)}>Delete</Button>
           </AccordionDetails>
         </Accordion>
       ))}
