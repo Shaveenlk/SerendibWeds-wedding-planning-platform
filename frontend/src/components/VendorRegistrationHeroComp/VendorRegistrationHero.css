@@ -25,7 +25,7 @@ p{
     text-align: justify;
 }
 
-button{
+.vendorformbutton{
     background-color: #DDBEA9;
     border-width: 0.07rem;
     border-radius: 1rem;

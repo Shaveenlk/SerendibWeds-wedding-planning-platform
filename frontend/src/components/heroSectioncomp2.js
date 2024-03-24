@@ -32,6 +32,7 @@ export default function HeroSectioncomp() {
                 Your captivating wedding starts here
             </Typography>
             <Button 
+                className='herobutton'
                 variant="contained" 
                 onClick={() => navigate('/login')} 
                 sx={{ 
@@ -42,6 +43,7 @@ export default function HeroSectioncomp() {
                 Plan with us
             </Button>
             <Button 
+                className='herobutton'
                 variant="outlined" 
                 onClick={() => navigate('/signup')} 
                 sx={{ 
