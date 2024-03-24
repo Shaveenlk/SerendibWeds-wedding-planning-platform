@@ -12,6 +12,7 @@ import { Avatar, Stack } from "@mui/material";
 import { Grid } from "@mui/material";
 import AOS from "aos";
 import 'aos/dist/aos.css';
+import backendUrl from "../config/backendUrl";
 
 
 const VendorTile = ({ vendor, handleVendorClick }) => {
@@ -72,7 +73,7 @@ const Topvendorscomp = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/vendors')
+    axios.get(`${backendUrl}/api/vendors`)
       .then(response => {
         if (Array.isArray(response.data.vendors)) {
           setVendors(response.data.vendors);
