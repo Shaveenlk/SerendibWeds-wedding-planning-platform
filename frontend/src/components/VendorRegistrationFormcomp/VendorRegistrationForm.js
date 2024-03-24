@@ -37,9 +37,32 @@ function VendorRegistrationForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // submitting vendor form details to backend
-        console.log(vendorFormState);
+        fetch('http://localhost:8000/api/vendors/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(vendorFormState),
+    })
+    .then(response => {
+        console.log(response.headers.get('Content-Type')); // Log the content type
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        } else if(!response.headers.get('Content-Type').includes('application/json')) {
+            return response.text().then(text => {throw new Error(text)});
+        } else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
     };
+    
 
     return (
         <div className="vendor-form" id="form">
