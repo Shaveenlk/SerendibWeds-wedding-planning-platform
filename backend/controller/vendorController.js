@@ -1,8 +1,8 @@
-import Vendors from "../model/vendorModel.js";
+import vendordata from "../model/vendorModel.js";
 
 export const getVendors = async (req, res) => {
     try {
-        const vendors = await Vendors.find();
+        const vendors = await vendordata.find();
         res.json({ vendors });
     } catch (error) {
         console.error('Error fetching vendors:', error);
@@ -14,7 +14,7 @@ export const getVendor = async (req, res) => {
     try {
         // Access the vendorId from req.params
         const vendorId  = req.params.id;
-        const vendor = await Vendors.findById(vendorId);
+        const vendor = await vendordata.findById(vendorId);
         if (!vendor) {
             return res.status(404).json({ message: 'Vendor not found' });
         }
@@ -30,7 +30,7 @@ export const getVendor = async (req, res) => {
 export const checkVendor = async (req, res) => {
     const { firebaseUserId } = req.params;
     try {
-        const existingUser = await Vendors.findOne({ firebaseUserId });
+        const existingUser = await vendordata.findOne({ firebaseUserId });
   
         if (existingUser) {
           res.status(200).json({ exists: true, _id: existingUser._id });
@@ -48,7 +48,7 @@ export const getVendorAppointments = async (req, res) => {
     try {
         const { id } = req.params; // MongoDB Object ID of the vendor
         console.log(id);
-        const vendor = await Vendors.findById(id);
+        const vendor = await vendordata.findById(id);
         console.log(vendor);
 
         if (!vendor) {

@@ -85,10 +85,9 @@ const Gallery = () => {
         </div>
         
         <div className="imgBox">
-          <img src={
-            couple
-            /* {wedding.metadata.main_image} */
-          } alt="/" />
+          <img src={couple}
+            // {weddingData?.weddingDetails.main_image}
+           alt="/" />
         </div>
       </div>
 
@@ -99,14 +98,12 @@ const Gallery = () => {
         <p>Decorations: {weddingData?.weddingDetails.decorations}</p>
       </div>
 
+      
       <div className="photoGallery">
-        {imgData.map((picture,key) => {
+        {weddingData?.weddingDetails.images?.map((imageUrl, key) => {
           return (
             <div className="galleryImages" key={key}>
-              <img src={
-                picture.img
-                /* {wedding.metadata.main_image} */
-              } alt="" />
+              <img src={imageUrl} alt={`Wedding Gallery ${key}`} />
             </div>
           );
         })}

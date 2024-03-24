@@ -36,7 +36,7 @@ p{
     text-align: justify;
 }
 
-button{
+.herobutton{
     background-color: #DDBEA9;
     border-width: 0.07rem;
     border-radius: 1rem;
