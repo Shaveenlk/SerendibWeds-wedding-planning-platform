@@ -1,10 +1,13 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography,Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './heroSectioncomp2.css';
+import auth from '../config/firebase-config';
+import { NavLink } from 'react-router-dom';
 
 export default function HeroSectioncomp() {
     const navigate = useNavigate();
+    const currentUser = auth.currentUser;
 
     return (
         <div className="heroContainer">
@@ -31,30 +34,26 @@ export default function HeroSectioncomp() {
             >
                 Your captivating wedding starts here
             </Typography>
-            <Button 
-                className='herobutton'
-                variant="contained" 
-                onClick={() => navigate('/login')} 
-                sx={{ 
-                    margin: 1,
-                    fontFamily: "'Philosopher', sans-serif" // Apply Philosopher font to button text as well
-                }}
-            >
-                Plan with us
-            </Button>
-            <Button 
-                className='herobutton'
-                variant="outlined" 
-                onClick={() => navigate('/signup')} 
-                sx={{ 
-                    margin: 1, 
-                    borderColor: '#FFF', 
-                    color: '#FFF',
-                    fontFamily: "'Philosopher', sans-serif" // Apply Philosopher font to button text as well
-                }}
-            >
-                Add your services
-            </Button>
+            {currentUser ? null : (
+        <Stack spacing={2} direction="row" sx={{ padding: "10px 50px 10px 50px" }}>
+          <Button
+            variant="contained"
+            sx={{  fontFamily: "'Philosopher', sans-serif" }}
+            component={NavLink}
+            to="/login"
+          >
+            Plan With Us
+          </Button>{" "}
+          <Button
+            variant="outlined"
+            sx={{  borderColor: '#FFF',color: '#FFF', }}
+            component={NavLink}
+            to="/vendorlogin"
+          >
+             Add your services
+          </Button>
+        </Stack>
+      )}
         </div>
     );
 }

@@ -28,7 +28,7 @@
 
 .form-section input[type="text"],
 .form-section input[type="email"] {
-    width: 100%;
+    width: 90%;
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     border: 1px solid #dcdcdc;
