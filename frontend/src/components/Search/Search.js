@@ -28,7 +28,8 @@ const Search = () => {
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
       axios
-        .post("http://127.0.0.1:5000/get_top_matches", {
+        // .post("http://127.0.0.1:5000/get_top_matches", {
+        .post("http://127.0.0.1:8080/get_top_matches", {
           searchQuery: searchQuery,
         })
         .then((response) => {

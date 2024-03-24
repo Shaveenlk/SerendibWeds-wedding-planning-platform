@@ -14,10 +14,9 @@ export default function VendorRegistrationHero() {
            ever before!</p>
 
            <a href="#form">
-           <button>Join Us</button>
+           <button className="vendorformbutton">Join Us</button>
            </a>
     </div>
-      
     <div>
       <img src="https://images.pexels.com/photos/1128783/pexels-photo-1128783.jpeg?auto=compress&cs=tinysrgb&w=600" />
     </div>
