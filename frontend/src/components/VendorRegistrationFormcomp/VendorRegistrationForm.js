@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './VendorRegistrationForm.css';
+import axios from 'axios';
+import backendUrl from '../../config/backendUrl';
 
 function VendorRegistrationForm() {
     const [vendorFormState, setVendorFormState] = useState({
@@ -37,30 +39,29 @@ function VendorRegistrationForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetch('http://localhost:8000/api/vendors/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(vendorFormState),
-    })
-    .then(response => {
-        console.log(response.headers.get('Content-Type')); // Log the content type
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        } else if(!response.headers.get('Content-Type').includes('application/json')) {
-            return response.text().then(text => {throw new Error(text)});
-        } else {
-            return response.json();
-        }
-    })
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
+    
+        axios.post(`${backendUrl}/api/vendors/register`, vendorFormState)
+        
+        .then(response => {
+            console.log('Success:', response.data);
+        })
+        .catch(error => {
+            // If the request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            if (error.response) {
+                // Handle application-specific error responses here
+                const errorMessage = error.response.data.message || "An error occurred";
+                throw new Error(errorMessage);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+                throw new Error('No response from server');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+                throw new Error(error.message);
+            }
+        });
     };
     
 
