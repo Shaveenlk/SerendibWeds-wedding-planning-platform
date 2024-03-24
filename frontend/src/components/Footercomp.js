@@ -50,12 +50,12 @@ const Footercomp = () => {
             <li><a href="https://www.instagram.com/serendibweds__/">Instagram</a></li>
             <li><a href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61557243077413">Facebook</a></li>
           </ul>
-          <ul className="box input-box">
+          {/* <ul className="box input-box">
             <li className="link_name">Subscribe to newsletter</li>
-            {/* Newsletter subscription form can stay as is, assuming it's handled via JS */}
+          
             <li><input type="text" placeholder="Enter your email" /></li>
             <li><input type="button" value="Subscribe" /></li>
-          </ul>
+          </ul> */}
         </div>
       </div>
       <div className="bottom-details">
