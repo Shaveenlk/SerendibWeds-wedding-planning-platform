@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 
 const featuresData = [
   {
@@ -45,6 +49,9 @@ const featuresData = [
 ];
 
 const FeaturesTile = ({ title, content }) => {
+  useEffect(() => {
+    AOS.init({ duration: 1000 }); // You can customize the duration and other options
+  }, []);
   return (
     <Card style={{ borderRadius: '12px' }}>
       <CardHeader
@@ -64,27 +71,31 @@ const FeaturesTile = ({ title, content }) => {
 
 const TopFeaturescomp = () => {
   return (
-    <Grid
-      container
-      gap={2}
-      padding={2}
-      style={{ overflowWrap: 'break-word' }}
-    >
-      {featuresData.map((feature, index) => (
-        <Grid
-          margin={'auto'}
-          borderRadius={3}
-          xs={12}
-          sm={6}
-          md={3}
-          lg={3}
-          key={index}
-          sx={{ width: "100%", border: 'solid lightgrey' }}
-        >
-          <FeaturesTile title={feature.title} content={feature.content} /> 
-        </Grid>
-      ))}
-    </Grid>
+    <div data-aos="zoom-left"
+    data-aos-offset="400"
+    data-aos-easing="ease-in-sine">
+      <Grid
+        container
+        gap={2}
+        padding={2}
+        style={{ overflowWrap: 'break-word' }}
+      >
+        {featuresData.map((feature, index) => (
+          <Grid
+            margin={'auto'}
+            borderRadius={3}
+            xs={12}
+            sm={6}
+            md={3}
+            lg={3}
+            key={index}
+            sx={{ width: "100%", border: 'solid lightgrey' }}
+          >
+            <FeaturesTile title={feature.title} content={feature.content} />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   );
 };
 
