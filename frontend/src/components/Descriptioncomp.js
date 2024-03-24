@@ -4,7 +4,7 @@ import React from "react";
 const Descriptioncomp = ({ title, subheading, content }) => {
 
   return (
-    <div>
+    <div style={{fontFamily: "'Philosopher', sans-serif"}}>
       <Box
         sx={{
           width: "100%",
@@ -17,7 +17,7 @@ const Descriptioncomp = ({ title, subheading, content }) => {
       >
         <Container
           sx={{
-            padding: "2px",
+            padding: "10px",
             width: "300px",
             backgroundColor: "#C19C76",
             borderRadius: "30px", // Set border radius for rounded corners
@@ -27,11 +27,19 @@ const Descriptioncomp = ({ title, subheading, content }) => {
           <h2>{title}</h2>
         </Container>
 
-        <Container sx={{ textAlign: "center" }}>
+        <Container sx={{ 
+          textAlign: "center",
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+          }}>
           <h1>{subheading}</h1>
         </Container>
 
-        <Container sx={{ textAlign: "center" }}>
+        <Container sx={{ 
+          textAlign: "center",
+          paddingTop: "0.3rem",
+          paddingBottom: "0.3rem",
+          }}>
           <h4>{content}</h4>
         </Container>
       </Box>

@@ -12,14 +12,14 @@ import { Avatar, Stack } from "@mui/material";
 import { Grid } from "@mui/material";
 
 const VendorTile = ({ vendor, handleVendorClick }) => {
-  const { _id, name, email, category } = vendor;
+  const { _id, name, email, category, logo } = vendor;
 
   return (
     <Card style={{ borderRadius: '12px' }}>
       <CardContent>
         <Stack spacing={4} alignItems="center">
-          <Avatar sx={{ width: 100, height: 100, fontSize: 40 }}>
-            {name[0]}
+          <Avatar sx={{ width: 200, height: 200, fontSize: 40}}>
+            <img src={logo}/>
           </Avatar>
         </Stack>
         <Typography variant="body2" sx={{ textAlign: "center", margin: 'auto' }}>
@@ -37,7 +37,7 @@ const VendorTile = ({ vendor, handleVendorClick }) => {
           size="small"
           sx={{
             backgroundColor: "#C19C76",
-            color: "white",
+            color: "black",
             padding: "10px",
             borderRadius: "10px",
           }}
