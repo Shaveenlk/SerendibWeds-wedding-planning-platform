@@ -1,23 +1,27 @@
-import React from 'react';
-import { Box, Grid, Avatar, Typography } from "@mui/material";
+import React from 'react'
+import { Box, Grid, Avatar, Typography, Button } from "@mui/material";
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
+import backendUrl from "../config/backendUrl";
 
 const VendorProfileComp = ({ onBookUsClick }) => {
 
-  const [vendorDetails, setVendorDetails] = useState("");
-  const { id } = useParams();
+
+  const [vendorDetails,setVendorDetails]=useState("");
+  const {id} =useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/vendors/${id}`)
-      .then(response => {
-        setVendorDetails(response.data); // Update vendor details state
-      })
-      .catch(error => {
-        console.error('Error fetching vendor details:', error);
-      });
-  }, [id]);
+    // Fetch vendor details when selectedVendor changes
+  
+      axios.get(`${backendUrl}/api/vendors/${id}`)
+        .then(response => {
+          setVendorDetails(response.data); // Update vendor details state
+        })
+        .catch(error => {
+          console.error('Error fetching vendor details:', error);
+        });
+    },[id]);
 
   return (
     <div className="profile">
@@ -39,20 +43,20 @@ const VendorProfileComp = ({ onBookUsClick }) => {
               <Grid item>
                 <Avatar
                   src={vendorDetails.logo}
-                  sx={{ width: 300, height: 300, margin: 3, ml: 20 }}
+                  sx={{ width: 300, height: 300, margin: 3, ml:20 }}
                 />
               </Grid>
               <Grid item>
-                <Typography variant="h3" component="div" sx={{ fontWeight: 'bold', marginLeft: 10 }}>
-                  {vendorDetails.name}
+                <Typography variant="h3" component="div" sx={{ fontWeight: 'bold' }}>
+                {vendorDetails.name}
                 </Typography>
-                <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', marginLeft: 10 }}>
+                <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
                   Since: 1959
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          {/* Logout Button Section (now empty) */}
+          {/* Logout Button Section */}
           <Grid
             item
             xs={12}
@@ -62,12 +66,25 @@ const VendorProfileComp = ({ onBookUsClick }) => {
             alignItems="center"
             justifyContent="center"
           >
-            {/* Buttons removed */}
           </Grid>
+            <Button variant="contained" onClick={onBookUsClick} sx={{
+              borderRadius: 5,
+              marginLeft: { xs: 8, sm: 25 },
+              marginBottom: { xs: 3, sm: 0 },
+            }}>
+              Book Us
+            </Button>
+            <Button variant="contained" sx={{
+              borderRadius: 5,
+              marginLeft: { xs: 8, sm: 5 },
+              marginBottom: { xs: 3, sm: 0 },
+            }}>
+                Contact Us            
+            </Button>
         </Grid>
       </Box>     
     </div>
   )
 }
 
-export default VendorProfileComp;
+export default VendorProfileComp
