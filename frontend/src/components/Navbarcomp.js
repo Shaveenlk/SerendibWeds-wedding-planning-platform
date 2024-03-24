@@ -210,7 +210,7 @@ function Navbarcomp() {
                 to="/signup"
                 sx={{ color: "black", mx: 1 }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Button
                 component={NavLink}

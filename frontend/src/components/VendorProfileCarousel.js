@@ -51,18 +51,7 @@ const VendorProfileCarousel = ({id}) => {
       image: image,
       title: "Title 3",
       description: "Description for slide 3."
-    },
-    {
-      image: image,
-      title: "Title 4",
-      description: "Description for slide 4."
-    },
-    {
-      image: image,
-      title: "Title 5",
-      description: "Description for slide 5."
-    },
-    // Add more card data as needed
+    }
   ];
 
   return (
@@ -70,20 +59,26 @@ const VendorProfileCarousel = ({id}) => {
       <Slider {...settings}>
         {cardData.map((card, index) => (
           <div key={index}>
-            <Card sx={{ margin: '60px 60px' }}>
+            <Card sx={{ margin: '60px 60px', width: '60%' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="240"
-                  image={card.image}
+                  image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu3PuBLzidgn1VMZTgQFmDlMkmJZV3uKI7ww&usqp=CAU"
                   alt={`Image ${index + 1}`}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {card.title}
+                  GEORGE & TINA
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {card.description}
+                  Date: 12/12/2022
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  Venue: Hilton Colombo
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                  Theme: Nature
                   </Typography>
                 </CardContent>
               </CardActionArea>

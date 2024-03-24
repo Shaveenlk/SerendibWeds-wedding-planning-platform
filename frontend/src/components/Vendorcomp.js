@@ -78,6 +78,8 @@ const Vendorcomp = ({vendorId}) => {
                   marginLeft: { xs: 8, sm: 0 },
                   marginBottom: { xs: 3, sm: 0 }, // 3px margin on xs (extra small) screens, no margin on sm (small) screens and above
                    // Adjust this value based on your design preferences
+                   backgroundColor: "#DDBEA9",
+                   color : "#000"
                 }}>
               Log Out
             </Button>

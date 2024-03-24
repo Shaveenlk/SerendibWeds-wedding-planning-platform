@@ -10,16 +10,22 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar, Stack } from "@mui/material";
 import { Grid } from "@mui/material";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 
 const VendorTile = ({ vendor, handleVendorClick }) => {
-  const { _id, name, email, category } = vendor;
+  useEffect(() => {
+    AOS.init({ duration: 1000 }); // You can customize the duration and other options
+  }, []);
+  const { _id, name, email, category, logo } = vendor;
 
   return (
     <Card style={{ borderRadius: '12px' }}>
       <CardContent>
         <Stack spacing={4} alignItems="center">
-          <Avatar sx={{ width: 100, height: 100, fontSize: 40 }}>
-            {name[0]}
+          <Avatar sx={{ width: 200, height: 200, fontSize: 40}}>
+            <img src={logo}/>
           </Avatar>
         </Stack>
         <Typography variant="body2" sx={{ textAlign: "center", margin: 'auto' }}>
@@ -37,7 +43,7 @@ const VendorTile = ({ vendor, handleVendorClick }) => {
           size="small"
           sx={{
             backgroundColor: "#C19C76",
-            color: "white",
+            color: "black",
             padding: "10px",
             borderRadius: "10px",
           }}
@@ -88,27 +94,31 @@ const Topvendorscomp = () => {
   const displayedVendors = shuffledVendors.slice(0, 9);
 
   return (
-    <Grid
-      container
-      gap={2}
-      padding={2}
-      style={{ overflowWrap: 'break-word' }}
-    >
-      {displayedVendors.map((vendor, index) => (
-        <Grid
-          margin={'auto'}
-          borderRadius={3}
-          xs={12}
-          sm={6}
-          md={3}
-          lg={3}
-          key={index}
-          sx={{ width: "100%", border: 'solid lightgrey' }}
-        >
-          <VendorTile vendor={vendor} handleVendorClick={(vendorId) => handleVendorClick(vendorId, vendor)} /> 
-        </Grid>
-      ))}
-    </Grid>
+    <div data-aos="fade-left"
+    data-aos-offset="400"
+    data-aos-easing="ease-in-sine">
+      <Grid
+        container
+        gap={2}
+        padding={2}
+        style={{ overflowWrap: 'break-word' }}
+      >
+        {displayedVendors.map((vendor, index) => (
+          <Grid
+            margin={'auto'}
+            borderRadius={3}
+            xs={12}
+            sm={6}
+            md={3}
+            lg={3}
+            key={index}
+            sx={{ width: "100%", border: 'solid lightgrey' }}
+          >
+            <VendorTile vendor={vendor} handleVendorClick={(vendorId) => handleVendorClick(vendorId, vendor)} />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   );
 };
 

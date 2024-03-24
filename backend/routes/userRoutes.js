@@ -1,10 +1,11 @@
 import express, {Router} from 'express';
 import { checkuser, createUser, getUserData } from '../controller/userController.js';
 import { deleteTodo, getTodo, updateTodo,addTodo } from '../controller/todoController.js';
-import {getVendors,getVendor, checkVendor,getVendorAppointments} from "../controller/vendorController.js"
+import {getVendors,getVendor, checkVendor,getVendorAppointments,registerNewVendor} from "../controller/vendorController.js"
 import { getServices, addServices, deleteService,updateService } from '../controller/serviceController.js';
 import { getWeddingDetails } from '../controller/pastWeddingController.js';
 import { createVendorBooking, getAppointmentsByUser, deleteAppointment } from '../controller/bookingController.js';
+
 
 const route =express.Router();
 
@@ -27,5 +28,8 @@ route.post('/vendors/:id/booking',createVendorBooking);
 route.get('/users/:firebaseUserId/bookings', getAppointmentsByUser);
 route.get('/vendors/:id/appointments', getVendorAppointments);
 route.delete('/bookings/:firebaseUserId/:appointmentId', deleteAppointment);
+
+route.post('/vendors/register', registerNewVendor);
+
 
 export default route;

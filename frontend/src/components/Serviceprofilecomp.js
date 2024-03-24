@@ -91,7 +91,7 @@ const Serviceprofilecomp = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={openModal}>Add Service</Button>
+      <Button variant="contained" onClick={openModal} sx={{ backgroundColor: "#DDBEA9",color:"#000"}}>Add Service</Button>
 
       <Modal
         open={isModalOpen}

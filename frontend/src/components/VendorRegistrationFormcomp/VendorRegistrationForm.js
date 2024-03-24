@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './VendorRegistrationForm.css';
+import axios from 'axios';
+import backendUrl from '../../config/backendUrl';
 
 function VendorRegistrationForm() {
     const [vendorFormState, setVendorFormState] = useState({
@@ -37,9 +39,31 @@ function VendorRegistrationForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // submitting vendor form details to backend
-        console.log(vendorFormState);
+    
+        axios.post(`${backendUrl}/api/vendors/register`, vendorFormState)
+        
+        .then(response => {
+            console.log('Success:', response.data);
+        })
+        .catch(error => {
+            // If the request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            if (error.response) {
+                // Handle application-specific error responses here
+                const errorMessage = error.response.data.message || "An error occurred";
+                throw new Error(errorMessage);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+                throw new Error('No response from server');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+                throw new Error(error.message);
+            }
+        });
     };
+    
 
     return (
         <div className="vendor-form" id="form">
@@ -55,36 +79,38 @@ function VendorRegistrationForm() {
                 </div>
                 
                 {/* Services Provided */}
-                <div className="form-section">
-                    <label>What services do you provide? (Select all that apply)</label>
-                    <div className="form-options">
-                        <label><input type="radio" name="Services" value="Catering" onChange={handleInputChange} /> Catering</label>
-                        <label><input type="radio" name="Services" value="Photography/Videography" onChange={handleInputChange} /> Photography/Videography</label>
-                        <label><input type="radio" name="Services" value="Music/DJ Services" onChange={handleInputChange} /> Music/DJ Services</label>
-                        <label><input type="radio" name="Services" value="Floral and Decor" onChange={handleInputChange} /> Floral and Decor</label>
-                        <label><input type="radio" name="Services" value="Other (Please specify)" onChange={handleInputChange} /> Other (Please specify)</label>
-                    </div>
+            <div className="form-section">
+                <label>What services do you provide? (Select all that apply)</label>
+                <div className="form-options">
+                    <label><input type="checkbox" name="servicesProvided" value="Catering" onChange={handleInputChange} /> Catering</label>
+                    <label><input type="checkbox" name="servicesProvided" value="Photography/Videography" onChange={handleInputChange} /> Photography/Videography</label>
+                    <label><input type="checkbox" name="servicesProvided" value="Music/DJ Services" onChange={handleInputChange} /> Music/DJ Services</label>
+                    <label><input type="checkbox" name="servicesProvided" value="Floral and Decor" onChange={handleInputChange} /> Floral and Decor</label>
+                    <label><input type="checkbox" name="servicesProvided" value="Other" onChange={handleInputChange} /> Other (Please specify)</label>
                 </div>
-                
-                {/* Years of Experience */}
-                <div className="form-section">
-                    <label>How many years of experience do you have in the wedding industry?</label>
-                    <div className="form-options">
-                        <label><input type="radio" name="Experience" value="Less than 1 year" onChange={handleInputChange} /> Less than 1 year</label>
-                        <label><input type="radio" name="Experience" value="1-3 years" onChange={handleInputChange} /> 1-3 years</label>
-                        <label><input type="radio" name="Experience" value="4-6 years" onChange={handleInputChange} /> 4-6 years</label>
-                        <label><input type="radio" name="Experience" value="7-10 years" onChange={handleInputChange} /> 7-10 years</label>
-                        <label><input type="radio" name="Experience" value="More than 10 years" onChange={handleInputChange} /> More than 10 years</label>
-                    </div>
-                </div>                
-                {/* Business License */}
-                <div className="form-section">
-                    <label>Do you have a business license?</label>
-                    <div className="form-options">
-                        <label><input type="radio" name="entertainment" value="DJ" onChange={handleInputChange} /> DJ</label>
-                        <label><input type="radio" name="entertainment" value="Live Band" onChange={handleInputChange} /> Live Band</label>
-                    </div>
-                </div>                
+            </div>
+
+            {/* Years of Experience */}
+            <div className="form-section">
+                <label>How many years of experience do you have in the wedding industry?</label>
+                <div className="form-options">
+                    <label><input type="radio" name="yearsOfExperience" value="Less than 1 year" onChange={handleInputChange} /> Less than 1 year</label>
+                    <label><input type="radio" name="yearsOfExperience" value="1-3 years" onChange={handleInputChange} /> 1-3 years</label>
+                    <label><input type="radio" name="yearsOfExperience" value="4-6 years" onChange={handleInputChange} /> 4-6 years</label>
+                    <label><input type="radio" name="yearsOfExperience" value="7-10 years" onChange={handleInputChange} /> 7-10 years</label>
+                    <label><input type="radio" name="yearsOfExperience" value="More than 10 years" onChange={handleInputChange} /> More than 10 years</label>
+                </div>
+            </div>
+
+            {/* Business License */}
+            <div className="form-section">
+                <label>Do you have a business license?</label>
+                <div className="form-options">
+                    <label><input type="radio" name="hasBusinessLicense" value="Yes" onChange={handleInputChange} /> Yes</label>
+                    <label><input type="radio" name="hasBusinessLicense" value="No" onChange={handleInputChange} /> No</label>
+                </div>
+            </div>
+              
                 {/* Contact Number */}
                 <div className="form-section">
                     <label>What is your primary contact number?</label>

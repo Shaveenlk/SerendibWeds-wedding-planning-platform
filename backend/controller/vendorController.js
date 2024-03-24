@@ -1,4 +1,15 @@
 import Vendors from "../model/vendorModel.js";
+import nodemailer from 'nodemailer';
+
+// Create a transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'serendibweds2@gmail.com', // Your Gmail address
+      pass: 'fvum olga mabt acyc', // Your Gmail password or app password
+    },
+  });
+
 
 export const getVendors = async (req, res) => {
     try {
@@ -61,3 +72,39 @@ export const getVendorAppointments = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+export const registerNewVendor = async (req, res) => {
+    const vendorDetails = req.body; // Assuming vendor details are sent in request body
+  
+    const mailOptions = {
+      from: 'serendibweds2@gmail.com', // sender address
+      to: 'serendibweds2@gmail.com', // list of receivers (your own email for notification)
+      subject: 'New Vendor Registration Notification', // Subject line
+      html: `
+        <h1>New Vendor Registration</h1>
+        <p>A new vendor has registered with the following details:</p>
+        <ul>
+          <li>Business Name: ${vendorDetails.businessName}</li>
+          <li>Services Provided: ${vendorDetails.servicesProvided.join(", ")}</li>
+          <li>Years of Experience: ${vendorDetails.yearsOfExperience}</li>
+          <li>Business License: ${vendorDetails.hasBusinessLicense}</li>
+          <li>Contact Number: ${vendorDetails.contactNumber}</li>
+          <li>Email Address: ${vendorDetails.emailAddress}</li>
+          <li>Business Location: ${vendorDetails.businessLocation}</li>
+          <li>Online Portfolio: ${vendorDetails.onlinePortfolio}</li>
+        </ul>
+        <p>Please review and add the vendor to the system as needed.</p>
+      `, // html body
+    };
+  
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Error sending email' });
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.status(200).json({ message: 'Vendor registration email sent successfully' });
+
+      }
+    });
+  };
