@@ -38,7 +38,7 @@ export default function HeroSectioncomp() {
         <Stack spacing={2} direction="row" sx={{ padding: "10px 50px 10px 50px" }}>
           <Button
             variant="contained"
-            sx={{  fontFamily: "'Philosopher', sans-serif" }}
+            sx={{  fontFamily: "'Philosopher', sans-serif", backgroundColor: "#DDBEA9", color : "#000"}}
             component={NavLink}
             to="/login"
           >
@@ -46,7 +46,10 @@ export default function HeroSectioncomp() {
           </Button>{" "}
           <Button
             variant="outlined"
-            sx={{  borderColor: '#FFF',color: '#FFF', }}
+            sx={{  
+              borderColor: '#FFF',
+              color: '#FFF', 
+            }}
             component={NavLink}
             to="/vendorlogin"
           >
